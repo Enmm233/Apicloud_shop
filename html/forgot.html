@@ -1,0 +1,348 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+	<link rel="stylesheet" type="text/css" href="../css/api.css" />
+	<link rel="stylesheet" type="text/css" href="../css/register.css" />
+	<script src="../script/jquery-1.7.1.min.js" type="text/javascript"></script>
+	<title>忘记密码</title>
+	<style>
+		.ehong-idcode-val {
+			padding: 6px 0px 4px 4px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="header"></div>
+	<div class="wbk">
+		<form>
+			<div class="srbk phone">
+				<input type="tel" placeholder="输入手机号" name="" id="mobile">
+			</div>
+			<div class="srbk psd">
+				<input type="password" placeholder="请设置6位以上的密码" name="" id="password">
+			</div>
+			<div class="srbk psd">
+				<input type="password" placeholder="请再次确认登录密码" name="" id="confirmPwd">
+			</div>
+			<div class="srbk zfc">
+				<div class="yzm">
+					<input type="text" id="imageCode" class="txtVerification" placeholder="请验证码">
+				</div>
+				<div class="yzy" onclick="captcha();" tampode><span><img class="yzmImage" src="" ></span>
+					<span>换一张</span>
+				</div>
+			</div>
+			<div class="srbk code">
+				<div class="yzm">
+					<input type="password" placeholder="请输入字符" name="" id="verifyCode">
+				</div>
+				<div class="yzy"> <i id="sends" is_click="2">获取验证码</i> </div>
+			</div>
+			<div class="zcan">修改密码</div>
+		</form>
+	</div>
+	<div class="jszc"><span tampode onclick="openlogin();">去登录</span> / <span tampode onclick="openregister();">去注册</span></div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/md5.js"></script>
+<script type="text/javascript" src="../script/regular.js"></script>
+<script type="text/javascript" src="../script/encipherment.js"></script>
+<script type="text/javascript" src="../script/date.js"></script>
+<script type="text/javascript">
+	var mytime; // 短信倒计时
+	apiready = function() {
+		//修改手机状态栏字体颜色
+		api.setStatusBarStyle({
+			style: 'dark'
+		});
+		var header = $api.byId('header');
+		$api.fixStatusBar(header);
+		// 获取图片验证码
+		captcha();
+		// 点击发送验证码
+		$api.addEvt($api.dom("#sends"), 'click', function() {
+			var mobile = $api.byId('mobile').value;
+			var code = $api.byId('imageCode').value;
+			if (isNotEmpry(mobile) && isTel(mobile)) {
+				if (isNotEmpry(code)) {
+					// 执行验证码定时器
+					time(mobile, code);
+				} else {
+					api.toast({
+						msg: '图片验证码不能为空',
+						duration: 2000,
+						location: 'middle'
+					});
+				}
+			} else {
+				api.toast({
+					msg: '手机号格式不正确',
+					duration: 2000,
+					location: 'middle'
+				});
+			}
+		});
+
+		$api.addEvt($api.dom(".zcan"), 'click', function() {
+			var mobile = $api.byId('mobile').value;
+			var imageCode = $api.byId('imageCode').value;
+			var password = $api.byId('password').value;
+			var confirmPwd = $api.byId('confirmPwd').value;
+			var verifyCode = $api.byId('verifyCode').value;
+
+			// 判断手机号
+			if (!isNotEmpry(mobile) || !isTel(mobile)) {
+				api.toast({
+					msg: '手机号格式不正确',
+					duration: 2000,
+					location: 'middle'
+				});
+				return;
+			}
+			// 判断密码
+			if (!isNotEmpry(password) || password.length < 6) {
+				api.toast({
+					msg: '密码长度在6位以上',
+					duration: 2000,
+					location: 'middle'
+				});
+				return;
+			}
+			// 判断确认密码
+			if (!isNotEmpry(confirmPwd) || confirmPwd.length < 6) {
+				api.toast({
+					msg: '确认密码长度在6位以上',
+					duration: 2000,
+					location: 'middle'
+				});
+				return;
+			}
+			// 判断两次密码是否输入一致
+			if (password != confirmPwd) {
+				api.toast({
+					msg: '两次密码输入不一致',
+					duration: 2000,
+					location: 'middle'
+				});
+				return;
+			}
+			// 判断图片验证码
+			if (!isNotEmpry(imageCode)) {
+				api.toast({
+					msg: '图片验证码格式不正确',
+					duration: 2000,
+					location: 'middle'
+				});
+				return;
+			}
+			// 判断短信验证码
+			if (!isNotEmpry(verifyCode)) {
+				api.toast({
+					msg: '请输入短信验证码',
+					duration: 2000,
+					location: 'middle'
+				});
+				return;
+			}
+
+			var timeStamp = timestamp();
+			var sign = getSign("appid=" + $api.getStorage("appid") + "&confirm_pwd=" + confirmPwd + "&mobile=" + mobile +
+				"&password=" + password + "&verify_code=" + verifyCode + "&timeStamp=" + timeStamp);
+			api.ajax({
+				url: $api.getStorage('URL') + '/mobileOrder/forgetPassword',
+				method: 'POST',
+				data: {
+					values: {
+						appid: $api.getStorage("appid"),
+						active:2,
+						confirm_pwd: confirmPwd,
+						mobile: mobile,
+						password: password,
+						verify_code: verifyCode,
+						timeStamp: timeStamp,
+						sign: sign
+					}
+				}
+			}, function(ret, err) {
+				if (ret) {
+					// judgement(ret.code, ret.msg)
+					if (ret.code == 200) {
+						api.toast({
+							msg: ret.msg,
+							duration: 2000,
+							location: 'bottom'
+						});
+						setTimeout(function() {
+							openlogin();
+						}, 2000);
+					} else {
+						api.toast({
+							msg: ret.msg,
+							duration: 2000,
+							location: 'middle'
+						});
+					}
+				} else {
+					api.toast({
+						msg: JSON.stringify(err),
+						duration: 2000,
+						location: 'middle'
+					});
+				}
+				api.hideProgress();
+			});
+		});
+	};
+
+	// 验证码定时器
+	function time(mobile, code) {
+		var m = 60; //发送时间
+		var is_click = $("#sends").attr('is_click');
+		if (is_click != 2) {
+			return false;
+		}
+		$("#sends").attr('is_click', 1);
+		get_phone_code(mobile, code);
+		mytime = setInterval(function() {
+			//赋值给button
+			$("#sends").html(m + "秒重发");
+			m--;
+			//禁用button
+			$("#sends").attr('disabled', true);
+			//判断
+			if (m == 0) {
+				//清除定时器
+				clearInterval(mytime);
+				//tton 赋值
+				$("#sends").html("重新发送");
+				//激活按钮
+				$("#sends").attr("disabled", false).attr('is_click', 2);
+				// 更新图片验证码
+				captcha();
+			}
+		}, 1000);
+	}
+	//获取验证码
+	function get_phone_code(mobile, code) {
+		api.showProgress({
+			title: '努力加载中...',
+			modal: false
+		});
+		var timeStamp = timestamp();
+		var sign = getSign("appid=" + $api.getStorage("appid") + "&code=" + code + "&mobile=" + mobile + "&timeStamp=" + timeStamp);
+		api.ajax({
+			url: $api.getStorage('URL') + '/mobileOrder/sendCodeNot',
+			method: 'POST',
+			data: {
+				values: {
+					appid: $api.getStorage("appid"),
+					active:2,
+					code: code,
+					mobile: mobile,
+					timeStamp: timeStamp,
+					sign: sign
+				}
+			}
+		}, function(ret, err) {
+			if (ret) {
+				// judgement(ret.code, ret.msg)
+				if (ret.code == 200) {
+					api.toast({
+						msg: ret.data,
+						duration: 2000,
+						location: 'middle'
+					});
+				} else {
+					api.toast({
+						msg: ret.msg,
+						duration: 2000,
+						location: 'middle'
+					});
+					//清除定时器
+					clearInterval(mytime);
+					//tton 赋值
+					$("#sends").html("重新发送");
+					//激活按钮
+					$("#sends").attr("disabled", false).attr('is_click', 2);
+					// 更新图片验证码
+					captcha();
+				}
+			} else {
+				api.toast({
+					msg: JSON.stringify(err),
+					duration: 2000,
+					location: 'middle'
+				});
+			}
+			api.hideProgress();
+		});
+	}
+	// 获取图片验证码
+	function captcha() {
+		var timeStamp = timestamp();
+		api.showProgress({
+			title: '努力加载中...',
+			modal: false
+		});
+		var sign = getSign("appid=" + $api.getStorage("appid") + "&timeStamp=" + timeStamp);
+		api.ajax({
+			url: $api.getStorage("URL") + '/mobileOrder/captcha',
+			method: 'GET',
+			data: {
+				body: {
+					appid: $api.getStorage("appid"),
+					active:2,
+					timeStamp: timeStamp,
+					sign: sign
+				}
+			}
+		}, function(ret, err) {
+			if (ret) {
+				// judgement(ret.code, ret.msg)
+				if (ret.code == 200) {
+					if (isNotEmpry(ret.data)) {
+						$api.attr($api.dom(".yzmImage"), 'src', ret.data);
+					}
+				} else {
+					api.toast({
+						msg: ret.msg,
+						duration: 2000,
+						location: 'middle'
+					});
+				}
+			} else {
+				api.toast({
+					msg: JSON.stringify(err),
+					duration: 2000,
+					location: 'middle'
+				});
+			}
+		});
+		api.hideProgress();
+	}
+	// 跳转登录页面
+	function openlogin() {
+		api.openWin({
+			name: 'login',
+			url: 'login.html',
+			reload: true,
+			slidBackEnabled: false
+		});
+	}
+	// 跳转到注册页面
+	function openregister() {
+		api.openWin({
+			name: 'register',
+			url: 'register.html',
+			reload: true,
+			slidBackEnabled: false
+		});
+	}
+</script>
+
+</html>

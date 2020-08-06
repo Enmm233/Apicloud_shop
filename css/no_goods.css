@@ -1,0 +1,25 @@
+.gcaidjfi_sp .gcaidjfi_spr .gcaidjfi_spr_b {
+    margin-top: 0.2rem;
+}
+.placewr_ws {
+  text-align: center;
+  font-size: 0.3rem;
+  width: 75%;
+  color: #999;
+  padding-top: 0.8rem;
+  margin-bottom: 0.4rem;
+  margin: auto;
+}
+.placewr_ws img {
+    display: block;
+    padding-left: 15%;
+    padding-right: 15%;
+    margin: auto;
+}
+.placewr_ws cite {
+    display: block;
+    margin-top: 0.4rem;
+    font-size: 0.8rem;
+}
+.bxs{display: none !important;}
+.xs{display: block !important;}

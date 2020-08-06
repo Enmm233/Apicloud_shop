@@ -1,0 +1,711 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>全部订单</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../css/order.css" />
+    <link rel="stylesheet" type="text/css" href="../css/no_goods.css" />
+</head>
+
+<body>
+    <!-- 头部 -->
+    <article class="gcaidjo_ti" id="header" style='width: 100%;'>
+        <section class="gcaidjo_tia">
+            <a href="javascript:;" class="on router-link-exact-active router-link-active">
+                <dfn>全部订单</dfn>
+            </a>
+            <a href="javascript:;" class="" tampode onclick="openNorder()">
+                <dfn>未支付</dfn>
+            </a>
+            <div class="clear"></div>
+        </section>
+        <div class="clear"></div>
+        <section class="gcaidjo_tiz" style='width: 95%;margin: 0 auto;'>
+            <cite>选择子账号&nbsp;：</cite>
+            <address style="width:66%">
+                <aside id="triggws1" style="cursor: pointer;color: #999;">
+                    <select id="selecteds" class="" name="" style="line-height: 56px;background: url('../image/da.png') no-repeat 100% 78%;background-size: 20px;">
+                        <option value='0' selected=''>当前账号</option>
+                    </select>
+                </aside>
+            </address>
+            <div class="clear"></div>
+        </section>
+    </article>
+    <!-- 无商品列表 -->
+    <div class="wu bxs" style="margin-top:122px;">
+        <div style='height: 10px;background: #f5f5f5;'></div>
+        <section class="gcaidjfi_spr_b gcaidjsl_psp">
+            <section class="placewr_ws">
+                <img src="../image/wjl.png" alt="">
+                <cite>亲，目前暂无数据～</cite>
+            </section>
+        </section>
+    </div>
+    <!-- 有商品 -->
+    <div class="has xs">
+        <!-- 订单列表 -->
+        <article data-page="3" class="gcaidjo_list" style="margin-top: 122px;">
+            <ol id="list">
+                <!-- <li>
+                    <section class="gcaidjo_list_h"></section>
+                    <section class="gcaidjo_list_m">
+                        <section class="gcaidjo_list_bh"><cite>订单编号：DD2019041810297981</cite>
+                            <aside class="gcaidjo_list_bha3">
+                                <i class="iconfont"><img src="../image/wait.png" alt="" width="15px"></i>
+                                <dfn>待审核</dfn>
+                            </aside>
+                        </section>
+                        <section class="clear"></section>
+                        <a href="javascript:;" class="" style="width: 100%;margin-bottom: 10px;" tampode onclick="openOrderDeatils()">
+                            <address>啤酒 <dfn>（等1件商品￥50.00）</dfn></address>
+                            <section class="clear"></section>
+                            <section class="gcaidjo_list_l gcaidjimg_po">
+                                <img src="../image/BHUZxf3IAy75X4W3jwon45Xd6HTVvPYA0tCgn4od.png" alt="" class="gcaidjimg_poi" height="70px">
+                            </section>
+                            <section class="gcaidjo_list_r">
+                                <aside>配送时间：2019/04/19</aside>
+                                <aside>
+                                    运费：<ruby>￥0.00</ruby>
+                                    <dfn>应付：<ruby>￥0.00</ruby></dfn>
+                                </aside>
+                                <aside>下单时间：2019/04/18</aside>
+                            </section>
+                        </a>
+                        <section class="clear"></section>
+                        <section class="gcaidjo_list_yf">
+                            <section class="gcaidjo_list_yfr">
+                                <cite data-id="114672" data-ind="0" class="gcaidjo_list_yfx" tampode onclick="openCancel()">取消订单</cite>
+                            </section>
+                        </section>
+                    </section>
+                </li> -->
+            </ol>
+        </article>
+        <section class="clear"></section>
+        <div id="up" style="margin-bottom: 70px;">上拉加载更多</div>
+        <!-- 底部 -->
+        <footer class="aui-bar aui-bar-tab dbbk" id="foot" style="border-top: 1px solid #f5f0f0;">
+            <div class="aui-bar-tab-item" tampode onclick="openIndex()">
+                <img src="../image/home1.jpg">
+                <div class="aui-bar-tab-label">首页</div>
+            </div>
+            <div class="aui-bar-tab-item" tampode onclick="openClassify()">
+                <img src="../image/fenlei1.jpg">
+                <div class="aui-bar-tab-label">分类</div>
+            </div>
+            <div class="aui-bar-tab-item" tampode onclick="openShopCart()">
+                <img src="../image/car1.jpg">
+                <div class="aui-bar-tab-label">购物车</div>
+            </div>
+            <div class="aui-bar-tab-item aui-active">
+                <img src="../image/dingdan2.jpg">
+                <div class="aui-bar-tab-label">订单</div>
+            </div>
+            <div class="aui-bar-tab-item" tampode onclick="openMine()">
+                <img src="../image/wode1.jpg">
+                <div class="aui-bar-tab-label">我的</div>
+            </div>
+        </footer>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../script/encipherment.js"></script>
+<script type="text/javascript" src="../script/md5.js"></script>
+<script type="text/javascript" src="../script/regular.js"></script>
+<script type="text/javascript" src="../script/date.js"></script>
+<script type="text/javascript">
+    var skip = 0,
+        LIMIT = 10,
+        selectZid = "";
+    apiready = function() {
+        //修改手机状态栏字体颜色
+        api.setStatusBarStyle({
+            style: 'dark'
+        });
+        //头部沉浸式效果
+        var header = $api.byId('header');
+        $api.fixStatusBar(header);
+        // 先判断是否登录
+        if (!isNotEmpry($api.getStorage('token'))) {
+            api.toast({
+                msg: '未登录',
+                duration: 2000,
+                location: 'middle'
+            });
+            setTimeout(function() {
+                api.openWin({
+                    name: 'login',
+                    url: 'login.html',
+                    reload: true,
+                    slidBackEnabled: false
+                });
+            }, 2000);
+            return;
+        }
+        // 判断是否是子账号
+        if ($api.getStorage("child") == 1) {
+            $api.css($api.dom(".gcaidjo_tiz"), 'display:none');
+        } else {
+            //获取用户子账号
+            openZhangHao();
+        }
+        // 获取数据
+        fnGetWareList(false, selectZid);
+        // 监听底部
+        loadMore();
+
+    };
+    // 监听底部
+    function loadMore() {
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: -200
+            }
+        }, function(ret, err) {
+            fnGetWareList(true, selectZid);
+        });
+    }
+    //获取数据
+    function fnGetWareList(loadMore_, selectZid) {
+        if (loadMore_) {
+            skip++;
+        } else {
+            skip = 0;
+        }
+        api.showProgress({
+            title: '努力加载中...',
+            modal: false
+        });
+        var timeStamp = timestamp();
+        //获取全部订单
+        var sign = getSign("appid=" + $api.getStorage("appid") + "&page=" + (skip + 1) + "&type=1" + "&timeStamp=" + timeStamp);
+        api.ajax({
+            url: $api.getStorage("URL") + '/mobileOrder/orderList',
+            method: 'GET',
+            returnAll: true,
+            headers: {
+                'Authorization': $api.getStorage('token')
+            },
+            data: {
+                values: {
+                    appid: $api.getStorage("appid"),
+                    active:2,
+                    page: skip + 1,
+                    num: LIMIT,
+                    select_zid: selectZid,
+                    type: 1,
+                    timeStamp: timeStamp,
+                    sign: sign
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                judgement(ret.body.code, ret.msg)
+                var body = ret.body;
+                var headers = ret.headers;
+                // 判断token是否失效
+                if (isNotEmpry(headers.Authorization)) {
+                    $api.setStorage('token', headers.Authorization);
+                }
+                if (body.code == 200) {
+                    var data = body.data;
+                    var list = data.list;
+                    if (skip == 0) {
+                        if (list.length <= 0) {
+                            $api.html($api.byId("list"), "");
+                            $api.addCls($api.dom("#up"), 'bxs');
+                            $api.removeCls($api.dom(".wu"), 'bxs');
+                            $api.removeCls($api.dom(".has"), "xs");
+                            api.hideProgress();
+                            return;
+                        }
+                    }
+                    if (list.length > 0) {
+                        $api.addCls($api.dom(".wu"), 'bxs');
+                        var listStr = "";
+                        for (var i = 0; i < list.length; i++) {
+                            listStr += "<li>";
+                            listStr += "<section class='gcaidjo_list_h'></section>";
+                            listStr += "<section class='gcaidjo_list_m statusParents'>";
+                            listStr += "<section class='gcaidjo_list_bh'><cite>订单编号：" + list[i].order_sn + "</cite>";
+                            listStr += "<aside class='gcaidjo_list_bha3 status'>";
+                            // 订单状态（0待审核，1备货中，2配送中，3已收货，4已取消）
+                            if (list[i].order_status == 0) {
+                                listStr += "<i class='iconfont'><img src='../image/wait.png' width='15px'></i>";
+                                listStr += "<dfn>待审核</dfn>";
+                            } else if (list[i].order_status == 1) {
+                                listStr += "<i class='iconfont'><img src='../image/bhz.png' width='20px'></i>";
+                                listStr += "<dfn>备货中</dfn>";
+                            } else if (list[i].order_status == 2) {
+                                listStr += "<i class='iconfont'><img src='../image/psz.png' width='20px'></i>";
+                                listStr += "<dfn>配送中</dfn>";
+                            } else if (list[i].order_status == 3) {
+                                listStr += "<i class='iconfont'><img src='../image/ysh.png' width='20px'></i>";
+                                listStr += "<dfn>已收货</dfn>";
+                            } else {
+                                listStr += "<i class='iconfont'><img src='../image/cancel.png' width='15px'></i>";
+                                listStr += "<dfn style='color:red;'>已取消</dfn>";
+                            }
+                            listStr += "</aside>";
+                            listStr += "</section>";
+                            listStr += "<section class='clear'></section>";
+                            listStr += "<a href='javascript:;' style='width: 100%;margin-bottom: 10px;' tampode onclick='openOrderDeatils(" + list[i].id + ")'>";
+                            listStr += "<address>" + list[i].item_title + "<dfn>（等" + list[i].item_count + "件商品￥" + list[i].xd_price + "）</dfn></address>";
+                            listStr += "<section class='clear'></section>";
+                            listStr += "<section class='gcaidjo_list_l gcaidjimg_po'>";
+                            if (isNotEmpry(list[i].item_img)) {
+                                listStr += "<img src='" + $api.getStorage("URL") + list[i].item_img + "' class='gcaidjimg_poi' height='70px' onerror='onerrors(this,\"" + data.item_default + "\");'>";
+                            } else {
+                                listStr += "<img src='" + $api.getStorage("URL") + data.item_default + "' class='gcaidjimg_poi' height='70px' onerror='onerrors(this,\"" + data.item_default + "\");'>";
+                            }
+                            listStr += "</section>";
+                            listStr += "<section class='gcaidjo_list_r'>";
+                            listStr += "<aside>配送时间：" + list[i].send_time + "</aside>";
+                            listStr += "<aside>";
+                            if (data.is_look == 1) {
+                                listStr += "运费：<ruby>￥" + list[i].delivery_fee + "</ruby>";
+                                listStr += "<dfn>应付：<ruby>￥" + list[i].yf_price + "</ruby></dfn>";
+                            } else {
+                                listStr += "运费：<ruby>￥***</ruby>";
+                                listStr += "<dfn>应付：<ruby>￥***</ruby></dfn>";
+                            }
+                            listStr += "</aside>";
+                            listStr += "<aside>下单时间：" + list[i].created_time + "</aside>";
+                            listStr += "</section>";
+                            listStr += "</a>";
+                            listStr += "<section class='clear'></section>";
+                            if (list[i].order_status == 0) {
+                                listStr += "<section class='gcaidjo_list_yf cancle'>";
+                                listStr += "<section class='gcaidjo_list_yfr' tampode onclick='openCancel(this," + list[i].id + ");'>";
+                                listStr += "<cite class='gcaidjo_list_yfx'>取消订单</cite>";
+                                listStr += "</section>";
+                                listStr += "</section>";
+                            } else if (list[i].order_status == 2) {
+                                listStr += "<section class='gcaidjo_list_yf'>";
+                                listStr += "<section class='gcaidjo_list_yfr receiveOrder'>";
+                                if (list[i].vehicle_id != 0) {
+                                    listStr += "<cite class='gcaidjo_list_yfx' tampode onclick='carPosition(" + list[i].vehicle_id + ");' style='color:white;background: #02b1e4;border: 1px solid #02b1e4;'>查看物流</cite>";
+                                }
+                                listStr += "<cite class='gcaidjo_list_yfx' tampode onclick='receiveOrder(this," + list[i].id + "," + list[i].vehicle_id + ");' style='color:white;background: #e47c02;border: 1px solid #e47c02;'>确认收货</cite>";
+                                listStr += "</section>";
+                                listStr += "</section>";
+                            } else if (list[i].order_status == 3) {
+                                // 支付状态 0未支付，1已支付
+                                if (list[i].pay_status == 0) {
+                                    listStr += "<section class='gcaidjo_list_yf'>";
+                                    listStr += "<section class='gcaidjo_list_yfr'>";
+                                    listStr += "<cite class='gcaidjo_list_yfx' tampode onclick='payOrder(" + list[i].id + ");' style='color:white;background: #f55637;border: 1px solid #f55637;'>马上支付</cite>";
+                                    listStr += "<cite class='gcaidjo_list_yfx' tampode onclick='oneMoreTime(" + list[i].id + ");' style='color:white;background: #52ca28;border:1px solid #52ca28;'>再来一单</cite>";
+                                    if (list[i].vehicle_id != 0) {
+                                        listStr += "<cite class='gcaidjo_list_yfx' tampode onclick='carPosition(" + list[i].vehicle_id + ");' style='color:white;background: #02b1e4;border: 1px solid #02b1e4;'>查看物流</cite>";
+                                    }
+                                    listStr += "</section>";
+                                    listStr += "</section>";
+                                } else {
+                                    listStr += "<section class='gcaidjo_list_yf'>";
+                                    listStr += "<section class='gcaidjo_list_yfr'>";
+                                    listStr += "<cite class='gcaidjo_list_yfx'>已支付</cite>";
+                                    listStr += "<cite class='gcaidjo_list_yfx' tampode onclick='oneMoreTime(" + list[i].id + ");' style='color:white;background: #52ca28;border:1px solid #52ca28;'>再来一单</cite>";
+                                    if (list[i].vehicle_id != 0) {
+                                        listStr += "<cite class='gcaidjo_list_yfx' tampode onclick='carPosition(" + list[i].vehicle_id + ");' style='color:white;background: #02b1e4;border: 1px solid #02b1e4;'>查看物流</cite>";
+                                    }
+                                    listStr += "</section>";
+                                    listStr += "</section>";
+                                }
+                            }
+                            listStr += "</section>";
+                            listStr += "</li>";
+                        }
+                        var list = $api.byId('list');
+                        if (loadMore_) {
+                            $api.append(list, listStr);
+                        } else {
+                            $api.html(list, listStr);
+                        }
+                    } else {
+                        $api.html($api.dom("#up"), '没有数据啦！');
+                    }
+                } else {
+                    api.toast({
+                        msg: body.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+            api.hideProgress();
+        });
+    }
+    // 图片缓存
+    function fnLoadImage(ele_) {
+        var dataUrl = $api.attr(ele_, 'data-url');
+        if (dataUrl) {
+            api.imageCache({
+                url: dataUrl
+            }, function(ret, err) {
+                if (ret) {
+                    ele_.src = ret.url;
+                    $api.attr(ele_, 'data-url', '');
+                }
+            });
+        }
+    }
+    // 取消订单
+    function openCancel(obj, id) {
+        api.confirm({
+            title: '提示',
+            msg: '确定要取消订单吗？',
+            buttons: ['确定', '取消']
+        }, function(ret, err) {
+            var index = ret.buttonIndex;
+            if (index == 1) {
+                api.showProgress({
+                    title: '努力加载中...',
+                    modal: false
+                });
+                var timeStamp = timestamp();
+                var sign = getSign("appid=" + $api.getStorage("appid") + "&id=" + id + "&timeStamp=" + timeStamp);
+                api.ajax({
+                    url: $api.getStorage("URL") + '/mobileOrder/cancelOrder',
+                    method: 'GET',
+                    headers: {
+                        'Authorization': $api.getStorage('token')
+                    },
+                    returnAll: true,
+                    data: {
+                        values: {
+                            appid: $api.getStorage("appid"),
+                            active:2,
+                            id: id,
+                            timeStamp: timeStamp,
+                            sign: sign
+                        }
+                    }
+                }, function(ret, err) {
+                    if (ret) {
+                        judgement(ret.body.code, ret.msg)
+                        var body = ret.body;
+                        var headers = ret.headers;
+                        if (isNotEmpry(headers.Authorization)) {
+                            $api.setStorage('token', headers.Authorization);
+                        }
+                        if (body.code == 200) {
+                            $(obj).parents(".cancle").css("display", "none");
+                            var listStr = "";
+                            listStr += "<i class='iconfont'><img src='../image/cancel.png' width='15px'></i>";
+                            listStr += "<dfn style='color:red;'>已取消</dfn>";
+                            $(obj).parents(".statusParents").find(".status").html(listStr);
+                        } else {
+                            api.toast({
+                                msg: body.msg,
+                                duration: 2000,
+                                location: 'middle'
+                            });
+                        }
+                    } else {
+                        api.toast({
+                            msg: JSON.stringify(err),
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                    }
+                    api.hideProgress();
+                });
+            }
+        });
+    }
+    // 确认收货
+    function receiveOrder(obj, id, vehicleId) {
+        api.confirm({
+            title: '提示',
+            msg: '确定要收货吗？',
+            buttons: ['确定', '取消']
+        }, function(ret, err) {
+            var index = ret.buttonIndex;
+            if (index == 1) {
+                api.showProgress({
+                    title: '努力加载中...',
+                    modal: false
+                });
+                var timeStamp = timestamp();
+                var sign = getSign("appid=" + $api.getStorage("appid") + "&id=" + id + "&timeStamp=" + timeStamp);
+                api.ajax({
+                    url: $api.getStorage("URL") + '/mobileOrder/receiveOrder',
+                    method: 'GET',
+                    headers: {
+                        'Authorization': $api.getStorage('token')
+                    },
+                    returnAll: true,
+                    data: {
+                        values: {
+                            appid: $api.getStorage("appid"),
+                            active:2,
+                            id: id,
+                            timeStamp: timeStamp,
+                            sign: sign
+                        }
+                    }
+                }, function(ret, err) {
+                    if (ret) {
+                        judgement(ret.body.code, ret.msg)
+                        var body = ret.body;
+                        var headers = ret.headers;
+                        if (isNotEmpry(headers.Authorization)) {
+                            $api.setStorage('token', headers.Authorization);
+                        }
+                        if (body.code == 200) {
+                            var listStr = "";
+                            listStr += "<i class='iconfont'><img src='../image/ysh.png' width='20px'></i>";
+                            listStr += "<dfn>已收货</dfn>";
+                            $(obj).parents(".statusParents").find(".status").html(listStr);
+                            var listStrs = "";
+                            listStrs += "<cite class='gcaidjo_list_yfx' tampode onclick='payOrder(" + id + ");' style='color:white;background: #f55637;border: 1px solid #f55637;'>马上支付</cite>";
+                            listStrs += "<cite class='gcaidjo_list_yfx' tampode onclick='oneMoreTime(" + id + ");' style='color:white;background: #52ca28;border:1px solid #52ca28;'>再来一单</cite>";
+                            if (vehicleId != 0) {
+                                listStrs += "<cite class='gcaidjo_list_yfx' tampode onclick='carPosition(" + vehicleId + ");' style='color:white;background: #02b1e4;border: 1px solid #02b1e4;'>查看物流</cite>";
+                            }
+                            $(obj).parents(".receiveOrder").html(listStrs);
+                        } else {
+                            api.toast({
+                                msg: body.msg,
+                                duration: 2000,
+                                location: 'middle'
+                            });
+                        }
+                    } else {
+                        api.toast({
+                            msg: JSON.stringify(err),
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                    }
+                    api.hideProgress();
+                });
+            }
+        });
+    }
+    // 再来一单
+    function oneMoreTime(id) {
+        api.confirm({
+            title: '提示',
+            msg: '确定要再来一单吗？',
+            buttons: ['确定', '取消']
+        }, function(ret, err) {
+            var index = ret.buttonIndex;
+            if (index == 1) {
+                api.showProgress({
+                    title: '努力加载中...',
+                    modal: false
+                });
+                var timeStamp = timestamp();
+                var sign = getSign("appid=" + $api.getStorage("appid") + "&id=" + id + "&timeStamp=" + timeStamp);
+                api.ajax({
+                    url: $api.getStorage("URL") + '/mobileOrder/oneMoreTime',
+                    method: 'GET',
+                    headers: {
+                        'Authorization': $api.getStorage('token')
+                    },
+                    returnAll: true,
+                    data: {
+                        values: {
+                            appid: $api.getStorage("appid"),
+                            active:2,
+                            id: id,
+                            timeStamp: timeStamp,
+                            sign: sign
+                        }
+                    }
+                }, function(ret, err) {
+                    if (ret) {
+                        judgement(ret.body.code, ret.msg)
+                        var body = ret.body;
+                        var headers = ret.headers;
+                        if (isNotEmpry(headers.Authorization)) {
+                            $api.setStorage('token', headers.Authorization);
+                        }
+                        if (body.code == 200) {
+                            api.openWin({
+                                name: 'shopcart',
+                                url: './shopcart.html',
+                                reload: true,
+                                slidBackEnabled: false
+                            });
+                        } else {
+                            api.toast({
+                                msg: body.msg,
+                                duration: 2000,
+                                location: 'middle'
+                            });
+                        }
+                    } else {
+                        api.toast({
+                            msg: JSON.stringify(err),
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                    }
+                    api.hideProgress();
+                });
+            }
+        });
+    }
+    // 马上支付
+    function payOrder(id) {
+        api.openWin({
+            name: 'payfor',
+            url: 'payfor.html',
+            reload: true,
+            pageParam: {
+                id: id
+            },
+            slidBackEnabled: false
+        });
+    }
+    // 查看物流
+    function carPosition(id) {
+        api.openWin({
+            name: 'logistics',
+            url: 'logistics.html',
+            reload: true,
+            pageParam: {
+                id: id
+            },
+            slidBackEnabled: false
+        });
+    }
+    //订单详情
+    function openOrderDeatils(id) {
+        api.openWin({
+            name: 'order_details',
+            url: 'order_details.html',
+            reload: true,
+            pageParam: {
+                id: id
+            },
+            slidBackEnabled: false
+        });
+    }
+    // 选择子账号
+    function openZhangHao() {
+        api.showProgress({
+            title: '努力加载中...',
+            modal: false
+        });
+        var timeStamp = timestamp();
+        var sign = getSign("appid=" + $api.getStorage("appid") + "&timeStamp=" + timeStamp);
+        api.ajax({
+            url: $api.getStorage("URL") + '/mobileOrder/childInfo',
+            method: 'GET',
+            headers: {
+                'Authorization': $api.getStorage('token')
+            },
+            returnAll: true,
+            data: {
+                values: {
+                    appid: $api.getStorage("appid"),
+                    active:2,
+                    timeStamp: timeStamp,
+                    sign: sign
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                judgement(ret.body.code, ret.msg)
+                var body = ret.body;
+                var headers = ret.headers;
+                if (isNotEmpry(headers.Authorization)) {
+                    $api.setStorage('token', headers.Authorization);
+                }
+                if (body.code == 200) {
+                    var data = body.data;
+                    var account = "<option value='0' selected=''>当前账号</option>";
+                    for (var j = 0; j < data.length; j++) {
+                        account += "<option zid='" + data[j].zid + "' value='" + data[j].zid + "'>" + data[j].value + "</option>";
+                    }
+                    $("#selecteds").html(account);
+                } else {
+                    api.toast({
+                        msg: body.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+            api.hideProgress();
+        });
+    }
+    // 打开未支付订单页
+    function openNorder() {
+        api.openWin({
+            name: 'norder',
+            url: './norder.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+    // 打开分类页
+    function openClassify() {
+        api.openWin({
+            name: 'classify',
+            url: './classify.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+    // 打开购物车
+    function openShopCart() {
+        api.openWin({
+            name: 'shopcart',
+            url: './shopcart.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+    // // 打开个人中心
+    function openMine() {
+        api.openWin({
+            name: 'mine',
+            url: './mine.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+    // 打开首页
+    function openIndex() {
+        api.openWin({
+            name: 'index',
+            url: './index.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+    //切换子账号以及数据
+    $("#selecteds").change(function() {
+        selectZid = $api.byId("selecteds").value;
+        //获取数据
+        fnGetWareList(false, selectZid);
+    });
+</script>
+
+</html>

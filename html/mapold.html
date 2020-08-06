@@ -1,0 +1,373 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>map地图</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../css/search.css" />
+    <style>
+        .allmap_ol {
+            position: fixed;
+            z-index: 92;
+            width: 100%;
+            top: 4.92rem;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            background: #fff;
+            padding-left: 0.3rem;
+            padding-right: 0.3rem;
+            padding-bottom: 0.3rem;
+            padding-top: 0.3rem;
+        }
+
+        .allmap_ol ol {
+            overflow-y: auto;
+            height: 100%;
+            width: 95%;
+            margin: 0 auto;
+        }
+
+        .allmap_ol ol li {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 0.2rem;
+            margin-bottom: 0.2rem;
+            position: relative;
+        }
+
+        .allmap_ol ol li .allmap_oll {
+            float: left;
+            width: 90%;
+            padding: 5px 0;
+        }
+
+        .allmap_ol ol li .allmap_oll cite {
+            font-size: 0.8rem;
+            color: #333;
+        }
+
+        .allmap_ol ol li .allmap_oll address {
+            font-size: 0.7rem;
+            color: #999;
+            display: block;
+            margin-top: 0.1rem;
+        }
+
+        .allmap_ol ol li .allmap_olr {
+            width: 25px;
+            float: right;
+            margin-right: 5px;
+            margin-top: 16px;
+            display: none;
+        }
+
+        .clear {
+            clear: both;
+            height: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 头部 -->
+    <header class="aui-bar aui-bar-nav" id="header" style="background:white;position:fixed;top:0;left:0">
+        <div class="aui-title" style="left:1rem; right: 2rem;">
+            <div class="aui-searchbar" style="width: 95%;">
+                <div class="aui-searchbar-input aui-border-radius" style="background-color: #f5f5f5;">
+                    <i class="aui-iconfont aui-icon-search"></i>
+                    <input type="search" placeholder="请输入收货地址" id="search-input">
+                    <div class="aui-searchbar-clear-btn">
+                        <i class="aui-iconfont aui-icon-close"></i>
+                    </div>
+                </div>
+                <div class="aui-searchbar-btn" tapmode>取消</div>
+            </div>
+        </div>
+        <div class="aui-pull-right aui-btn" tampode onclick="openSaddress()">
+            <span class="aui-iconfont" style="color:#333;right: 0.5rem;">确定</span>
+        </div>
+    </header>
+    <!-- info样式 -->
+    <div>
+        <section class="allmap_ol" style="margin-top:235px;">
+            <ol id="area">
+                <!-- <li data-dz="徐州市贾汪区泉东村" data-lat="34.431005" data-lng="117.47994">
+                    <section class="allmap_oll">
+                      <cite>徐州市泉山区徐州市泉山区和平街道民乐社区-居民委员会</cite>
+                      <address>江苏省徐州市泉山区黄河南路西苑民乐园</address>
+                    </section>
+                    <section class="allmap_olr">
+                      <i class="iconfont"><img src="../image/select.png" alt=""></i>
+                    </section>
+                    <section class="clear"></section>
+                </li> -->
+            </ol>
+        </section>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../script/regular.js"></script>
+<script type="text/javascript">
+    var lon,lat,city,dizhi, falg,dz,adres,values,aMap,addressInfo = new Array();
+    apiready = function() {
+        aMap = api.require('aMap');
+        //修改手机状态栏字体颜色
+        api.setStatusBarStyle({
+            style: 'dark'
+        });
+        var header = $api.byId('header');
+        $api.fixStatusBar(header);
+        h = $api.offset(header).h;
+        // 监听页面消失的时候，关掉页面就可以了
+        api.addEventListener({
+            name: 'viewdisappear'
+        }, function() {
+            api.closeWin();
+        });
+        // 获取原始地址信息
+        dizhi = api.pageParam.addressArr;
+        falg = api.pageParam.falg;
+        addressInfo = dizhi;
+        // 判断是否是修改地址信息操作
+        if (isNotEmpry(dizhi)) {
+            $("#search-input").val(dizhi[0]);
+            dz = dizhi[0];
+            lon = dizhi[1];
+            lat = dizhi[2];
+            adres = dizhi[3];
+            var div = '';
+            div += '<li data-adres="' + adres + '" data-dz="' + dz + '" lid="0" data-lat="' + lat + '" data-lng="' + lon + '">';
+                div += '<section class="allmap_oll">';
+                    div += '<cite>' + dz + '</cite>';
+                    div += '<address>' + adres + '</address>';
+                div += '</section>';
+                div += '<section class="allmap_olr sect_0" style="display:block;">';
+                    div += '<i class="iconfont"><img src="../image/select.png" alt=""></i>';
+                div += '</section>';
+                div += '<section class="clear"></section>';
+            div += '</li>';
+            $api.html($api.dom("#area"), div);
+        }
+        // 打开地图
+        bmap();
+        // 选择地址
+        $('body').on('click', '#area li', function() {
+            $('.allmap_olr').hide();
+            $(".sect_" + $(this).attr('lid')).show();
+            $("#search-input").val($(this).attr('data-dz'));
+            lon = $(this).attr('data-lng');
+            lat = $(this).attr('data-lat');
+            addressInfo[0] = $(this).attr('data-dz');
+            addressInfo[1] = $(this).attr('data-lng');
+            addressInfo[2] = $(this).attr('data-lat');
+            addressInfo[3] = $(this).attr('data-adres');
+            aMap.setCenter({
+                coords: {
+                    lon: lon,
+                    lat: lat
+                },
+                animation: false
+            });
+            aMap.addAnnotations({
+                annotations: [{
+                    id: 1,
+                    lon: lon,
+                    lat: lat
+                }],
+                draggable: true,
+                timeInterval: 2.0
+            }, function(ret) {});
+        })
+        // 搜索
+        $('#search-input').bind('input propertychange', function() {
+            if ($(this).val()) {
+                values = $api.byId('search-input').value;
+                openSearch(values)
+            }
+        });
+    };
+    // 打开地图
+    function bmap() {
+        aMap.open({
+            rect: {
+                x: 0,
+                y: $api.offset(header).h,
+                w: "auto",
+                h: 235
+            },
+            showUserLocation: true,
+            showsAccuracyRing:false,
+            zoomLevel: 18,
+            center: {
+                lon: 117.18,
+                lat: 34.27
+            },
+            fixedOn: api.frameName,
+            fixed: true
+        }, function(ret, err) {
+            if (ret.status) {
+                //获取定位
+                getLocation();
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+        });
+    }
+    // 定位
+    function getLocation() {
+        aMap.getLocation(function(ret, err) {
+            if (ret.status) {
+                if (!isNotEmpry(lon) || !isNotEmpry(lat)) {
+                    if (ret.lon == 0 || ret.lat == 0) {
+                        lon = 117.18;
+                        lat = 34.27;
+                    }else {
+                        lon = ret.lon;
+                        lat = ret.lat;
+                    }
+                }else {
+                    aMap.addAnnotations({
+                        annotations: [{
+                            id: 1,
+                            lon: lon,
+                            lat: lat
+                        }],
+                        draggable: true,
+                        timeInterval: 2.0
+                    }, function(ret) {});
+                }
+                aMap.setCenter({
+                    coords: {
+                        lon: lon,
+                        lat: lat
+                    },
+                    animation: false
+                });
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+        });
+    }
+    // 搜索地址信息列表
+    function openSearch(obj) {
+        aMap.getNameFromCoords({
+            lon: lon,
+            lat: lat
+        }, function(ret, err) {
+            if (ret.status) {
+                city = ret.city;
+                aMap.searchInCity({
+                    city: 'city',
+                    keyword: obj,
+                    offset: 20,
+                    page: 1,
+                    sortrule: 0
+                }, function(ret) {
+                    if (ret.status) {
+                        var pois = ret.pois;
+                        var str = '';
+                        for (var i = 0; i < pois.length; i++) {
+                            str += '<li data-adres="' + pois[i].address + '" data-dz="' + pois[i].name + '" lid="' + i + '" data-lat="' + pois[i].lat + '" data-lng="' + pois[i].lon + '">';
+                                str += '<section class="allmap_oll">';
+                                    str += '<cite>' + pois[i].name + '</cite>';
+                                    str += '<address>' + pois[i].address + '</address>';
+                                str += '</section>';
+                                str += '<section class="allmap_olr sect_' + i + '">';
+                                    str += '<i class="iconfont"><img src="../image/select.png" alt=""></i>';
+                                str += '</section>';
+                                str += '<section class="clear"></section>';
+                            str += '</li>';
+                        }
+                        $api.html($api.dom("#area"), str);
+                    }
+                });
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+        });
+    }
+    // 将获取的数据返回进入的页面
+    function openSaddress() {
+        if (isNotEmpry(addressInfo)) {
+            // 1 表示registre_next页面
+            if (falg == 1) {
+                api.sendEvent({
+                    name: 'registre_next',
+                    extra: {
+                        addressInfo: addressInfo,
+                    }
+                });
+                api.openWin({
+                    name: 'registre_next',
+                    url: 'registre_next.html',
+                    slidBackEnabled: false,
+                });
+                // 2 表示saddress页面
+            }else if (falg == 2) {
+                api.sendEvent({
+                    name: 'saddress',
+                    extra: {
+                        addressInfo: addressInfo,
+                    }
+                });
+                api.openWin({
+                    name: 'saddress',
+                    url: 'saddress.html',
+                    slidBackEnabled: false,
+                });
+                // 3 表示accountcon页面
+            }else if (falg == 3) {
+                api.sendEvent({
+                    name: 'accountcon',
+                    extra: {
+                        addressInfo: addressInfo,
+                    }
+                });
+                api.openWin({
+                    name: 'accountcon',
+                    url: 'accountcon.html',
+                    slidBackEnabled: false,
+                });
+            }else if (falg == 4) {
+                api.sendEvent({
+                    name: 'accountadd',
+                    extra: {
+                        addressInfo: addressInfo,
+                    }
+                });
+                api.openWin({
+                    name: 'accountadd',
+                    url: 'accountadd.html',
+                    slidBackEnabled: false,
+                });
+            }
+        }else{
+            api.toast({
+                msg: '必须点击选择地址',
+                duration: 2000,
+                location: 'middle'
+            });
+        }
+    }
+</script>
+
+</html>

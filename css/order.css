@@ -1,0 +1,202 @@
+.gcaidjo_ti {
+    position: fixed;
+    z-index: 93;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 95%;
+    background: #fff;
+    border-bottom: 1px solid #f0f0f0;
+}
+.gcaidjo_ti .gcaidjo_tia a.on {
+    color: #52ca28;
+}
+.gcaidjo_ti .gcaidjo_tia a {
+    display: block;
+    float: left;
+    width: 50%;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #4c4c4c;
+    height: 44px;
+    line-height: 44px;
+}
+.gcaidjo_ti .gcaidjo_tia a.on dfn {
+    border-bottom: 2px solid #52ca28;
+}
+.gcaidjo_ti .gcaidjo_tia a dfn {
+    display: inline-block;
+    border-bottom: 2px solid #fff;
+}
+.gcaidjo_ti .gcaidjo_tiz {
+    height: 53px;
+    line-height: 53px;
+}
+.gcaidjo_ti .gcaidjo_tiz cite {
+    display: block;
+    float: left;
+    font-size: 0.8rem;
+    color: #333;
+}
+.gcaidjo_ti .gcaidjo_tiz address {
+    display: block;
+    float: right;
+    width: 68%;
+    position: relative;
+}
+.gcaidjo_ti .gcaidjo_tiz address i {
+    display: block;
+    float: right;
+    font-size: 0.4rem;
+    color: #c4c4c4;
+    margin-top: 14px;
+    margin-right: 2%;
+}
+.gcaidjo_list ol li .gcaidjo_list_h {
+    height: 12px;
+    background: #f0f0f0;
+}
+.gcaidjo_list ol li .gcaidjo_list_m {
+    width: 95%;
+    margin: 0 auto;
+}
+.gcaidjo_list ol li .gcaidjo_list_bh {
+    height: 36px;
+    line-height: 36px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.gcaidjo_list ol li .gcaidjo_list_bh cite {
+    font-size: 0.7rem;
+    color: #999;
+    letter-spacing: 0;
+}
+.gcaidjo_list ol li .gcaidjo_list_bh aside {
+    display: block;
+    float: right;
+}
+.gcaidjo_list ol li .gcaidjo_list_bh aside.gcaidjo_list_bha3 i {
+    font-size: 0.7rem;
+}
+
+.gcaidjo_list ol li .gcaidjo_list_bh aside i {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0.3rem;
+    color: #52ca28;
+    position: relative;
+    top: -0.01rem;
+}
+.gcaidjo_list ol li .gcaidjo_list_bh aside dfn {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0.7rem;
+    color: #52ca28;
+    margin-left: 0.05rem;
+    position: relative;
+    top: -0.01rem;
+}
+.clear {
+    clear: both;
+    height: 0;
+}
+.gcaidjo_list ol li address {
+    line-height: 46px;
+    font-size: 0.7rem;
+    color: #333;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+}
+.gcaidjo_list ol li address dfn {
+    color: #999;
+    letter-spacing: 0px;
+}
+.gcaidjo_list ol li .gcaidjo_list_l {
+    float: left;
+    width: 25%;
+    height: 70px;
+    line-height: 70px;
+    text-align: center;
+}
+.gcaidjo_list ol li .gcaidjo_list_r {
+    float: right;
+    width: 72%;
+}
+.gcaidjo_list ol li .gcaidjo_list_r aside:first-child {
+    margin-top: 0;
+}
+
+.gcaidjo_list ol li .gcaidjo_list_r aside {
+    font-size: 0.26rem;
+    color: #666;
+    display: block;
+    clear: both;
+    margin-top: 0.1rem;
+}
+.gcaidjo_list ol li .gcaidjo_list_r aside {
+    font-size: 0.26rem;
+    color: #666;
+    display: block;
+    clear: both;
+    margin-top: 0.1rem;
+}
+.gcaidjo_list ol li .gcaidjo_list_r aside:nth-child(2) ruby {
+    width: 24%;
+}
+
+.gcaidjo_list ol li .gcaidjo_list_r aside ruby {
+    color: #f55637;
+    letter-spacing: 0px;
+    font-weight: 600;
+    display: inline-block;
+    width: 27%;
+}
+.gcaidjo_list ol li .gcaidjo_list_r dfn {
+    margin-left: 0.2rem;
+}
+i, em, cite, address, dfn, address {
+    font-style: normal;
+}
+.gcaidjo_list ol li .gcaidjo_list_r aside:nth-child(2) dfn ruby {
+    width: 27%;
+}
+.gcaidjo_list ol li .gcaidjo_list_r aside {
+    font-size: 0.6rem;
+    color: #666;
+    display: block;
+    clear: both;
+    margin-top: 0.1rem;
+    line-height: 22px;
+}
+.gcaidjo_list ol li .gcaidjo_list_yf {
+    height: 55px;
+    line-height: 55px;
+    border-top: 1px solid #f0f0f0;
+    margin-top: 0.3rem;
+}
+.gcaidjo_list ol li .gcaidjo_list_yf .gcaidjo_list_yfr {
+    float: right;
+}
+.gcaidjo_list ol li .gcaidjo_list_yf .gcaidjo_list_yfr cite.gcaidjo_list_yfx {
+    border: 1px solid #e6e6e6;
+    color: #999;
+}
+
+.gcaidjo_list ol li .gcaidjo_list_yf .gcaidjo_list_yfr cite {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 30px;
+    border-radius: 100rem;
+    font-size: 0.8rem;
+    color: #fff;
+    margin-left: 0.2rem;
+    padding: 2px 15px;
+}
+#loadings{
+    width: 100%;
+    text-align: center;
+    height: 46px;
+    line-height: 46px;
+    font-size: 1rem;
+    margin-top: 20px;
+}

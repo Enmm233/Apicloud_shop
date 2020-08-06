@@ -1,0 +1,156 @@
+@charset "utf-8";
+.xian{
+	width: 100%;
+	border-top-width: 10px;
+	border-top-style: solid;
+	border-top-color: #f5f5f5;
+}
+.wbk {
+	padding-right: 15px;
+	padding-left: 15px;
+	max-width: 700px;
+	margin-right: auto;
+	margin-left: auto;
+	/*border-top-width: 10px;*/
+	/*border-top-style: solid;*/
+	/*border-top-color: #f5f5f5;*/
+	color: #333;
+	font-size: 14px;
+}
+.wbk .lbbk {
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #F0F0F0;
+	padding-bottom: 10px;
+}
+.wbk .lbbk .zdnum {
+	line-height: 40px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #F0F0F0;
+	height: 40px;
+	margin-bottom: 10px;
+}
+.wbk .lbbk .zdnr {
+	line-height: 25px;
+	height: 25px;
+	overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;
+}
+
+.wbk .lbbk .zdnum span {
+	display: block;
+	float: left;
+	width: 80%;
+	color: #999;
+	overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;
+}
+.wbk .lbbk .zdnum i {
+	font-style: normal;
+	display: block;
+	float: right;
+	color: #52ca28;
+	text-align: right;
+	max-width:18%;
+	overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;
+}
+.wbk .lbbk .zdnr span {
+	display: block;
+	float: left;
+	width: 33.3%;
+	overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;
+}
+.wbk .lbbk .zdnum .xj {
+	color: #f55637;
+}
+.wbk .lbbk .zdnr span i {
+	font-weight: bold;
+	font-style: normal;
+	color: #f55637;
+}
+.wbk .lbbk .zdnr .ce {
+	color: #999;
+}
+.zwsj {
+	text-align: center;
+	width: 100%;
+	padding-top: 20px;
+}
+.zwsj img {
+	max-width:415px;
+	width: 100%;
+}
+.bxs {
+	display: none;
+}
+.wbk .ddsl {
+	line-height: 40px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #F0F0F0;
+	height: 40px;
+	overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;
+}
+.wbk .ddsl span {
+	color: #999;
+	margin-right: 20px;
+
+}
+.wbk .ddsl i {
+	font-style: normal;
+	color: #999;
+}
+.wbk .ddbh {
+	line-height: 40px;
+	height: 40px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #F0F0F0;
+	overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;
+}
+.wbk .ddbh span {
+	display: block;
+	float: left;
+	width: 75%;
+	overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;
+}
+.wbk .ddbh i {
+	display: block;
+	float: right;
+	width: 20%;
+	text-align: right;
+	font-style: normal;
+	color: #f55637;
+	overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;
+}
+.wbk .ddje {
+	line-height: 40px;
+	height: 40px;
+	overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;
+}
+.wbk .ddje span {
+	font-weight: bold;
+	color: #f55637;
+	margin-right: 20px;
+}
+.wbk .ddje i {
+	font-style: normal;
+	color: #999;
+}

@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/charge.css" />
+    <title>充值</title>
+    <style>
+        .shouye {
+            width: 38px;
+            height: 38px;
+            background: #EEEEEE;
+            border-radius: 20px;
+            background-image: url("../image/index.png");
+            background-size: 20px;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            position: fixed;
+            right: 20px;
+            bottom: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header"></div>
+    <div class="wbk">
+        <h2>充值金额：</h2>
+        <div class="czbk">
+            <input type="number" class="price">
+        </div>
+        <div class="xyb">下一步</div>
+        <div class="czjl" tampode onclick="openchargelist()">记录</div>
+    </div>
+    <!-- 返回首页按钮 -->
+    <div class="shouye" id="div" tampode onclick="openIndex()"></div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/md5.js"></script>
+<script type="text/javascript" src="../script/regular.js"></script>
+<script type="text/javascript" src="../script/encipherment.js"></script>
+<script type="text/javascript" src="../script/date.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+        //修改手机状态栏字体颜色
+        api.setStatusBarStyle({
+            style: 'dark'
+        });
+        var header = $api.byId('header');
+        $api.fixStatusBar(header);
+
+        // 点击下一步
+        $api.addEvt($api.dom(".xyb"), 'click', function() {
+            var price = $api.val($api.dom(".price"));
+            console.log(price);
+            if (!isNotEmpry(price)) {
+                api.toast({
+                    msg: '充值金额不能为空',
+                    duration: 2000,
+                    location: 'middle'
+                });
+                return;
+            }
+            api.showProgress({
+                title: '努力加载中...',
+                modal: false
+            });
+            var timeStamp = timestamp();
+            var sign = getSign("appid=" + $api.getStorage("appid") + "&price=" + price + "&timeStamp=" + timeStamp);
+            api.ajax({
+                url: $api.getStorage("URL") + '/mobileOrder/createRecharge',
+                method: 'POST',
+                headers: {
+                    'Authorization': $api.getStorage('token')
+                },
+                returnAll: true,
+                data: {
+                    values: {
+                        appid: $api.getStorage("appid"),
+                        active:2,
+                        price: price,
+                        timeStamp: timeStamp,
+                        type: "app",
+                        sign: sign
+                    }
+                }
+            }, function(ret, err) {
+                if (ret) {
+                    judgement(ret.body.code, ret.msg)
+                    var body = ret.body;
+                    var headers = ret.headers;
+                    if (isNotEmpry(headers.Authorization)) {
+                        $api.setStorage('token', headers.Authorization);
+                    }
+                    if (body.code == 200) {
+                        console.log(JSON.stringify(body));
+                        var orderId = body.data.orderId;
+                        api.openWin({
+                            name: 'charge_confirm',
+                            url: 'charge_confirm.html',
+                            reload: true,
+                            pageParam: {
+                                orderId: orderId
+                            },
+                            slidBackEnabled: false
+                        });
+                    } else {
+                        api.toast({
+                            msg: body.msg,
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                    }
+                } else {
+                    api.toast({
+                        msg: JSON.stringify(err),
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+                api.hideProgress();
+            });
+
+        });
+    };
+    // 跳转到充值记录
+    function openchargelist() {
+        api.openWin({
+            name: 'chargelist',
+            url: 'chargelist.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+    // 跳转首页
+    function openIndex() {
+        api.openWin({
+            name: 'index',
+            url: './index.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+</script>
+
+</html>

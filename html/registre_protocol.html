@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/zcxy.css" />
+    <title>注册协议</title>
+</head>
+
+<body>
+    <div id="header"></div>
+    <div class="wbk">
+        <h2>注册协议</h2>
+        <div class="xynr">
+            <p class="data">协议内容</p>
+        </div>
+    </div>
+    <div class="dban"> <span tampode onclick="openregister();">确 定</span> </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/encipherment.js"></script>
+<script type="text/javascript" src="../script/md5.js"></script>
+<script type="text/javascript" src="../script/date.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+        //修改手机状态栏字体颜色
+        api.setStatusBarStyle({
+            style: 'dark'
+        });
+        var header = $api.byId('header');
+        $api.fixStatusBar(header);
+
+        // 监听页面消失的时候，关掉页面就可以了
+        api.addEventListener({
+            name:'viewdisappear'
+        },function(){
+            api.closeWin();
+        });
+        api.showProgress({
+            title: '努力加载中...',
+            modal: false
+        });
+        var timeStamp = timestamp();
+        //五．注册协议
+        var sign = getSign("appid=" + $api.getStorage("appid") + "&timeStamp=" + timeStamp);
+        api.ajax({
+            url: $api.getStorage("URL") + '/mobileOrder/publicHttp',
+            method: 'GET',
+            data: {
+                body:{
+                    appid: $api.getStorage("appid"),
+                    active:2,
+                    timeStamp: timeStamp,
+                    sign: sign
+                }
+            }
+        },function(ret, err){
+            if (ret) {
+              judgement(ret.code, ret.msg)
+                if (ret.code == 200) {
+                    $api.html($api.dom(".data"), ret.data);
+                }else {
+                    api.toast({
+                        msg: ret.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            } else {
+                api.toast({
+                    msg: JSON.stringify( err ),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+            api.hideProgress();
+        });
+    };
+    // 跳转到注册页面
+    function openregister() {
+        api.openWin({
+            name: 'register',
+            url: 'register.html',
+            animation:{
+                type:"push",                //动画类型（详见动画类型常量）
+                subType:"from_left",       //动画子类型（详见动画子类型常量）
+                duration:500
+            },
+            reload: true //跳转刷新
+        });
+    }
+</script>
+
+</html>

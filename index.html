@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>首页</title>
+    <link rel="stylesheet" type="text/css" href="./css/api.css" />
+</head>
+<body class="wrap">
+</body>
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript">
+var UIScrollPicture;   //轮播图模块对象
+var UIButton;          //按钮模块对象
+var vButtonId;         //按钮模块对象索引对象
+//程序启动入口
+apiready = function(){
+  //引导页显示判断
+  var isFirst = api.getPrefs({
+      key: 'isFirst',
+      sync: true,
+  });
+  // isFirst=false;
+  if (!isFirst) {
+      //启动引导页面
+      fnStartGuidePage();
+  } else {
+      fnStartMainPage();
+  }
+};
+
+function fnStartGuidePage() {
+    //设置页面默认图片;
+    var tData = [
+        'widget://image/one.jpg',
+        'widget://image/two.jpg',
+        'widget://image/three.jpg',
+    ];
+    UIScrollPicture = api.require('UIScrollPicture');
+    UIScrollPicture.open({
+        rect: {
+            x: 0,
+            y: 0,
+            w: 'auto',
+            h: 'auto'          //此处用'auto'是为了适应某些机型页面底部虚拟键的显示／隐藏 切换
+        },
+        data: {
+            paths: tData,
+        },
+        styles: {
+            indicator: {
+                align: 'center',
+                color: '#cccccc',
+                activeColor: '#808080'
+            }
+        },
+        contentMode: 'scaleToFill',
+        auto: false,          //禁止自动滚动
+        loop: false,          //禁止循环播放
+    }, function(ret, err) {
+        if (ret) {
+            //添加末页点击进入主页面方法
+            if ('show' == ret.eventType) {
+                UIScrollPicture.addEventListener({
+                    name: 'scroll'
+                }, function(ret, err) {
+                    if (ret.status) {
+                        if (ret.index == (tData.length - 1)) {
+                            //显示进入按钮
+                            fnShowStartBtn();
+                        } else {
+                            //隐藏进入按钮
+                            fnHideStartBtn();
+                        }
+                    }
+                });
+            }
+        }
+    });
+}
+//启动程序主页面
+function fnStartMainPage() {
+    if(UIScrollPicture){
+      //缓存App启动信息
+      api.setPrefs({
+          key: 'isFirst',
+          value: '1'
+      });
+      //关闭引导页模块
+      UIScrollPicture.close();
+      //关闭方法2使用按钮模块
+      if(UIButton){
+        UIButton.close({
+            id: vButtonId
+        });
+      }
+    }
+    //启动主页面
+    api.openWin({
+        name: 'index',
+        url: 'html/index.html',
+        bounces: false,
+        vScrollBarEnabled: false,
+        hScrollBarEnabled: false,
+        slidBackEnabled: false,
+        rect: {
+            x: 0,
+            y: 0,
+            w: 'auto',
+            h: 'auto'
+        }
+    });
+}
+
+//显示进入APP按钮
+function fnShowStartBtn() {
+    if (!vButtonId && vButtonId != 0) {
+        //初始化按钮模块
+        UIButton = api.require('UIButton');
+        UIButton.open({
+            rect: {
+                x: api.winWidth/2 - 100,
+                y: api.winHeight - 100,
+                w: 200,
+                h: 50
+            },
+            corner: 5,
+            bg: {
+                normal: '#E35E61',
+                // highlight: 'rgba(255,255,255,90)',
+                active: 'rgba(255,255,255,90)'
+            },
+            title: {
+                size: 20,
+                normal: '立即开启',
+                // highlightColor: '#000000',
+                activeColor: '#000adf',
+                normalColor: '#FFFFFF',
+                alignment: 'center'
+            },
+            fixed: true,
+            move: false
+        }, function(ret, err) {
+            if ('show' == ret.eventType) {
+                vButtonId = ret.id;
+            }
+            if ('click' == ret.eventType) {
+                //关闭引导页，进入主页面
+                fnStartMainPage();
+            }
+        });
+    } else {
+        //模块已初始化过，直接显示
+        UIButton.show({
+            id: vButtonId
+        });
+    }
+}
+
+//隐藏进入按钮
+function fnHideStartBtn() {
+    if (UIButton) {
+        UIButton.hide({
+            id: vButtonId
+        });
+    }
+}
+
+</script>
+
+</html>

@@ -1,0 +1,228 @@
+/* 我的 */
+
+.gcaidju_t {
+    background: url('../image/gcaidj_pic2.jpg') no-repeat;
+    background-size: 100% 100%;
+    padding-bottom: 0.3rem;
+    height: 316px;
+}
+
+.gcaidju_t h3 {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #fff;
+    padding-top: 70px;
+}
+
+.gcaidju_t .gcaidju_ty {
+    width: 85px;
+    height: 85px;
+    background: #fff;
+    margin: auto;
+    border-radius: 1000rem;
+    margin-top: 0.7rem;
+}
+
+.gcaidju_t .gcaidju_ty img {
+    border-radius: 1000rem;
+    padding: 5px;
+    width: 100%;
+    height: 100%;
+}
+
+.gcaidju_t cite {
+    display: block;
+    font-size: 0.8rem;
+    color: #333;
+    margin-top: 0.1rem;
+    text-align: center;
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+}
+
+.gcaidju_t ol {
+    margin-top: 25px;
+}
+
+.gcaidju_t ol li {
+    width: 33.33%;
+    float: left;
+    text-align: center;
+}
+
+.gcaidju_t ol li a {
+    display: block;
+    height: 100%;
+}
+
+.gcaidju_t ol li img {
+    width: 28px;
+    height: 28px;
+    margin: auto;
+    display: block;
+}
+
+.gcaidju_t ol li aside {
+    margin-top: 0.1rem;
+    font-size: 0.7rem;
+    color: #333;
+}
+
+.gcaidju_list ol{
+    width: 90%;
+    margin: 0 auto;
+}
+.gcaidju_list ol li {
+    height: 47px;
+    line-height: 47px;
+    border-bottom: 1px solid #e6e6e6;
+    clear: both;
+}
+
+.gcaidju_list ol li a {
+    display: block;
+    height: 100%;
+}
+
+.gcaidju_list ol li cite {
+    display: block;
+    float: left;
+    position: relative;
+}
+
+.gcaidju_list ol li cite i {
+    /*font-size: 0.4rem;*/
+    display: block;
+    float: left;
+    margin-top: 10.5px;
+}
+
+.gcaidju_list ol li cite i.gcaidju_tli_s1 {
+    color: #249ae8;
+}
+
+.gcaidju_list ol li cite i.gcaidju_tli_s2 {
+    color: #efbb48;
+}
+
+.gcaidju_list ol li cite i.gcaidju_tli_s3 {
+    color: #28cf43;
+}
+
+.gcaidju_list ol li cite dfn {
+    margin-left: 0.1rem;
+    font-size: 0.7rem;
+    color: #333;
+    display: block;
+    float: left;
+}
+
+.gcaidju_list ol li aside {
+    display: block;
+    float: right;
+    margin-top: 10.5px;
+}
+
+.gcaidju_list ol li aside i {
+    font-size: 0.4rem;
+    color: #ccc;
+}
+
+.gcaidju_tc {
+    height: 1rem;
+    line-height: 1rem;
+    text-align: center;
+    font-size: 0.24rem;
+    color: #999;
+}
+.gcaidj_gh {
+    height: 11px;
+    background: #f5f5f5;
+}
+.gcaidju_tc {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #999;
+    margin-bottom: 51px;
+}
+.mint-actionsheet {
+    position: fixed;
+    background: #e0e0e0;
+    width: 100%;
+    text-align: center;
+    bottom: 0;
+    left: 50%;
+    -webkit-transform: translate3d(-50%, 0, 0);
+    transform: translate3d(-50%, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition: -webkit-transform .3s ease-out;
+    transition: -webkit-transform .3s ease-out;
+    transition: transform .3s ease-out;
+    transition: transform .3s ease-out, -webkit-transform .3s ease-out;
+}
+.mint-actionsheet-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.mint-actionsheet-listitem, .mint-actionsheet-button {
+    font-size: 16px;
+    height: 50px;
+    line-height: 50px;
+}
+.mint-actionsheet-listitem, .mint-actionsheet-button {
+    display: block;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    font-size: 18px;
+    color: #333;
+    background-color: #fff;
+}
+.mint-actionsheet-listitem {
+    border-bottom: solid 1px #e0e0e0;
+}
+.mint-actionsheet-listitem, .mint-actionsheet-button {
+    font-size: 16px;
+    height: 50px;
+    line-height: 50px;
+}
+.mint-actionsheet-listitem, .mint-actionsheet-button {
+    display: block;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    font-size: 18px;
+    color: #333;
+    background-color: #fff;
+}
+#cover1 {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    /*宽度设置为100%，这样才能使隐藏背景层覆盖原页面*/
+    filter: alpha(opacity=60);
+    /*设置透明度为60%*/
+    opacity: 0.6;
+    /*非IE浏览器下设置透明度为60%*/
+    display: none;
+    z-index: 99999999999999;
+    height: 100%;
+}
+
+#edits{
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 115px;
+  background-color: #fff;
+  display: none;
+  cursor: pointer;
+  z-Index: 9999999999999999999999;
+}

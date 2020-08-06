@@ -1,0 +1,303 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>发票</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/invoice.css" />
+    <style>
+        body,
+        html {
+            background: white;
+        }
+
+        .shouye {
+            width: 38px;
+            height: 38px;
+            background: #EEEEEE;
+            border-radius: 20px;
+            background-image: url("../image/index.png");
+            background-size: 20px;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            position: fixed;
+            right: 20px;
+            bottom: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <article class="main" id="header">
+        <section class="gcaidj_gh"></section>
+        <section class="gcaidji">
+            <form action="">
+                <section class="gcaidji_xz">
+                    <address data-id="0" class="chan chan0">
+                        <aside>
+                            <dfn><i class="iconfont"><img src="../image/uselect.png" alt=""></i></dfn>
+                            <ruby>企业单位</ruby>
+                        </aside>
+                    </address>
+                    <address data-id="1" class="chan chan1">
+                        <aside>
+                            <dfn><i class="iconfont"><img src="../image/uselect.png" alt=""></i></dfn>
+                            <ruby>个人单位</ruby>
+                        </aside>
+                    </address>
+                    <input type="hidden" id="type" value="">
+                </section>
+                <section class="clear"></section>
+                <section class="gcaidji_zs">注：电子发票与纸质发票具有同等法律效力，可支持报销入账</section>
+                <section class="clear"></section>
+                <ol>
+                    <li><cite>发票抬头</cite> <input class="header" type="text" autocomplete="off" placeholder="请填写发票抬头"></li>
+                    <li><cite>税号</cite> <input class="number" type="text" autocomplete="off" placeholder="请填写纳税人识别号"></li>
+                    <li><cite>发票内容</cite> <input class="content" type="text" autocomplete="off" placeholder="请输入发票内容"></li>
+                    <li><cite>发票金额</cite> <input class="price" type="text" autocomplete="off" style="color:red;" placeholder="请输入金额" onkeyup="value=value.replace(/[^\d\.]/g,'')" class="gcaidji_zsi"> <dfn>元</dfn></li>
+                </ol>
+                <button type="button" class="adminis_button1">提交</button></form>
+        </section>
+        <article class="conta_icon"><a href="javascript:;" class="router-link-active"><i class="fa fa-home"></i></a></article>
+    </article>
+    <!-- 返回首页按钮 -->
+    <div class="shouye" id="div" tampode onclick="openIndex()"></div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../script/encipherment.js"></script>
+<script type="text/javascript" src="../script/md5.js"></script>
+<script type="text/javascript" src="../script/regular.js"></script>
+<script type="text/javascript" src="../script/date.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+        //修改手机状态栏字体颜色
+        api.setStatusBarStyle({
+            style: 'dark'
+        });
+        var header = $api.byId('header');
+        $api.fixStatusBar(header);
+        // 监听页面消失的时候，关掉页面就可以了
+        api.addEventListener({
+            name: 'viewdisappear'
+        }, function() {
+            api.closeWin();
+        });
+        api.showProgress({
+            title: '努力加载中...',
+            modal: false
+        });
+        var timeStamp = timestamp();
+        var sign = getSign("appid=" + $api.getStorage("appid") + "&timeStamp=" + timeStamp);
+        // 获取发票信息
+        api.ajax({
+            url: $api.getStorage("URL") + '/mobileOrder/billInfo',
+            method: 'GET',
+            headers: {
+                'Authorization': $api.getStorage('token')
+            },
+            returnAll: true,
+            data: {
+                values: {
+                    appid: $api.getStorage("appid"),
+                    active:2,
+                    timeStamp: timeStamp,
+                    sign: sign
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                judgement(ret.body.code, ret.msg)
+                var body = ret.body;
+                var headers = ret.headers;
+                // 判断token是否失效
+                if (isNotEmpry(headers.Authorization)) {
+                    $api.setStorage('token', headers.Authorization);
+                }
+                if (body.code == 200) {
+                    var data = body.data;
+                    if (isNotEmpry(data)) {
+                        // 判断是企业单位或者个人单位
+                        if (data.type == 1) {
+                            $api.addCls($api.dom(".chan0"), 'on');
+                        } else {
+                            $api.addCls($api.dom(".chan1"), 'on');
+                        }
+                        $api.val($api.byId("type"), data.type);
+
+                        // 判断抬头
+                        if (isNotEmpry(data.header)) {
+                            $api.val($api.dom(".header"), data.header);
+                        }
+                        // 判断税号
+                        if (isNotEmpry(data.number)) {
+                            $api.val($api.dom(".number"), data.number);
+                        }
+                        // 发票内容
+                        if (isNotEmpry(data.content)) {
+                            $api.val($api.dom(".content"), data.content);
+                        }
+                        // 发票金额
+                        if (isNotEmpry(data.price)) {
+                            $api.val($api.dom(".price"), data.price);
+                        }
+                    }
+                } else {
+                    api.toast({
+                        msg: body.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+            api.hideProgress();
+        });
+        // 添加/修改发票
+        $api.addEvt($api.dom(".adminis_button1"), 'click', function() {
+            var type = $api.val($api.byId("type"));
+            var header = $api.val($api.dom(".header"));
+            var number = $api.val($api.dom(".number"));
+            var content = $api.val($api.dom(".content"));
+            var price = $api.val($api.dom(".price"));
+            // 判断发票类型
+            if (!isNotEmpry(type)) {
+                api.toast({
+                    msg: "请选择类型",
+                    duration: 2000,
+                    location: 'middle'
+                });
+                return;
+            }
+            // 判断发票抬头
+            if (!isNotEmpry(header)) {
+                api.toast({
+                    msg: "发票抬头不能为空",
+                    duration: 2000,
+                    location: 'middle'
+                });
+                return;
+            }
+            // 判断税号
+            if (!isNotEmpry(number)) {
+                api.toast({
+                    msg: "税号不能为空",
+                    duration: 2000,
+                    location: 'middle'
+                });
+                return;
+            }
+            // 判断发票内容
+            if (!isNotEmpry(content)) {
+                api.toast({
+                    msg: "发票内容不能为空",
+                    duration: 2000,
+                    location: 'middle'
+                });
+                return;
+            }
+            // 判断发票金额
+            if (!isNotEmpry(price)) {
+                api.toast({
+                    msg: "发票金额不能为空",
+                    duration: 2000,
+                    location: 'middle'
+                });
+                return;
+            }
+            api.showProgress({
+                title: '努力加载中...',
+                modal: false
+            });
+            var timeStamp = timestamp();
+            var sign = getSign("appid=" + $api.getStorage("appid") + "&content=" + content + "&header=" + header +
+                "&number=" + number + "&price=" + price + "&timeStamp=" + timeStamp + "&type=" + type);
+            api.ajax({
+                url: $api.getStorage("URL") + '/mobileOrder/handleBill',
+                method: 'POST',
+                headers: {
+                    'Authorization': $api.getStorage('token')
+                },
+                returnAll: true,
+                data: {
+                    values: {
+                        appid: $api.getStorage("appid"),
+                        active:2,
+                        content: content,
+                        header: header,
+                        number: number,
+                        price: price,
+                        timeStamp: timeStamp,
+                        type: type,
+                        sign: sign
+                    }
+                }
+            }, function(ret, err) {
+                if (ret) {
+                    judgement(ret.body.code, ret.msg)
+                    var body = ret.body;
+                    var headers = ret.headers;
+                    // 判断token是否失效
+                    if (isNotEmpry(headers.Authorization)) {
+                        $api.setStorage('token', headers.Authorization);
+                    }
+                    if (body.code == 200) {
+                        api.toast({
+                            msg: body.msg,
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                        setTimeout(function() {
+                            api.openWin({
+                                name: 'mine',
+                                url: 'mine.html',
+                                reload: true,
+                                slidBackEnabled: false
+                            });
+                        }, 2000);
+                    } else {
+                        api.toast({
+                            msg: body.msg,
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                    }
+                } else {
+                    api.toast({
+                        msg: JSON.stringify(err),
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+                api.hideProgress();
+            });
+        });
+        // 点击切换发票类型
+        $('body').on('click', '.gcaidji_xz address', function() {
+            index = $(this).index();
+            $(".chan").removeClass("on");
+            $(".chan" + index).addClass("on");
+            $("#type").val(index + 1);
+        })
+    };
+    // 跳转到首页
+    function openIndex() {
+        api.openWin({
+            name: 'index',
+            url: './index.html',
+            reload: true,
+            slidBackEnabled: false,
+        });
+    }
+</script>
+
+</html>

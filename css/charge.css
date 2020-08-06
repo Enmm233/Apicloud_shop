@@ -1,0 +1,123 @@
+@charset "utf-8";
+.wbk {
+	padding-right: 15px;
+	padding-left: 15px;
+	max-width: 700px;
+	margin-right: auto;
+	margin-left: auto;
+	border-top-width: 10px;
+	border-top-style: solid;
+	border-top-color: #f5f5f5;
+	font-size: 14px;
+}
+.wbk h2 {
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 60px;
+}
+.wbk .czbk {
+	height: 40px;
+	padding-left: 50px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #f0f0f0;
+	background-image: url(../image/rmb.png);
+	background-repeat: no-repeat;
+	background-position: 10px center;
+	background-size: 20px;
+}
+.wbk .czbk input {
+	line-height: 35px;
+	height: 35px;
+	margin-top: 3px;
+	width: 100%;
+}
+.wbk .xyb {
+	margin-top: 40px;
+	width: 200px;
+	margin-right: auto;
+	margin-left: auto;
+	line-height: 40px;
+	color: #FFF;
+	text-align: center;
+	border-radius: 40px;
+	box-shadow: 0px -2px 0px #57af51 inset;
+	background-color: #6cca28;
+	margin-bottom: 30px;
+}
+.wbk .czjl {
+	text-align: center;
+	width: 50px;
+	margin-right: auto;
+	margin-left: auto;
+	padding-left: 18px;
+	background-image: url(../image/czjllb.jpg);
+	background-repeat: no-repeat;
+	background-position: left center;
+	background-size: 24px;
+	line-height: 20px;
+	height: 25px;
+	font-size: 12px;
+	color: #999;
+	padding-top: 5px;
+}
+.wbk .czbh {
+	height: 34px;
+	line-height: 34px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #f0f0f0;
+}
+.wbk .czbh span {
+	display: block;
+	float: left;
+	width: 28%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.wbk .czbh i {
+	display: block;
+	float: right;
+	width: 70%;
+	text-align: right;
+	font-style: normal;
+	color: #999999;
+	height: 34px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.wbk .czbh .czje {
+	color: #f55637;
+}
+.wbk .zhushi {
+	color: #999;
+	line-height: 25px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin-right: 10px;
+	margin-left: 10px;
+	font-size: 12px;
+}
+.wbk .anniu {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	line-height: 40px;
+	text-align: center;
+}
+.wbk .anniu span {
+	margin-right: 15px;
+	margin-left: 15px;
+	padding-right: 20px;
+	padding-left: 20px;
+	border-radius: 20px;
+}
+.wbk .anniu .fhsy {
+	color: #666;
+	background-color: #f0f0f0;
+}
+.wbk .anniu .qrcz {
+	color: #FFF;
+	background-color: #6cca28;
+}

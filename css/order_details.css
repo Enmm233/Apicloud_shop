@@ -1,0 +1,141 @@
+.gcaidjs_list ol li {
+    border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.ok {
+    height: 51px;
+    line-height: 51px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: black;
+}
+
+.fan {
+    display: inline-block;
+    height: 46px;
+    line-height: 46px;
+    width: 40%;
+    background: #f0f0f0;
+    border-radius: 1000rem;
+    font-size: 0.8rem;
+    color: #999;
+    text-align: center;
+    margin: 0 3.5%;
+}
+
+.gcaidjs_list ol li .gcaidjs_list_xl {
+    padding-right: 0!important;
+}
+
+.xin {
+    width: 95%;
+    margin: 0 auto;
+    border-bottom: 1px solid #f0f0f0;
+    color: black;
+    height: 46px;
+    line-height: 46px;
+}
+
+.zhi {
+    float: left;
+    font-weight: 700;
+    color: black;
+    font-size: 1rem;
+}
+
+.dai {
+    float: right;
+    color: #52ca28;
+    font-size: 0.7rem;
+}
+
+.img {
+    float: right;
+    width: 15px;
+    height: 15px;
+    margin-top: 15.5px;
+    margin-right: 5px;
+}
+
+.gcaidjde_sp ol li {
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.gcaidjde_sp ol li cite aside {
+    display: block;
+    float: left;
+    width: 65%;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    font-size: 0.24rem;
+    color: #666;
+}
+
+.gcaidjde_sp ol li cite dfn {
+    display: block;
+    float: right;
+    font-size: 0.24rem;
+    color: #f55637;
+    letter-spacing: 0px;
+}
+
+.mingzi {
+    display: flex;
+    justify-content: space-between;
+}
+
+.zi {
+    color: #999;
+}
+
+.shouye {
+    width: 38px;
+    height: 38px;
+    background: #EEEEEE;
+    border-radius: 20px;
+    background-image: url("../image/index.png");
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    position: fixed;
+    right: 20px;
+    bottom: 100px;
+}
+
+.gcaidjs_list ol li .gcaidjs_list_l dfn {
+    width: 56px;
+}
+.server {
+    width: 38px;
+    height: 38px;
+    border-radius: 20px;
+    background-image: url("../image/gcaidj_pic11.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    position: fixed;
+    right: 20px;
+    bottom: 150px;
+    z-index: 9999999;
+}
+.good_ruby{
+  text-align: right;width: 100%; display: block;"
+}
+.mingzi_mz{
+  color: #FF0000;
+  background: #FDC7BA;
+  font-size: 14px;
+  margin-right: 0.1rem;
+  text-align: center;
+  border-radius: 2px;
+  line-height: 18px;
+  padding: 1px;
+}

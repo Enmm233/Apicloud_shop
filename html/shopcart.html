@@ -1,0 +1,1294 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>购物车</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../css/car.css" />
+    <link rel="stylesheet" type="text/css" href="../css/swiper.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/jianpan.css" />
+    <style>
+        .txt-scroll {
+            width: 100%;
+            height: 39px;
+            line-height: 39px;
+        }
+
+        .txt-scroll .scrollbox {
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            transition: all .2s;
+        }
+
+        .txt-scroll .txt,
+        .txt-scroll .txt-clone {
+            display: inline;
+            position: relative;
+            line-height: 48px;
+        }
+
+        .clear {
+            clear: both;
+            height: 0;
+        }
+
+        .gcaidjh_ge .gcaidjh_gex {
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 0.3rem;
+            width: 90%;
+            margin: 5px auto;
+        }
+
+        .gcaidjh_ge .gcaidjh_gex cite {
+            font-size: 0.8rem;
+            color: #333;
+        }
+
+        .gcaidjh_ge .gcaidjh_gex address ruby {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 0.2rem;
+            padding-left: 0.3rem;
+            padding-right: 0.3rem;
+            height: 0.5rem;
+            line-height: 0.48rem;
+            border-radius: 1000rem;
+            font-size: 0.24rem;
+            color: #56c956;
+            border: 1px solid #56c956;
+            margin-top: 0.2rem;
+        }
+
+        .gcaidjh_ge .gcaidjh_gex address ruby:last-child {
+            margin-right: 0;
+        }
+
+        .gcaidjh_ge .gcaidjh_gex address ruby {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 0.2rem;
+            padding-left: 10px;
+            padding-right: 10px;
+            height: 29px;
+            line-height: 29px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #56c956;
+            border: 1px solid #56c956;
+            margin-top: 0.2rem;
+        }
+
+        .gcaidjh_ge .gcaidjh_gex address ruby.on {
+            background: #56c956;
+            color: #fff;
+        }
+
+        .daily_img img {
+            margin-top: 7px;
+            margin-left: -4px;
+        }
+
+        .gcaidjimg_poi {
+            height: 100px;
+            margin: auto;
+            /*width:100%;*/
+        }
+
+        .gcaidjh_xs {
+            float: right;
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+            margin-right: 1%;
+            margin-top: 9.5px;
+            overflow: hidden;
+        }
+
+        .gcaidjh_xs img {
+            width: 30px;
+        }
+
+        .gcaidjh_xs_box {
+            padding: 10px 0;
+        }
+
+        .gcaidjh_xs_box,
+        .title_left,
+        .title_right {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .title_img {
+            width: 25px;
+            height: 22px;
+        }
+
+        .title_img img {
+            width: 25px;
+            height: 22px;
+        }
+
+        .title_left {
+            margin-right: 8px;
+        }
+
+        .title_txt {
+            display: inline-block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #ee4e3a;
+            margin-left: 5px;
+        }
+
+        .title_right {
+            font-size: 0.7rem
+        }
+
+        .title-time-txt {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 购物车无商品 -->
+    <div class="wu_good" id="header">
+        <div class="car" style="margin-top:0;">
+            <div class="car_img"></div>
+            <p class="car_wu">当前购物车中无商品</p>
+            <div class="car_guang" tampode onclick="openClassify();">逛逛其他商品</div>
+        </div>
+        <!-- 商品 -->
+        <div class="gcaidjh_jx" style="padding-bottom:70px;">
+            <h3><img src="../image/gcaidj_pic5.png" alt=""><span>今日精选</span></h3>
+            <ol id="list">
+                <!-- <li>
+                    <section class="gcaidjh_jxb">
+                        <a href="#/details?id=19765" class="" tampode onclick="openGood()">
+                            <cite>黎蒿</cite>
+                            <div class="gcaidjimg_po">
+                                <img src="../image/Jzz5770Jj9wr2w3P3MJXsK33X2A78jdOF9rgei0X.jpeg" alt="" class="gcaidjimg_poi">
+                                <span class="daily_img">
+                                  <img src="../image/726Yn0GUJ6U7KgPTC2J1SLWCkNao00BIpxk4ArdO.png" alt="">
+                                </span>
+                                <span class="daily_xi">
+                                <span></span>
+                                <strong class="daily_xis">扶贫</strong>
+                                </span>
+                            </div>
+                        </a>
+                        <section class="clear"></section>
+                        <div style="margin-top:10px;">
+                            <section class="gcaidjh_jxl">
+                                <aside class="vueappsy_add on">含税价:40</aside>
+                                <address class="gcaidjh_jxb_m">￥38.00元/斤</address>
+                            </section>
+                            <section data-id="19765" class="gcaidjh_jxr" tampode onclick="fnOpenShopCar();">
+                                <i class="iconfont"><img src="../image/shopcar.jpg" alt=""></i>
+                            </section>
+                        </div>
+                        <section class="clear"></section>
+                    </section>
+                </li> -->
+            </ol>
+        </div>
+    </div>
+    <!-- 购物车有商品 -->
+    <div class="you_good" id="headers" style="display:block;">
+        <article class="gcaidjs_dz">
+            <a href="javascript:;" class="">
+                <div class="address" style="color:black;padding-right: 21px;"></div>
+                <aside>
+                    <dfn class="contact"></dfn>
+                    <dfn class="phone"></dfn>
+                </aside>
+                <i class="iconfont"><img src="../image/link-arrow.png" alt=""></i>
+            </a>
+        </article>
+        <article class="gcaidjs_ts">请在（<span class="openTime">00:00:00</span> - <span class="endTime">23:59:59</span>）之间下单</article>
+        <article class="gcaidjs_list">
+            <ol>
+                <li class="child">
+                    <section class="gcaidjs_list_l">
+                        <i class="iconfont"><img src="../image/tb1.jpg" alt=""></i>
+                        <dfn>子账号</dfn>
+                    </section>
+                    <section id="triggws" class="gcaidjs_list_xl" style="cursor: pointer;">
+                        <select id="selecteds" style="background: url('../image/da.png') no-repeat 100%;background-size: 20px;">
+                            <!-- <option value="0" selected="">当前账号</option>
+                            <option value="1">测试一</option>
+                            <option value="2">测试二</option>
+                            <option value="3">测试三</option> -->
+                        </select>
+                    </section>
+                    <section class="clear"></section>
+                </li>
+                <li id="demo1">
+                    <section class="gcaidjs_list_l">
+                        <i class="iconfont"><img src="../image/tb2.jpg" alt=""></i>
+                        <dfn>配送时间</dfn>
+                    </section>
+                    <section class="gcaidjs_list_r">
+                        <i class="iconfont"><img src="../image/next.png" alt="" width="25px"></i>
+                    </section>
+                    <!-- <input type="text" name="" class="sendTime" value="2019-04-16" id="start_date" readonly="readonly"> -->
+                    <input readonly class="sendTime" type="text" id="start_date" value="">
+                    <section class="clear"></section>
+                </li>
+                <li tampode onclick="openShopList()">
+                    <a href="javascript:;" class="">
+                        <section class="gcaidjs_list_l">
+                            <i class="iconfont"><img src="../image/tb3.jpg" alt=""></i>
+                            <dfn>商品数量</dfn>
+                        </section>
+                        <section class="gcaidjs_list_r"><ruby class="countNum">1</ruby>
+                            <i class="iconfont"><img src="../image/next.png" alt="" width="25px"></i>
+                        </section>
+                    </a>
+                    <section class="clear"></section>
+                </li>
+                <li>
+                    <section class="gcaidjs_list_l">
+                        <i class="iconfont"><img src="../image/tb4.jpg" alt=""></i>
+                        <dfn>运费</dfn>
+                    </section>
+                    <section class="gcaidjs_list_r"><ruby>￥<span class="fare">0.00</span></ruby></section>
+                    <section class="clear"></section>
+                </li>
+                <li>
+                    <section class="gcaidjs_list_l">
+                        <i class="iconfont"><img src="../image/money.png" alt="" width="25px"></i>
+                        <dfn>商品金额</dfn>
+                    </section>
+                    <section class="gcaidjs_list_r"><ruby><span class="countPrice">￥0.00</span></ruby></section>
+                    <section class="clear"></section>
+                </li>
+                <li>
+                    <section class="gcaidjs_list_l">
+                        <i class="iconfont"><img src="../image/tb5.jpg" alt=""></i>
+                        <dfn>备注</dfn>
+                    </section>
+                    <textarea type="text" placeholder="请告诉我们需要注意的地方~" id="remark" style="overflow: scroll;"></textarea>
+                    <section class="clear"></section>
+                </li>
+            </ol>
+        </article>
+        <section class="gcaidjs_xdh"></section>
+        <article class="gcaidjs_xd">
+            <section class="gcaidjs_xdl">
+                <!-- <section class="gcaidjs_xdl_l">
+                    <aside>运费: <span class="fare2">￥0.00</span></aside>
+                    <aside>商品金额: <span class="countPrice">￥0.00</span></aside>
+                </section> -->
+                <address>合计<dfn class="totalPrice">￥***</dfn></address></section>
+            <section class="gcaidjs_xdr">确定下单</section>
+        </article>
+    </div>
+    <!-- 底部 -->
+    <footer class="aui-bar aui-bar-tab dbbk" id="foot" style="border-top: 1px solid #f5f0f0;">
+        <div class="aui-bar-tab-item" tampode onclick="openIndex()">
+            <img src="../image/home1.jpg">
+            <div class="aui-bar-tab-label">首页</div>
+        </div>
+        <div class="aui-bar-tab-item" tampode onclick="openClassify()">
+            <img src="../image/fenlei1.jpg">
+            <div class="aui-bar-tab-label">分类</div>
+        </div>
+        <div class="aui-bar-tab-item  aui-active">
+            <img src="../image/car2.jpg">
+            <div class="aui-bar-tab-label">购物车</div>
+        </div>
+        <div class="aui-bar-tab-item" tampode onclick="openOrder()">
+            <img src="../image/dingdan.jpg">
+            <div class="aui-bar-tab-label">订单</div>
+        </div>
+        <div class="aui-bar-tab-item" tampode onclick="openMine()">
+            <img src="../image/wode1.jpg">
+            <div class="aui-bar-tab-label">我的</div>
+        </div>
+    </footer>
+
+    <!--页面的遮罩层-->
+    <div id="cover"></div>
+    <!--页面的弹出框-->
+    <div id="modal" class="gcaidjh_ge" style="height:auto;">
+        <div class="#modalb">
+            <input type="hidden" id="attr_id" value="0">
+            <section class="gcaidjh_gei">
+                <section class="gcaidjh_gei_l goodsImage">
+
+                </section>
+                <section class="gcaidjh_gei_o">
+                    <cite class="title">黄豆芽</cite>
+                    <address class="vueappsy_add describe">清热解毒,利尿除湿</address>
+                    <aside class="gcaidjd_djg price">￥0.00元/斤</aside>
+                </section>
+                <section class="gcaidjh_gei_r" tampode onclick="closeWin()"><img src="../image/gcaidj_pic6.png" alt=""></section>
+                <section class="clear"></section>
+            </section>
+            <section class="clear"></section>
+            <section class="gcaidjh_gex attrListParents">
+                <cite>选择规格</cite>
+                <address class="attrList">
+                  <ruby data-id="1680" data-jiage="2.00" data-yuanjia="0" data-guige="斤" class="mores"> 斤</ruby>
+                  <ruby data-id="1681" data-jiage="6.00" data-yuanjia="0" data-guige="斤" class="mores">空心菜</ruby>
+                </address>
+            </section>
+            <section class="clear"></section>
+            <section class="gcaidjh_geg">
+                <cite>购买数量</cite>
+                <section class="gcaidj_sl gcaidj_sg">
+                    <ruby data-class="gcaidj_sg" class="gcaidj_sls gcaidj_sln" onclick="reduce();">
+                      <img src="../image/gcaidj_pic7.png" alt="">
+                    </ruby>
+                    <input type="text" value="1" readonly class="gcaidj_sli itemNum t-keybord isFloat" data-float="1">
+                    <ruby data-class="gcaidj_sg" class="gcaidj_sla" onclick="add();">
+                      <img src="../image/gcaidj_pic8.png" alt="">
+                    </ruby>
+                </section>
+            </section>
+            <button type="button" class="confirm" style="position:relative;">确定</button>
+        </div>
+    </div>
+    <!-- 数值键盘遮罩层 -->
+    <div id="coverd"></div>
+    <div id="t-keybord">
+        <div class="numbers-content">
+            <div class="numbers-txt-ba2">
+                <!-- <div class="numbers-title">最大数量<span class="sum">999</span></div> -->
+            </div>
+            <div class="numbers-txt-ba">
+                <div class="numbers-txt-box"><span class="numbers-txts"></span><em class="numbers-txte">0</em></div>
+                <div class="numbers-txt-cler">
+                    <div class="clear-text" id="t-del"><img src="../image/del1.png" alt=""></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="numbers-txt-ba1">
+                <div class="numbers-btn-group">
+                    <button type="button" value="11" class="sum-btn-value">1</button>
+                    <button type="button" value="2" class="sum-btn-value">2</button>
+                    <button type="button" value="3" class="sum-btn-value">3</button>
+                    <button type="button" value="4" class="sum-btn-value">4</button>
+                    <button type="button" value="5" class="sum-btn-value">5</button>
+                    <button type="button" value="6" class="sum-btn-value">6</button>
+                    <button type="button" value="7" class="sum-btn-value">7</button>
+                    <button type="button" value="8" class="sum-btn-value">8</button>
+                    <button type="button" value="9" class="sum-btn-value">9</button>
+                    <button type="button" value="0" class="sum-btn-value">0</button>
+                    <button type="button" value="." class="sum-btn-value wrap_xsd">.</button>
+                    <button type="button" value="" class="sum-btn-value"></button>
+                    <!-- <span class="wrap_ys"></span> -->
+                    <spanclass="wrap_xsd1" style="display: none;">
+                        </span>
+                </div>
+                <div class="cifg-btn">
+                    <div class="cifg-btn-confirm modifymi_qk" id="t-clear">清空</div>
+                    <div class="cifg-btn-confirm cancel-btn" id="t-close">取消</div>
+                    <div class="clear"></div>
+                    <div class="cifg-btn-confirm1 modifymi_con" id="t-submit">确认</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../script/datePicker.js"></script>
+<script type="text/javascript" src="../script/encipherment.js"></script>
+<script type="text/javascript" src="../script/md5.js"></script>
+<script type="text/javascript" src="../script/regular.js"></script>
+<script type="text/javascript" src="../script/date.js"></script>
+<script type="text/javascript" src="../script/rolldate.min.js"></script>
+
+<script type="text/javascript" src="../script/swiper.min.js"></script>
+<script type="text/javascript" src="../script/txtscroll.js"></script>
+<script type="text/javascript" src="../script/logout.js"></script>
+<script type="text/javascript" src="../script/sshuzijianpan.js"></script>
+<script type="text/javascript">
+    var selectZid = "";
+    var itemId, attrId = 0,
+        falg = 0,
+    apiready = function() {
+        //修改手机状态栏字体颜色
+        api.setStatusBarStyle({
+            style: 'dark'
+        });
+        var header = $api.byId('header');
+        var headers = $api.byId('headers');
+        $api.fixStatusBar(header);
+        $api.fixStatusBar(headers);
+        // 配送时间
+        data();
+        fnGetWareList();
+        // 先判断是否登录
+        if (!isNotEmpry($api.getStorage('token'))) {
+            api.toast({
+                msg: '未登录',
+                duration: 2000,
+                location: 'middle'
+            });
+            setTimeout(function() {
+                api.openWin({
+                    name: 'login',
+                    url: 'login.html',
+                    reload: true,
+                    slidBackEnabled: false
+                });
+            }, 2000);
+            return;
+        }
+        api.showProgress({
+            title: '努力加载中...',
+            modal: false
+        });
+        var timeStamp = timestamp();
+        var sign = getSign("appid=" + $api.getStorage("appid") + "&timeStamp=" + timeStamp);
+        api.ajax({
+            url: $api.getStorage("URL") + '/mobileOrder/addInfo',
+            method: 'GET',
+            headers: {
+                'Authorization': $api.getStorage('token')
+            },
+            returnAll: true,
+            data: {
+                values: {
+                    appid: $api.getStorage("appid"),
+                    active:2,
+                    timeStamp: timeStamp,
+                    sign: sign
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                judgement(ret.body.code, ret.msg)
+                var body = ret.body;
+                var headers = ret.headers;
+                if (isNotEmpry(headers.Authorization)) {
+                    $api.setStorage('token', headers.Authorization);
+                }
+                if (body.code == 200) {
+                    var data = body.data;
+                    var userInfo = data.userInfo;
+                    if (data.countNum == 0) {
+                        $api.css($api.dom(".wu_good"), "display:block");
+                        $api.css($api.dom(".you_good"), "display:none");
+                    } else {
+                        $api.css($api.dom(".you_good"), "display:block");
+                        // 商品数量
+                        $api.html($api.dom(".countNum"), data.countNum);
+                        // alert(data.totalPrice)
+                        // 判断是否显示价格
+                        if (data.is_look == 1) {
+                            $api.html($api.dom(".totalPrice"), "￥" + data.totalPrice);
+                            // 运费
+                            $api.html($api.dom(".fare"), data.fare);
+                            // $api.html($api.dom(".fare2"), "￥"+data.fare);
+                            $api.html($api.dom(".countPrice"), "￥" + data.countPrice);
+                        } else {
+                            $api.html($api.dom(".totalPrice"), "￥***");
+                            // 运费
+                            $api.html($api.dom(".fare"), "***");
+                            // $api.html($api.dom(".fare2"), "￥***");
+                            $api.html($api.dom(".countPrice"), "￥***");
+                        }
+                        // 地址信息
+                        if (isNotEmpry(userInfo)) {
+                            if (isNotEmpry(userInfo.details)) {
+                                $api.html($api.dom(".address"), userInfo.address + userInfo.details);
+                            } else {
+                                $api.html($api.dom(".address"), userInfo.address);
+                            }
+
+                            $api.html($api.dom(".contact"), userInfo.contact);
+                            $api.html($api.dom(".phone"), userInfo.phone);
+                        }
+                        // 时间范围
+                        if (isNotEmpry(data.open_time) && isNotEmpry(data.end_time)) {
+                            $api.html($api.dom(".openTime"), data.open_time);
+                            $api.html($api.dom(".endTime"), data.end_time);
+                        }
+                        // 判断是否是子账号 0否1是
+                        if (data.is_child == 0) {
+                            var childList = data.childList;
+                            var listStr = "<option value='0'>当前账号</option>";
+                            if (isNotEmpry(childList) && childList.length > 0) {
+                                for (var i = 0; i < childList.length; i++) {
+                                    listStr += "<option value='" + childList[i].zid + "'>" + childList[i].nickname + "</option>";
+                                }
+                            }
+                            $api.html($api.byId("selecteds"), listStr);
+                        } else {
+                            $api.css($api.dom(".child"), 'display:none');
+                        }
+                    }
+                } else {
+                    api.toast({
+                        msg: body.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+            api.hideProgress();
+        });
+        // 子账号列表
+        $("#selecteds").change(function() {
+            //要触发的事件
+            selectZid = $api.byId('selecteds').value;
+            if (selectZid == 0) {
+                selectZid = '';
+            }
+            memberAddressInfo(selectZid);
+        });
+        // 跳转地址修改页面
+        $api.addEvt($api.dom(".gcaidjs_dz"), 'click', function() {
+            // 获取配送时间
+            var sendTime = $api.val($api.dom(".sendTime"));
+            // 获取备注
+            var remark = $api.val($api.byId("remark"));
+            api.openWin({
+                name: 'saddress',
+                url: 'saddress.html',
+                reload: true,
+                pageParam: {
+                    selectZid: selectZid,
+                    sendTime: sendTime,
+                    remark: remark,
+                    flag: 2
+                },
+                slidBackEnabled: false
+            });
+        });
+        // 确定下单
+        $api.addEvt($api.dom(".gcaidjs_xdr"), 'click', function() {
+            var sendTime = $api.val($api.dom(".sendTime"));
+            api.showProgress({
+                title: '努力加载中...',
+                modal: false
+            });
+            var timeStamp = timestamp();
+            var sign = getSign("appid=" + $api.getStorage("appid") + "&send_time=" + sendTime + "&timeStamp=" + timeStamp);
+            api.ajax({
+                url: $api.getStorage("URL") + '/mobileOrder/testOrder',
+                method: 'GET',
+                headers: {
+                    'Authorization': $api.getStorage('token')
+                },
+                returnAll: true,
+                data: {
+                    values: {
+                        appid: $api.getStorage("appid"),
+                        active:2,
+                        send_time: sendTime,
+                        select_zid: selectZid,
+                        timeStamp: timeStamp,
+                        sign: sign
+                    }
+                }
+            }, function(ret, err) {
+                if (ret) {
+                    judgement(ret.body.code, ret.msg)
+                    var body = ret.body;
+                    var headers = ret.headers;
+                    if (isNotEmpry(headers.Authorization)) {
+                        $api.setStorage('token', headers.Authorization);
+                    }
+                    if (body.code == 200 || body.code == 301) {
+                        mergeOrder(sendTime);
+                    } else if (body.code == 101 || body.code == 300) {
+                        addOrder(sendTime);
+                    } else {
+                        api.toast({
+                            msg: body.msg,
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                    }
+                } else {
+                    api.toast({
+                        msg: JSON.stringify(err),
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+                api.hideProgress();
+            });
+        });
+        // 添加购物车
+        $api.addEvt($api.dom(".confirm"), 'click', function() {
+            if (isNotEmpry($api.getStorage('token'))) {
+                if (falg == 1 && attrId == 0) {
+                    api.toast({
+                        msg: "请选择规格",
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                    return;
+                }
+                var itemNum = $api.val($api.dom(".itemNum"));
+                api.showProgress({
+                    title: '努力加载中...',
+                    modal: false
+                });
+                var timeStamp = timestamp();
+                var sign = getSign("appid=" + $api.getStorage("appid") + "&attr_id=" + attrId + "&item_num=" + itemNum + "&item_id=" + itemId + "&timeStamp=" + timeStamp);
+                api.ajax({
+                    url: $api.getStorage("URL") + '/mobileOrder/firstChangeNum',
+                    method: 'POST',
+                    headers: {
+                        'Authorization': $api.getStorage('token')
+                    },
+                    returnAll: true,
+                    data: {
+                        values: {
+                            appid: $api.getStorage("appid"),
+                            active:2,
+                            attr_id: attrId,
+                            item_num: itemNum,
+                            item_id: itemId,
+                            timeStamp: timeStamp,
+                            sign: sign
+                        }
+                    }
+                }, function(ret, err) {
+                    if (ret) {
+                        judgement(ret.body.code, ret.msg)
+                        var body = ret.body;
+                        var headers = ret.headers;
+                        if (isNotEmpry(headers.Authorization)) {
+                            $api.setStorage('token', headers.Authorization);
+                        }
+                        if (body.code == 200) {
+                            api.toast({
+                                msg: body.msg,
+                                duration: 2000,
+                                location: 'middle'
+                            });
+                            falg = 0;
+                            $("#cover").hide();
+                            $("#modal").hide();
+                            $("body").css("overflow", "auto");
+                            window.location.reload();//刷新页面
+
+                        } else {
+                            api.toast({
+                                msg: body.msg,
+                                duration: 2000,
+                                location: 'middle'
+                            });
+                        }
+                    } else {
+                        api.toast({
+                            msg: JSON.stringify(err),
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                    }
+                    api.hideProgress();
+                });
+            } else {
+                api.openWin({
+                    name: 'login',
+                    url: 'login.html',
+                    reload: true,
+                    slidBackEnabled: false
+                });
+            }
+        });
+    };
+    // 跳转到商品详情页
+    function openGood(is_detail, id) {
+        // 判断是否可以查看详情页
+        if (is_detail == 1) {
+            api.openWin({
+                name: 'good_details',
+                url: './good_details.html',
+                pageParam: {
+                    id: id
+                },
+                reload: true,
+                slidBackEnabled: false,
+            });
+        } else {
+            api.toast({
+                msg: '详情页暂未开放',
+                duration: 2000,
+                location: 'middle'
+            });
+        }
+    }
+    //获取数据
+    function fnGetWareList() {
+        var timeStamp = timestamp();
+        var sign = getSign("appid=" + $api.getStorage("appid") + "&timeStamp=" + timeStamp);
+        // 获取首页商品
+        api.ajax({
+            url: $api.getStorage("URL") + '/mobileOrder/indexItem',
+            method: 'GET',
+            headers: {
+                'Authorization': $api.getStorage('token')
+            },
+            returnAll: true,
+            data: {
+                body: {
+                    appid: $api.getStorage("appid"),
+                    active:2,
+                    timeStamp: timeStamp,
+                    page: 1,
+                    num: 8,
+                    sign: sign
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                judgement(ret.body.code, ret.msg)
+                var body = ret.body;
+                var headers = ret.headers;
+                if (isNotEmpry(headers.Authorization)) {
+                    $api.setStorage('token', headers.Authorization);
+                }
+                if (body.code == 200) {
+
+                    var list = body.data.list;
+                    // console.log(JSON.stringify(list))
+                    if (isNotEmpry(list) && list.length > 0) {
+                        var listStr = "";
+                        for (var i = 0; i < list.length; i++) {
+                            listStr += "<li>";
+                            listStr += "<section class='gcaidjh_jxb'>";
+                            listStr += "<a href='javascript:void(0);' tampode onclick='openGood(" + body.data.is_detail + "," + list[i].id + ");'>";
+                            listStr += "<cite>" + list[i].title + "</cite>";
+                            listStr += "<div class='gcaidjimg_po'>";
+                            if (isNotEmpry(list[i].img)) {
+                                listStr += "<img onload='fnLoadImage(this);' data-url='" + $api.getStorage("URL") + list[i].img + "' src='' class='gcaidjimg_poi' alt='暂无图片' onerror='onerrors(this,\"" + body.data.item_default + "\");'>";
+                            } else {
+                                listStr += "<img onload='fnLoadImage(this);' data-url='" + $api.getStorage("URL") + body.data.item_default + "' src='' class='gcaidjimg_poi' alt='暂无图片' onerror='onerrors(this,\"" + body.data.item_default +
+                                    "\");'>";
+                            }
+                            listStr += "<span class='daily_img'>";
+                            // 判断水印是否显示 0否1是
+                            if (body.data.shuiyin == 1) {
+                                listStr += "<img src='" + $api.getStorage("URL") + body.data.logo + "'>";
+                            }
+                            listStr += "</span>";
+                            // 判断右上角文字 数据为空则不显示
+                            if (isNotEmpry(list[i].label)) {
+                                listStr += "<span class='daily_xi'>";
+                                listStr += "<span></span>";
+                                listStr += "<strong class='daily_xis'>" + list[i].label.substr(0, 2) + "</strong>";
+                                listStr += "</span>";
+                            }
+                            listStr += "</div>";
+                            listStr += "</a>";
+                            listStr += "<section class='clear'></section>";
+                            listStr += "<div style='margin-top:10px;'>";
+                            listStr += "<section class='gcaidjh_jxl'>";
+                            if (isNotEmpry(list[i].describe)) {
+                                listStr += "<aside class='vueappsy_add on'>" + list[i].describe + "</aside>";
+                            } else {
+                                listStr += "<aside class='vueappsy_add on'></aside>";
+                            }
+                            // 判断是否可以查看价格 0否1是
+                            if (body.data.is_look == 1) {
+                                if (isNotEmpry(list[i].attr)) {
+                                    if (list[i].market_price == 1) {
+                                        // 参与时价
+                                        listStr += "<address class='gcaidjh_jxb_m'>￥时价</address>";
+                                    } else {
+                                        listStr += "<address class='gcaidjh_jxb_m'>￥" + list[i].area_price + "</address>";
+                                    }
+
+                                } else {
+                                    // 判断该商品是否参与活动 0否1是 如果是则显示活动价格
+                                    if (list[i].is_activity == 1) {
+                                        listStr += "<address class='gcaidjh_jxb_m'>￥" + list[i].activity_price + "元/" + list[i].unit + "</address>";
+                                    } else {
+                                        // 如果没有参与活动 则判断是否开启时价 0否1是
+                                        if (list[i].market_price == 1) {
+                                            // 参与时价
+                                            listStr += "<address class='gcaidjh_jxb_m'>￥时价</address>";
+                                        } else {
+                                            listStr += "<address class='gcaidjh_jxb_m'>￥" + list[i].price + "元/" + list[i].unit + "</address>";
+                                        }
+                                    }
+                                }
+                            } else {
+                                listStr += "<address class='gcaidjh_jxb_m'>￥***</address>";
+                            }
+                            listStr += "</section>";
+                            listStr += "<section class='gcaidjh_jxr' tampode onclick='fnOpenShopCar(" + list[i].id + ");'>";
+                            listStr += "<i class='iconfont'><img src='../image/shopcar.jpg'></i>";
+                            listStr += "</section>";
+                            listStr += "</div>";
+                            listStr += "<section class='clear'></section>";
+                            listStr += "</section>";
+                            listStr += "</li>";
+                        }
+                        var list = $api.byId('list');
+                        $api.html(list, listStr);
+                    } else {
+                        $api.html($api.dom("#up"), '没有数据啦！');
+                    }
+                } else {
+                    api.toast({
+                        msg: body.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+        });
+    }
+    // 加入购物车
+    function fnOpenShopCar(id) {
+        api.showProgress({
+            title: '努力加载中...',
+            modal: false
+        });
+        var timeStamp = timestamp();
+        var sign = getSign("appid=" + $api.getStorage("appid") + "&id=" + id + "&timeStamp=" + timeStamp);
+        api.ajax({
+            url: $api.getStorage("URL") + '/mobileOrder/getItemById',
+            method: 'GET',
+            headers: {
+                'Authorization': $api.getStorage('token')
+            },
+            returnAll: true,
+            data: {
+                values: {
+                    appid: $api.getStorage("appid"),
+                    active:2,
+                    id: id,
+                    timeStamp: timeStamp,
+                    sign: sign
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                judgement(ret.body.code, ret.msg)
+                var body = ret.body;
+                var headers = ret.headers;
+                if (isNotEmpry(headers.Authorization)) {
+                    $api.setStorage('token', headers.Authorization);
+                }
+                if (body.code == 200) {
+                    itemId = id;
+                    var data = body.data;
+                    // 是否可以输入小数
+                    $api.attr($api.dom(".isFloat"), 'data-float', data.is_float);
+                    $api.text($api.dom(".title"), data.title);
+                    $api.text($api.dom(".describe"), data.describe);
+                    $api.val($api.dom(".itemNum"), 1);
+                    if (isNotEmpry(data.img)) {
+                        $api.html($api.dom(".goodsImage"), "<img src='" + $api.getStorage("URL") + data.img + "' onerror='onerrors(this,\"" + data.item_default + "\");'>");
+                    } else {
+                        $api.html($api.dom(".goodsImage"), "<img src='" + $api.getStorage("URL") + data.item_default + "' onerror='onerrors(this,\"" + data.item_default + "\");'>");
+                    }
+                    // 判断是否显示价格
+                    if (data.is_look == 1) {
+                        // 判断是否含有属性
+                        if (isNotEmpry(data.attr)) {
+                            // 判断是否参与时价
+                            if (data.market_price == 1) {
+                                $api.html($api.dom(".price"), "￥时价");
+                            } else {
+                                $api.html($api.dom(".price"), "￥" + data.area_price);
+                            }
+
+                        } else {
+                            // 判断是否参与时价
+                            if (data.market_price == 1) {
+                                $api.html($api.dom(".price"), "￥时价");
+                            } else {
+                                $api.html($api.dom(".price"), "￥" + data.price);
+                            }
+                        }
+                    } else {
+                        $api.html($api.dom(".price"), "￥***");
+                    }
+                    var attrList = data.attr;
+                    // 规格
+                    if (isNotEmpry(attrList)) {
+                        falg = 1;
+                        attrId = 0;
+                        $api.css($api.dom(".attrListParents"), "display:block");
+                        var listStr = "";
+                        for (var i = 0; i < attrList.length; i++) {
+                            // listStr += "<ruby class='mores' attr_id='"+attrList[i].id+"' attr_price='"+attrList[i].attr_price+"' onclick='mores(this);'>"+attrList[i].attr_title+"</ruby>"
+                            listStr += "<ruby class='mores' attr_id='" + attrList[i].id + "' attr_price='" + attrList[i].attr_price + "' market_price='" + attrList[i].market_price + "' onclick='mores(this);'>" + attrList[i].attr_title + "/" + attrList[i].unit + "</ruby>"
+                        }
+                        $api.html($api.dom(".attrList"), listStr);
+                    } else {
+                        $api.css($api.dom(".attrListParents"), "display:none");
+                    }
+                    $("#cover").show();
+                    $("#modal").show();
+                    $("#cover").css("height", $(document.body).height());
+                    $("body").css("overflow", "hidden");
+                } else {
+                    api.toast({
+                        msg: body.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+            api.hideProgress();
+        });
+    }
+    // 增加数量
+    function add() {
+        var itemNum = $api.val($api.dom(".itemNum"));
+        if (itemNum < 999) {
+            itemNum++;
+            $api.val($api.dom(".itemNum"), itemNum);
+        }
+    }
+    // 减少数量
+    function reduce() {
+        var itemNum = $api.val($api.dom(".itemNum"));
+        if (itemNum > 1) {
+            itemNum--;
+            $api.val($api.dom(".itemNum"), itemNum);
+        }
+    }
+    // 选择规格
+    function mores(obj) {
+        $(".mores").removeClass("on");
+        $(obj).addClass("on");
+        attrId = $(obj).attr("attr_id");
+        var market_price = $(obj).attr("market_price");
+        // 判断是否参与时价
+        if (market_price == 1) {
+            $api.html($api.dom(".price"), "￥时价");
+        } else {
+            $api.html($api.dom(".price"), "￥" + $(obj).attr("attr_price"));
+        }
+
+    }
+    //关闭购物车弹窗
+    function closeWin() {
+        $("#cover").hide();
+        $("#modal").hide();
+        $("body").css("overflow", "auto");
+        falg = 0;
+    }
+    // 图片缓存
+    function fnLoadImage(ele_) {
+        var dataUrl = $api.attr(ele_, 'data-url');
+        if (dataUrl) {
+            api.imageCache({
+                url: dataUrl
+            }, function(ret, err) {
+                if (ret) {
+                    ele_.src = ret.url;
+                    $api.attr(ele_, 'data-url', '');
+                }
+            });
+        }
+    }
+    // 获取地址
+    function memberAddressInfo(selectZid) {
+        var timeStamp = timestamp();
+        var sign = getSign("appid=" + $api.getStorage("appid") + "&timeStamp=" + timeStamp);
+        api.ajax({
+            url: $api.getStorage("URL") + '/mobileOrder/memberAddressInfo',
+            method: 'GET',
+            returnAll: true,
+            headers: {
+                'Authorization': $api.getStorage('token')
+            },
+            data: {
+                values: {
+                    appid: $api.getStorage("appid"),
+                    active:2,
+                    select_zid: selectZid,
+                    timeStamp: timeStamp,
+                    sign: sign
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                judgement(ret.body.code, ret.msg)
+                var body = ret.body;
+                var headers = ret.headers;
+                if (isNotEmpry(headers.Authorization)) {
+                    $api.setStorage('token', headers.Authorization);
+                }
+                if (body.code == 200) {
+                    var userInfo = body.data;
+                    $api.html($api.dom(".address"), userInfo.address + userInfo.details);
+                    $api.html($api.dom(".contact"), userInfo.contact);
+                    $api.html($api.dom(".phone"), userInfo.phone);
+                } else {
+                    api.toast({
+                        msg: body.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+            api.hideProgress();
+        });
+    }
+    // 直接下单
+    function addOrder(sendTime) {
+        api.confirm({
+            title: '提示',
+            msg: '直接下单？',
+            buttons: ['确定', '取消']
+        }, function(ret, err) {
+            var index = ret.buttonIndex;
+            if (index == 1) {
+                var remark = $api.val($api.byId("remark"));
+                api.showProgress({
+                    title: '努力加载中...',
+                    modal: false
+                });
+                var timeStamp = timestamp();
+                var sign = getSign("appid=" + $api.getStorage("appid") + "&send_time=" + sendTime + "&timeStamp=" + timeStamp + "&way=2");
+                api.ajax({
+                    url: $api.getStorage("URL") + '/mobileOrder/addOrder',
+                    method: 'POST',
+                    headers: {
+                        'Authorization': $api.getStorage('token')
+                    },
+                    returnAll: true,
+                    data: {
+                        values: {
+                            appid: $api.getStorage("appid"),
+                            active:2,
+                            remark: remark,
+                            send_time: sendTime,
+                            select_zid: selectZid,
+                            sign: sign,
+                            timeStamp: timeStamp,
+                            way: 2,
+                        }
+                    }
+                }, function(ret, err) {
+                    if (ret) {
+                        judgement(ret.body.code, ret.msg)
+                        var body = ret.body;
+                        var headers = ret.headers;
+                        if (isNotEmpry(headers.Authorization)) {
+                            $api.setStorage('token', headers.Authorization);
+                        }
+                        if (body.code == 200) {
+                            // api.closeWin();
+                            window.location.reload();//刷新页面
+                            api.openWin({
+                                name: 'shopsuccess',
+                                url: 'shopsuccess.html',
+                                reload: true,
+                                pageParam: {
+                                    id: body.data.orderId
+                                },
+                                slidBackEnabled: false
+                            });
+
+                        } else {
+                            api.toast({
+                                msg: body.msg,
+                                duration: 2000,
+                                location: 'middle'
+                            });
+                        }
+                    } else {
+                        api.toast({
+                            msg: JSON.stringify(err),
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                    }
+                    api.hideProgress();
+                });
+            }
+        });
+    }
+    // 合并下单
+    function mergeOrder(sendTime) {
+        api.confirm({
+            title: '提示',
+            msg: '可以合并订单？',
+            buttons: ['确定', '取消']
+        }, function(ret, err) {
+            var index = ret.buttonIndex;
+            if (index == 1) {
+                var remark = $api.val($api.byId("remark"));
+                api.showProgress({
+                    title: '努力加载中...',
+                    modal: false
+                });
+                var timeStamp = timestamp();
+                var sign = getSign("appid=" + $api.getStorage("appid") + "&send_time=" + sendTime + "&timeStamp=" + timeStamp + "&way=2");
+                api.ajax({
+                    url: $api.getStorage("URL") + '/mobileOrder/mergeOrder',
+                    method: 'POST',
+                    headers: {
+                        'Authorization': $api.getStorage('token')
+                    },
+                    returnAll: true,
+                    data: {
+                        values: {
+                            appid: $api.getStorage("appid"),
+                            active:2,
+                            remark: remark,
+                            send_time: sendTime,
+                            select_zid: selectZid,
+                            sign: sign,
+                            timeStamp: timeStamp,
+                            way: 2,
+                        }
+                    }
+                }, function(ret, err) {
+                    if (ret) {
+                        judgement(ret.body.code, ret.msg)
+                        var body = ret.body;
+                        var headers = ret.headers;
+                        if (isNotEmpry(headers.Authorization)) {
+                            $api.setStorage('token', headers.Authorization);
+                        }
+                        if (body.code == 200) {
+                            // api.closeWin();
+                            window.location.reload();//刷新页面
+                            api.openWin({
+                                name: 'shopsuccess',
+                                url: 'shopsuccess.html',
+                                reload: true,
+                                pageParam: {
+                                    id: body.data.orderId
+                                },
+                                slidBackEnabled: false
+                            });
+
+                        } else {
+                            api.toast({
+                                msg: body.msg,
+                                duration: 2000,
+                                location: 'middle'
+                            });
+                        }
+                    } else {
+                        api.toast({
+                            msg: JSON.stringify(err),
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                    }
+                    api.hideProgress();
+                });
+            } else {
+                // 点击取消，显示直接下单
+                addOrder(sendTime)
+            }
+        });
+    }
+    // 跳转分类页
+    function openClassify() {
+        api.openWin({
+            name: 'classify',
+            url: './classify.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+    // 跳转首页
+    function openIndex() {
+        api.openWin({
+            name: 'index',
+            url: 'index.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+    // 跳转订单页
+    function openOrder() {
+        api.openWin({
+            name: 'order',
+            url: './order.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+    // 跳转我的
+    function openMine() {
+        api.openWin({
+            name: 'mine',
+            url: './mine.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+    // 配送时间选择
+    function data() {
+        var date = GetDateStr(1);
+        new rolldate.Date({
+            el: '#start_date',
+            format: 'YYYY-MM-DD',
+            beginYear: 2019,
+            endYear: 2100,
+            value: date //或2017-10-21 23:52:50
+        })
+    }
+    // 跳转购物车列表
+    function openShopList() {
+        api.openWin({
+            name: 'shoplist',
+            url: 'shoplist.html',
+            reload:true,
+            slidBackEnabled: false
+        });
+    }
+    // 从购物车列表携带参数
+    function shopInfos(jsonStr) {
+        var fare = $api.html($api.dom(".fare"));
+        $api.html($api.dom(".countPrice"), "￥" + jsonStr.countPrice);
+        $api.html($api.dom(".countNum"), jsonStr.countNum);
+        $api.html($api.dom(".totalPrice"), "￥" + numAdd(fare, jsonStr.countPrice));
+    }
+    // 从地址修改页面携带参数
+    function infos(jsonStr) {
+        $api.html($api.dom(".address"), jsonStr.address);
+        $api.html($api.dom(".contact"), jsonStr.contact);
+        $api.html($api.dom(".phone"), jsonStr.phone);
+    }
+</script>
+
+</html>

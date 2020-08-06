@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/charge.css" />
+    <title>充值支付</title>
+</head>
+
+<body>
+    <div id="header"></div>
+    <div class="wbk">
+        <div class="czbh"> <span>订单编号</span><i class="orderSn"></i> </div>
+        <div class="czbh"> <span>配送时间</span><i class="sendTime"></i> </div>
+        <div class="czbh"> <span>订单金额</span><i class="numTotal"></i> </div>
+        <div class="czbh"> <span>我的余额</span><i class="czje">¥<b class="weightTotal"></b></i> </div>
+        <div class="czbh"> <span>余额支付</span><i>¥<b class="fare"></b></i> </div>
+        <div class="czbh"> <span>微信支付</span><i class="czje">¥<b class="total"></b></i> </div>
+
+        <div class="zhushi">注：平台不会以订单异常，系统升级等理由要求您点击任何链接进行退款操作，请提高警惕谨防受骗</div>
+        <div class="anniu"> <span class="fhsy" tampode onclick="openorder()">返回订单</span> <span class="qrcz">去支付</span> </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/encipherment.js"></script>
+<script type="text/javascript" src="../script/md5.js"></script>
+<script type="text/javascript" src="../script/regular.js"></script>
+<script type="text/javascript" src="../script/date.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+        //修改手机状态栏字体颜色
+        api.setStatusBarStyle({
+            style: 'dark'
+        });
+        var header = $api.byId('header');
+        $api.fixStatusBar(header);
+        // 监听页面消失的时候，关掉页面就可以了
+        api.addEventListener({
+            name: 'viewdisappear'
+        }, function() {
+            api.closeWin();
+        });
+        var id = api.pageParam.id;
+        api.showProgress({
+            title: '努力加载中...',
+            modal: false
+        });
+        var wxParams;
+        var timeStamp = timestamp();
+        var sign = getSign("appid=" + $api.getStorage("appid") + "&oid=" + id + "&type=app" + "&timeStamp=" + timeStamp);
+        api.ajax({
+            url: $api.getStorage("URL") + '/mobileOrder/payOrder',
+            method: 'POST',
+            headers: {
+                'Authorization': $api.getStorage('token')
+            },
+            returnAll: true,
+            data: {
+                values: {
+                    appid: $api.getStorage("appid"),
+                    active:2,
+                    oid: id,
+                    type: "app",
+                    timeStamp: timeStamp,
+                    sign: sign
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                judgement(ret.body.code, ret.msg)
+                var body = ret.body;
+                var headers = ret.headers;
+                if (isNotEmpry(headers.Authorization)) {
+                    $api.setStorage('token', headers.Authorization);
+                }
+                if (body.code == 200) {
+                    var data = body.data;
+                    $api.text($api.dom(".orderSn"), data.order_sn);
+                    $api.text($api.dom(".sendTime"), data.send_time);
+                    $api.text($api.dom(".numTotal"), data.total_fee);
+                    $api.text($api.dom(".weightTotal"), data.myBalance);
+                    $api.text($api.dom(".fare"), data.payBalance);
+                    $api.text($api.dom(".total"), data.payWx);
+                    wxParams = data.wxParams;
+                } else {
+                    api.toast({
+                        msg: body.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+            api.hideProgress();
+        });
+        // 去支付
+        $api.addEvt($api.dom(".qrcz"), 'click', function() {
+            var wxPay = api.require('wxPay');
+            wxPay.payOrder({
+                apiKey: wxParams.appid,
+                orderId: wxParams.prepayid,
+                mchId: wxParams.partnerid,
+                nonceStr: wxParams.noncestr,
+                timeStamp: wxParams.timestamp,
+                package: wxParams.package,
+                sign: wxParams.sign
+            }, function(ret, err) {
+                if (ret.status) {
+                    //支付成功
+                    api.toast({
+                        msg: "支付成功",
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                    setTimeout(function() {
+                        api.openWin({
+                            name: 'mine',
+                            url: 'mine.html',
+                            reload: true,
+                            slidBackEnabled: false
+                        });
+                    }, 2000);
+                } else {
+                    api.toast({
+                        msg: "支付失败",
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            });
+        });
+    };
+    // 返回订单页
+    function openorder() {
+        api.openWin({
+            name: 'order',
+            url: 'order.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+</script>
+
+</html>

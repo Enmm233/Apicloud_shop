@@ -1,0 +1,227 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>map</title>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+    <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css" />
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.10&key=fea0da20a0ca6fed50a5e86c0e89c26e&plugin=AMap.Autocomplete,AMap.PlaceSearch"></script>
+    <!-- <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script> -->
+    <script type="text/javascript" src="../script/api.js"></script>
+    <script type="text/javascript" src="../script/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="../script/regular.js"></script>
+    <style>
+        body,html{
+            background: white;
+        }
+        #container{
+            width:100%;
+            height: 300px;
+        }
+        .amap-icon img,
+        .amap-marker-content img{
+            width: 25px;
+            height: 34px;
+        }
+        .marker {
+            position: absolute;
+            top: -20px;
+            right: -118px;
+            color: #fff;
+            padding: 4px 10px;
+            box-shadow: 1px 1px 1px rgba(10, 10, 10, .2);
+            white-space: nowrap;
+            font-size: 12px;
+            font-family: "";
+            background-color: #25A5F7;
+            border-radius: 3px;
+        }
+        #myPageTop input {width: 100%;outline: none;}
+        #myPageTop {width: 100%;right: 0;top:0px;margin: 0 auto;padding-top: 25px;}
+        .amap-logo {display: none !important;}
+        .amap-copyright {display: none !important;}
+        .amap-touch-toolbar .amap-zoomcontrol {display: none;}
+    </style>
+    <body>
+        <div id="container"></div>
+        <div id="myPageTop">
+            <table style="width: 100%;">
+                <tr>
+                    <td>
+                        <input id="tipinput"/>
+                    </td>
+                    <td style='text-align: center;' tampode onclick="openSaddress()">
+                        <label>确定</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+    <script type="text/javascript">
+        var LNG,LAT,city,dizhi, falg,dz,adres,values,map,addressInfo = [];
+        apiready = function() {
+            map = new AMap.Map('container', {
+                resizeEnable: true
+            });
+            //修改手机状态栏字体颜色
+            api.setStatusBarStyle({
+                style: 'dark'
+            });
+            // 监听页面消失的时候，关掉页面就可以了
+            api.addEventListener({
+                name: 'viewdisappear'
+            }, function() {
+                api.closeWin();
+            });
+            // 获取原始地址信息
+            dizhi = api.pageParam.addressArr;
+            falg = api.pageParam.falg;
+            addressInfo = dizhi;
+            // 判断是否是修改地址信息操作
+            if (isNotEmpry(dizhi)) {
+                $("#tipinput").val(dizhi[0]);
+                dz = dizhi[0];
+                LNG = dizhi[1];
+                LAT = dizhi[2];
+                adres = dizhi[3];
+                if(isNotEmpry(LNG) && isNotEmpry(LAT)){
+                    var marker, maps = new AMap.Map("container", {
+                        resizeEnable: true,
+                        center: [LNG, LAT],
+                        zoom: 13,
+                    });
+                    var marker = new AMap.Marker({
+                        icon: "https://a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
+                        position: [LNG, LAT],
+                        offset: new AMap.Pixel(-13, -30)
+                    });
+                    marker.setMap(maps);
+                }
+            }
+            //打开地图
+            bmap();
+        }
+        function bmap(){
+            AMap.plugin('AMap.Geolocation', function() {
+                var geolocation = new AMap.Geolocation({
+                    enableHighAccuracy: true, //是否使用高精度定位，默认:true
+                    timeout: 10000, //超过10秒后停止定位，默认：5s
+                    buttonPosition: 'RB', //定位按钮的停靠位置
+                    buttonOffset: new AMap.Pixel(10, 20), //定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+                    zoomToAccuracy: true, //定位成功后是否自动调整地图视野到定位点
+
+                });
+                map.addControl(geolocation);
+                geolocation.getCurrentPosition(function(status, result) {
+                    if (status == 'complete') {
+                        onComplete(result);
+                    } else {
+                        onError(result);
+                    }
+                });
+            });
+        }
+        //解析定位结果
+        function onComplete(data) {
+            //输入提示
+            var autoOptions = {
+                input: "tipinput"
+            };
+            var auto = new AMap.Autocomplete(autoOptions);
+            var placeSearch = new AMap.PlaceSearch({
+                map: map
+            }); //构造地点查询类
+            AMap.event.addListener(auto, "select", select); //注册监听，当选中某条记录时会触发
+            function select(e) {
+                addressInfo[0] = e["poi"]["name"];
+                addressInfo[1] = e["poi"]["location"]["lng"];
+                addressInfo[2] = e["poi"]["location"]["lat"];
+                addressInfo[3] = e["poi"]["district"];
+                LNG = e["poi"]["location"]["lng"];
+                LAT = e["poi"]["location"]["lat"];
+                var marker, map = new AMap.Map("container", {
+                    resizeEnable: true,
+                    center: [LNG, LAT],
+                    zoom: 13,
+                });
+                var marker = new AMap.Marker({
+                    icon: "https://a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
+                    position: [LNG, LAT],
+                    offset: new AMap.Pixel(-13, -30)
+                });
+                marker.setMap(map);
+            }
+        }
+        //解析定位错误信息
+        function onError(data) {
+            document.getElementById('status').innerHTML = '定位失败'
+            document.getElementById('result').innerHTML = '失败原因排查信息:' + data.message;
+        }
+        // 将获取的数据返回进入的页面
+        function openSaddress() {
+            if (isNotEmpry(addressInfo)) {
+                // 1 表示registre_next页面
+                if (falg == 1) {
+                    api.sendEvent({
+                        name: 'registre_next',
+                        extra: {
+                            addressInfo: addressInfo,
+                        }
+                    });
+                    api.openWin({
+                        name: 'registre_next',
+                        url: 'registre_next.html',
+                        slidBackEnabled: false,
+                    });
+                // 2 表示saddress页面
+                }else if (falg == 2) {
+                    api.sendEvent({
+                        name: 'saddress',
+                        extra: {
+                            addressInfo: addressInfo,
+                        }
+                    });
+                    api.openWin({
+                        name: 'saddress',
+                        url: 'saddress.html',
+                        slidBackEnabled: false,
+                    });
+                // 3 表示accountcon页面
+                }else if (falg == 3) {
+                    api.sendEvent({
+                        name: 'accountcon',
+                        extra: {
+                            addressInfo: addressInfo,
+                        }
+                    });
+                    api.openWin({
+                        name: 'accountcon',
+                        url: 'accountcon.html',
+                        slidBackEnabled: false,
+                    });
+                }else if (falg == 4) {
+                    api.sendEvent({
+                        name: 'accountadd',
+                        extra: {
+                            addressInfo: addressInfo,
+                        }
+                    });
+                    api.openWin({
+                        name: 'accountadd',
+                        url: 'accountadd.html',
+                        slidBackEnabled: false,
+                    });
+                }
+            }else{
+                api.toast({
+                    msg: '必须点击选择地址',
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+        }
+    </script>
+</html>

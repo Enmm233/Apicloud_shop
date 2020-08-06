@@ -1,0 +1,355 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>下单成功</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../css/car.css" />
+    <link rel="stylesheet" type="text/css" href="../css/order_details.css" />
+</head>
+
+<body>
+    <div class="you_good" style="width: 95%;margin:0 auto;" id="header">
+        <article class="gcaidjs_list">
+            <div>
+                <div class="xin" style="display:block;">
+                    <div class="zhi">支付信息</div>
+                    <div class="dai orderStatus">待审核</div>
+                    <div class="img"><img class="orderImage" src="../image/wait.png" alt="" width="100%" height="100%"></div>
+                    <section class="clear"></section>
+                </div>
+                <!-- 取消订单 -->
+                <div class="xin cancels" style="display:none;">
+                    <div class="zhi">支付信息</div>
+                    <div class="dai" style="color:red">已取消</div>
+                    <div class="img"><img src="../image/cancel.png" alt="" width="100%" height="100%"></div>
+                    <section class="clear"></section>
+                </div>
+                <ol>
+                    <li>
+                        <section class="gcaidjs_list_l">
+                            <dfn>下单时间</dfn>
+                        </section>
+                        <section class="gcaidjs_list_xl createTime" style="cursor: pointer;"></section>
+                        <section class="clear"></section>
+                    </li>
+                    <li>
+                        <section class="gcaidjs_list_l">
+                            <dfn>配送时间</dfn>
+                        </section>
+                        <section class="gcaidjs_list_xl sendTime" style="cursor: pointer;"></section>
+                        <section class="clear"></section>
+                    </li>
+                    <li>
+                        <section class="gcaidjs_list_l">
+                            <dfn>订单编号</dfn>
+                        </section>
+                        <section class="gcaidjs_list_xl orderSn" style="cursor: pointer;"></section>
+                        <section class="clear"></section>
+                    </li>
+                    <li>
+                        <section class="gcaidjs_list_l">
+                            <dfn>商户信息</dfn>
+                        </section>
+                        <section class="gcaidjs_list_xl contact" style="cursor: pointer;"></section>
+                        <section class="clear"></section>
+                    </li>
+                    <li>
+                        <section class="gcaidjs_list_l">
+                            <dfn>联系电话</dfn>
+                        </section>
+                        <section class="gcaidjs_list_xl mobile" style="cursor: pointer;"></section>
+                        <section class="clear"></section>
+                    </li>
+                    <li>
+                        <section class="gcaidjs_list_l">
+                            <dfn>送货地址</dfn>
+                        </section>
+                        <section class="gcaidjs_list_xl address" style="cursor: pointer;line-height:23px;width:70%;font-size:0.6rem;text-align: left;">
+                        </section>
+                        <section class="clear"></section>
+                    </li>
+                    <li>
+                        <section class="gcaidjs_list_l">
+                            <dfn>备注</dfn>
+                        </section>
+                        <section class="gcaidjs_list_xl remark" style="cursor: pointer;"></section>
+                        <section class="clear"></section>
+                    </li>
+                </ol>
+            </div>
+            <div>
+                <div class="xin">
+                    <div class="zhi">金额信息</div>
+                    <section class="clear"></section>
+                </div>
+                <ol>
+                    <li>
+                        <section class="gcaidjs_list_l">
+                            <dfn>下单金额</dfn>
+                        </section>
+                        <section class="gcaidjs_list_xl xdPrice" style="cursor: pointer;color: #f55637;font-weight: 600;">￥0.00</section>
+                        <section class="clear"></section>
+                    </li>
+                    <li>
+                        <section class="gcaidjs_list_l">
+                            <dfn>退货金额</dfn>
+                        </section>
+                        <section class="gcaidjs_list_xl thPrice" style="cursor: pointer;color: #f55637;font-weight: 600;">￥0.00</section>
+                        <section class="clear"></section>
+                    </li>
+                    <li>
+                        <section class="gcaidjs_list_l">
+                            <dfn>运费</dfn>
+                        </section>
+                        <section class="gcaidjs_list_xl deliveryFee" style="cursor: pointer;">￥0.00</section>
+                        <section class="clear"></section>
+                    </li>
+                    <li>
+                        <section class="gcaidjs_list_l">
+                            <dfn>应付金额</dfn>
+                        </section>
+                        <section class="gcaidjs_list_xl yfPrice" style="cursor: pointer;color: #f55637;font-weight: 600;">￥0.00</section>
+                        <section class="clear"></section>
+                    </li>
+                </ol>
+            </div>
+            <div style="margin-bottom:20px;">
+                <div class="xin">
+                    <div class="zhi">商品信息</div>
+                    <section class="clear"></section>
+                </div>
+                <ol class="list">
+                    <!-- <li style="line-height: 30px;margin-top: 10px;height: auto;">
+                        <cite class="mingzi">
+                          <aside><span class='mingzi_mz'>赠</span> 马肉 </aside>
+                          <dfn>￥160.00/斤</dfn>
+                        </cite>
+                        <section class="clear"></section>
+                        <ruby class="good_ruby"></ruby>
+                        <address class="mingzi zi">
+                          <aside>下单数量：1.00</aside>
+                          <dfn>配送数量：0.00</dfn>
+                        </address>
+                        <section class="clear"></section>
+                    </li>
+                    <li style="line-height: 30px;margin-top: 10px;height: auto;">
+                        <cite class="mingzi">
+                            <aside>1、马肉 </aside>
+                            <dfn>￥160.00/斤</dfn>
+                        </cite>
+                        <section class="clear"></section>
+                        <ruby class="good_ruby">(已选青线椒（辣椒）)</ruby>
+                        <address class="mingzi zi">
+                            <aside>下单数量：1.00</aside>
+                            <dfn>配送数量：0.00</dfn>
+                        </address>
+                        <section class="clear"></section>
+                    </li>
+                    <li style="line-height: 30px;margin-top: 10px;height: auto;">
+                        <cite class="mingzi">
+                            <aside>1、马肉 </aside>
+                            <dfn>￥160.00/斤</dfn>
+                        </cite>
+                        <section class="clear"></section>
+                        <ruby class="good_ruby">(已选青线椒（辣椒）)</ruby>
+                        <address class="mingzi zi">
+                            <aside>下单数量：1.00</aside>
+                            <dfn>配送数量：0.00</dfn>
+                        </address>
+                        <section class="clear"></section>
+                    </li> -->
+                </ol>
+            </div>
+        </article>
+        <section class="clear"></section>
+    </div>
+    <!-- 返回首页按钮 -->
+    <div class="shouye" id="div" tampode onclick="openIndex();" style="z-index: 999999999;"></div>
+    <!-- 客服 -->
+    <div class="server" id="server" tampode onclick="openServer();"></div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../script/encipherment.js"></script>
+<script type="text/javascript" src="../script/md5.js"></script>
+<script type="text/javascript" src="../script/regular.js"></script>
+<script type="text/javascript" src="../script/date.js"></script>
+<script type="text/javascript">
+    var tel;
+    apiready = function() {
+        //修改手机状态栏字体颜色
+        api.setStatusBarStyle({
+            style: 'dark'
+        });
+        var header = $api.byId('header');
+        $api.fixStatusBar(header);
+
+        var id = api.pageParam.id;
+        api.showProgress({
+            title: '努力加载中...',
+            modal: false
+        });
+        var timeStamp = timestamp();
+        //获取订单详情
+        var sign = getSign("appid=" + $api.getStorage("appid") + "&id=" + id + "&timeStamp=" + timeStamp);
+        api.ajax({
+            url: $api.getStorage("URL") + '/mobileOrder/orderInfo',
+            method: 'GET',
+            returnAll: true,
+            headers: {
+                'Authorization': $api.getStorage('token')
+            },
+            data: {
+                values: {
+                    appid: $api.getStorage("appid"),
+                    active:2,
+                    id: id,
+                    timeStamp: timeStamp,
+                    sign: sign
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                judgement(ret.body.code, ret.msg)
+                var body = ret.body;
+                var headers = ret.headers;
+                // 判断token是否失效
+                if (isNotEmpry(headers.Authorization)) {
+                    $api.setStorage('token', headers.Authorization);
+                }
+                if (body.code == 200) {
+                    // console.log(JSON.stringify(body));
+                    var data = body.data;
+                    var orderInfo = data.orderInfo;
+                    tel = data.tel;
+                    // 订单状态（0待审核，1备货中，2配送中，3已收货，4已取消）
+                    if (orderInfo.order_status == 0) {
+                        $api.text($api.dom(".orderStatus"), "待审核");
+                    } else if (orderInfo.order_status == 1) {
+                        $api.text($api.dom(".orderStatus"), "备货中");
+                        $api.attr($api.dom(".orderImage"), 'src', '../image/bhz.png');
+                    } else if (orderInfo.order_status == 2) {
+                        $api.text($api.dom(".orderStatus"), "配送中");
+                        $api.attr($api.dom(".orderImage"), 'src', '../image/psz.png');
+                    } else if (orderInfo.order_status == 3) {
+                        $api.text($api.dom(".orderStatus"), "已收货");
+                        $api.attr($api.dom(".orderImage"), 'src', '../image/ysh.png');
+                    } else {
+                        $api.text($api.dom(".orderStatus"), "已取消");
+                        $api.css($api.dom(".orderStatus"), 'color: red;');
+
+                        $api.attr($api.dom(".orderImage"), 'src', '../image/cancel.png');
+                    }
+                    // 下单时间
+                    $api.text($api.dom(".createTime"), orderInfo.create_time);
+                    // 配送时间
+                    $api.text($api.dom(".sendTime"), orderInfo.send_time);
+                    // 订单编号
+                    $api.text($api.dom(".orderSn"), orderInfo.order_sn);
+                    // 商户信息
+                    $api.text($api.dom(".contact"), orderInfo.contact);
+                    // 联系电话
+                    $api.text($api.dom(".mobile"), orderInfo.mobile);
+                    // 送货地址
+                    $api.text($api.dom(".address"), orderInfo.address);
+                    // 备注
+                    $api.text($api.dom(".remark"), orderInfo.remark);
+                    if (data.is_look == 1) {
+                        // 下单金额
+                        $api.text($api.dom(".xdPrice"), "￥" + orderInfo.xd_price);
+                        // 退货金额
+                        $api.text($api.dom(".thPrice"), "￥" + orderInfo.th_price);
+                        // 运费
+                        $api.text($api.dom(".deliveryFee"), "￥" + orderInfo.delivery_fee);
+                        // 应付金额
+                        $api.text($api.dom(".yfPrice"), "￥" + orderInfo.yf_price);
+                    } else {
+                        // 下单金额
+                        $api.text($api.dom(".xdPrice"), "￥***");
+                        // 退货金额
+                        $api.text($api.dom(".thPrice"), "￥***");
+                        // 运费
+                        $api.text($api.dom(".deliveryFee"), "￥***");
+                        // 应付金额
+                        $api.text($api.dom(".yfPrice"), "￥***");
+                    }
+
+
+                    // 商品信息
+                    var list = orderInfo.order_list;
+                    // console.log(JSON.stringify(list))
+                    if (isNotEmpry(list) && list.length > 0) {
+                        var listStr = "";
+                        for (var i = 0; i < list.length; i++) {
+                            listStr += "<li style='line-height: 30px;margin-top: 10px;height: auto;'>";
+                            listStr += "<cite class='mingzi'>";
+                            if(list[i].is_gift != 1){
+                              listStr += "<aside>" + (i + 1) + "、" + list[i].item_title + "</aside>";
+                            }else{
+                              listStr += "<aside> <span class='mingzi_mz'>赠</span> " + list[i].item_title + "</aside>"
+                            }
+
+                            if (data.is_look == 1) {
+                                listStr += "<dfn>￥" + list[i].price + "/" + list[i].unit + "</dfn>";
+                            } else {
+                                listStr += "<dfn>￥***/" + list[i].unit + "</dfn>";
+                            }
+                            listStr += "</cite>";
+                            listStr += "<section class='clear'></section>";
+                            if (isNotEmpry(list[i].attr_title)) {
+                                listStr += "<ruby class='good_ruby'>(已选" + list[i].attr_title + ")</ruby>";
+                            }
+                            listStr += "<address class='mingzi zi'>";
+                            listStr += "<aside>下单数量：" + list[i].num + "</aside>";
+                            listStr += "<dfn>配送数量：" + list[i].weight + "</dfn>";
+                            listStr += "</address>";
+                            listStr += "<section class='clear'></section>";
+                            listStr += "</li>";
+                        }
+                        $api.html($api.dom(".list"), listStr);
+                    }
+                } else {
+                    api.toast({
+                        msg: body.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+            api.hideProgress();
+        });
+    };
+    // 跳转到首页
+    function openIndex() {
+        api.openWin({
+            name: 'index',
+            url: './index.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+    // 点击客服
+    function openServer() {
+        if (isNotEmpry(tel)) {
+            // 联系客服调起打电话功能
+            api.call({
+                type: 'tel_prompt',
+                number: tel
+            });
+        }
+    }
+</script>
+
+</html>

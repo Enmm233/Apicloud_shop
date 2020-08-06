@@ -1,0 +1,411 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/register.css" />
+    <title>收货信息</title>
+    <style>
+        .shouye {
+            width: 38px;
+            height: 38px;
+            background: #EEEEEE;
+            border-radius: 20px;
+            background-image: url("../image/index.png");
+            background-size: 20px;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            position: fixed;
+            right: 20px;
+            bottom: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header"></div>
+    <div class="wbk" style="padding-bottom:20px;">
+        <form>
+            <div class="srbk yhname">
+                <input type="text" id="nickname" value="张三">
+            </div>
+            <div class="srbk contact">
+                <input type="text" id="contact" value="张三">
+            </div>
+            <div class="srbk phone">
+                <input type="tel" id="phone" value="12312312345">
+            </div>
+            <div class="srbk zfc">
+                <input type="password" id="password" placeholder="设置新密码">
+            </div>
+            <div class="kgbk jqy">
+                <span>账号启用和禁用</span>
+                <input class="switch-btn switch-btn-animbg status" type="checkbox">
+            </div>
+            <div class="srbk adress" tampode>
+                <input type="text" id="address" value="江苏省徐州市去泉山区" readonly>
+            </div>
+
+            <!-- <div class="srbk adress" tampode onclick="openMap();">
+                <input type="text" id="address" value="江苏省徐州市去泉山区" readonly>
+            </div> -->
+            <div class="srbk name">
+                <input type="text" id="details" value="12345">
+            </div>
+            <div class="zcan" tampode>保 存</div>
+        </form>
+        <div class="scan">删除</div>
+    </div>
+    <!-- 返回首页按钮 -->
+    <div class="shouye" id="div" tampode onclick="openIndex()"></div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/encipherment.js"></script>
+<script type="text/javascript" src="../script/md5.js"></script>
+<script type="text/javascript" src="../script/regular.js"></script>
+<script type="text/javascript" src="../script/date.js"></script>
+<script type="text/javascript">
+    var addressOld, addressNew, longitude, latitude, addressArr = new Array();
+    apiready = function() {
+            //修改手机状态栏字体颜色
+            api.setStatusBarStyle({
+                style: 'dark'
+            });
+            var header = $api.byId('header');
+            $api.fixStatusBar(header);
+            api.addEventListener({
+                name: 'accountcon'
+            }, function(ret, err) {
+                var adres = ret.value;
+                adress = adres.addressInfo;
+                if (isNotEmpry(adress)) {
+                    if (isNotEmpry(adress[0])) {
+                        addressNew = adress[0];
+                        $api.val($api.dom("#address"), adress[0]);
+                    }
+                    if (isNotEmpry(adress[1])) {
+                        longitude = adress[1];
+                    }
+                    if (isNotEmpry(adress[2])) {
+                        latitude = adress[2];
+                    }
+                    if (isNotEmpry(adress[3])) {
+                        mapAddress = adress[3];
+                    }
+                    addressArr[0] = adress[0];
+                    addressArr[1] = adress[1];
+                    addressArr[2] = adress[2];
+                    addressArr[3] = adress[3];
+                }
+            });
+            api.showProgress({
+                title: '努力加载中...',
+                modal: false
+            });
+            var selectZid = api.pageParam.selectZid;
+            var timeStamp = timestamp();
+            var sign = getSign("appid=" + $api.getStorage("appid") + "&timeStamp=" + timeStamp);
+            api.ajax({
+                url: $api.getStorage("URL") + '/mobileOrder/memberAddressInfo',
+                method: 'GET',
+                returnAll: true,
+                headers: {
+                    'Authorization': $api.getStorage('token')
+                },
+                data: {
+                    values: {
+                        appid: $api.getStorage("appid"),
+                        active:2,
+                        timeStamp: timeStamp,
+                        select_zid: selectZid,
+                        sign: sign
+                    }
+                }
+            }, function(ret, err) {
+                if (ret) {
+                    judgement(ret.body.code, ret.msg)
+                    var body = ret.body;
+                    var headers = ret.headers;
+                    if (isNotEmpry(headers.Authorization)) {
+                        $api.setStorage('token', headers.Authorization);
+                    }
+                    if (body.code == 200) {
+                        var result = body.data;
+                        if (isNotEmpry(result.nickname)) {
+                            $api.val($api.byId("nickname"), result.nickname);
+                        }
+                        if (isNotEmpry(result.contact)) {
+                            $api.val($api.byId("contact"), result.contact);
+                        }
+                        if (isNotEmpry(result.phone)) {
+                            $api.val($api.byId("phone"), result.phone);
+                        }
+                        if (isNotEmpry(result.status)) {
+                            if (result.status == 1) {
+                                $api.attr($api.dom(".status"), 'checked', 'true');
+                            }
+                        }
+                        if (isNotEmpry(result.address)) {
+                            $api.val($api.byId("address"), result.address);
+                            addressOld = result.address;
+                            addressNew = result.address;
+                            addressArr[0] = result.address;
+                            addressArr[1] = '';
+                            addressArr[2] = '';
+                            addressArr[3] = '';
+                        }
+                        if (isNotEmpry(result.details)) {
+                            $api.val($api.byId("details"), result.details);
+                        }
+                    } else {
+                        api.toast({
+                            msg: body.msg,
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                    }
+                } else {
+                    api.toast({
+                        msg: JSON.stringify(err),
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+                api.hideProgress();
+            });
+            // 执行修改子账号信息操作
+            $api.addEvt($api.dom('.zcan'), 'click', function() {
+                var nickname = $api.byId('nickname').value;
+                var contact = $api.byId('contact').value;
+                var phone = $api.byId('phone').value;
+                var address = $api.byId('address').value;
+                var details = $api.byId('details').value;
+                var password = $api.byId('password').value;
+                var status, checkStatus = $api.dom(".status").checked;
+                // status:账号状态（0禁用 1启用
+                if (checkStatus) {
+                    status = 1;
+                } else {
+                    status = 0;
+                }
+                if (!isNotEmpry(nickname)) {
+                    api.toast({
+                        msg: '子账号名称不能为空',
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                    return;
+                }
+                if (!isNotEmpry(contact)) {
+                    api.toast({
+                        msg: '联系人不能为空',
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                    return;
+                }
+                if (!isNotEmpry(phone)) {
+                    api.toast({
+                        msg: '手机号不能为空',
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                    return;
+                } else {
+                    if (!isTel(phone)) {
+                        api.toast({
+                            msg: '请输入正确的手机号',
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                        return;
+                    }
+                }
+                if (!isNotEmpry(details)) {
+                    api.toast({
+                        msg: '请输入详细地址',
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                    return;
+                }
+                var jsonStr;
+                var timeStamp = timestamp();
+                var sign = getSign("address=" + address + "&appid=" + $api.getStorage("appid") + "&contact=" + contact + "&mobile=" + phone +
+                    "&nickname=" + nickname + "&password=" + password + "&status=" + status + "&zid=" + selectZid + "&timeStamp=" + timeStamp);
+                if (addressOld == addressNew) {
+                    jsonStr = {
+                        address: address,
+                        appid: $api.getStorage("appid"),
+                        contact: contact,
+                        details: details,
+                        mobile: phone,
+                        nickname: nickname,
+                        password: password,
+                        status: status,
+                        timeStamp: timeStamp,
+                        zid: selectZid,
+                        sign: sign
+                    }
+                } else {
+                    jsonStr = {
+                        address: address,
+                        appid: $api.getStorage("appid"),
+                        contact: contact,
+                        details: details,
+                        mobile: phone,
+                        nickname: nickname,
+                        longitude: 1,
+                        latitude: 1,
+                        // longitude: "",
+                        // latitude: "",
+                        password: password,
+                        status: status,
+                        timeStamp: timeStamp,
+                        zid: selectZid,
+                        sign: sign
+                    }
+                }
+                api.showProgress({
+                    title: '努力加载中...',
+                    modal: false
+                });
+                api.ajax({
+                    url: $api.getStorage("URL") + '/mobileOrder/editChild',
+                    method: 'POST',
+                    returnAll: true,
+                    headers: {
+                        'Authorization': $api.getStorage('token')
+                    },
+                    data: {
+                        active:2,
+                        values: jsonStr
+                    }
+                }, function(ret, err) {
+                    if (ret) {
+                        judgement(ret.body.code, ret.msg)
+                        var body = ret.body;
+                        var headers = ret.headers;
+                        if (isNotEmpry(headers.Authorization)) {
+                            $api.setStorage('token', headers.Authorization);
+                        }
+                        if (body.code == 200) {
+                            api.toast({
+                                msg: body.msg,
+                                duration: 2000,
+                                location: 'middle'
+                            });
+                            setTimeout(function() {
+                                api.closeWin();
+                                var jsfun = 'reloads();';
+                                api.execScript({
+                                    name: 'accountlist',
+                                    script: jsfun
+                                });
+                            }, 2000);
+                        } else {
+                            api.toast({
+                                msg: body.msg,
+                                duration: 2000,
+                                location: 'middle'
+                            });
+                        }
+                    } else {
+                        api.toast({
+                            msg: JSON.stringify(err),
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                    }
+                    api.hideProgress();
+                });
+            });
+            // 删除子账号信息
+            $api.addEvt($api.dom(".scan"), 'click', function() {
+                if (confirm("是否确认删除？")) {
+                    var timeStamp = timestamp();
+                    var sign = getSign("appid=" + $api.getStorage("appid") + "&select_zid=" + selectZid + "&timeStamp=" + timeStamp);
+                    api.ajax({
+                        url: $api.getStorage("URL") + '/mobileOrder/delChild',
+                        method: 'GET',
+                        returnAll: true,
+                        headers: {
+                            'Authorization': $api.getStorage('token')
+                        },
+                        data: {
+                            values: {
+                                appid: $api.getStorage("appid"),
+                                active:2,
+                                timeStamp: timeStamp,
+                                select_zid: selectZid,
+                                sign: sign
+                            }
+                        }
+                    }, function(ret, err) {
+                        if (ret) {
+                            judgement(ret.body.code, ret.msg)
+                            var body = ret.body;
+                            var headers = ret.headers;
+                            if (isNotEmpry(headers.Authorization)) {
+                                $api.setStorage('token', headers.Authorization);
+                            }
+                            if (body.code == 200) {
+                                api.toast({
+                                    msg: body.msg,
+                                    duration: 2000,
+                                    location: 'middle'
+                                });
+                                setTimeout(function() {
+                                    api.closeWin();
+                                    var jsfun = 'reloads();';
+                                    api.execScript({
+                                        name: 'accountlist',
+                                        script: jsfun
+                                    });
+                                }, 2000);
+                            } else {
+                                api.toast({
+                                    msg: body.msg,
+                                    duration: 2000,
+                                    location: 'middle'
+                                });
+                            }
+                        } else {
+                            api.toast({
+                                msg: JSON.stringify(err),
+                                duration: 2000,
+                                location: 'middle'
+                            });
+                        }
+                        api.hideProgress();
+                    });
+                }
+            });
+        }
+        // 跳转地图页面
+    function openMap() {
+        api.openWin({
+            name: 'map',
+            url: 'map.html',
+            pageParam: {
+                addressArr: addressArr,
+                falg: 3
+            },
+            slidBackEnabled: false,
+        });
+    }
+    // 跳转首页
+    function openIndex() {
+        api.openWin({
+            name: 'index',
+            url: './index.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+</script>
+
+</html>

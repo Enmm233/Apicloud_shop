@@ -1,0 +1,596 @@
+body, html {
+    background: white;
+}
+
+header {
+    /*background: white!important;*/
+}
+
+.aui-searchbar {
+    /*background: white !important;*/
+}
+
+.aui-searchbar-input {
+    background: #f5f5f5;
+    border-radius: 20px!important;
+}
+
+#lun {
+    width: 100%;
+    height: 210px;
+    position: relative;
+    z-index: 99999;
+}
+
+.aui-col-xs-4 {
+    width: 25%!important;
+}
+
+.gcaidjh_zd {
+    padding-bottom: 0.2rem;
+    background: white;
+}
+
+.gcaidjh_zd div {
+    float: left;
+    width: 25%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.gcaidjh_zd div img {
+    display: block;
+    margin: auto;
+    width: 40px;
+    height: 40px;
+    margin-top: 0.2rem;
+}
+
+.gong {
+    clear: both;
+    width: 100%;
+    height: 50px;
+    position: relative;
+    border-top: 2px solid #f5f5f5;
+    border-bottom: 2px solid #f5f5f5;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.gao {
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+}
+
+.gao_img {
+    width: 30px;
+    height: 30px;
+    margin-top: 9px;
+}
+
+.gao_con {
+    line-height: 50px;
+    width: 88%;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-left: 12px;
+}
+
+.imgs {
+    width: 100%;
+    height: 150px;
+}
+
+.gcaidjh_jx h3 {
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    margin-bottom: 0.1rem;
+    font-size: 1rem;
+}
+
+.gcaidjh_jx h3 img {
+    display: inline-block;
+    vertical-align: middle;
+    width: 25px;
+    height: 23px;
+    margin-right: 0.1rem;
+    position: relative;
+    top: 2px;
+}
+
+.gcaidjh_jx h3 span {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 1rem;
+    color: #8a8a8a;
+    font-weight: 500;
+}
+
+.gcaidjh_jx ol {
+    padding-left: 0.15rem;
+    padding-right: 0.15rem;
+    display: flex;
+    align-items: center;
+    /*justify-content: space-around;*/
+    flex-wrap: wrap;
+}
+
+.gcaidjh_jx ol li {
+    width: 50%;
+    margin-bottom: 0.3rem;
+}
+
+.gcaidjh_jx ol li .gcaidjh_jxb {
+    overflow: hidden;
+    margin-left: 0.15rem;
+    margin-right: 0.1rem;
+    -moz-box-shadow: 0px 0px 14px #f7f5f5;
+    -webkit-box-shadow: 0px 0px 14px #f7f5f5;
+    box-shadow: 0px 0px 14px #f7f5f5;
+    padding-bottom: 0.2rem;
+}
+
+.gcaidjh_jx ol li a {
+    display: block;
+}
+
+.gcaidjh_jx ol li cite {
+    display: block;
+    text-align: center;
+    font-size: 0.8rem;
+    height: 26px;
+    line-height: 26px;
+    color: #4c4c4c;
+    font-weight: 600;
+    padding-top: 0.1rem;
+    margin-bottom: 0.1rem;
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+    overflow: hidden;
+}
+
+.gcaidjimg_po {
+    position: relative;
+    overflow: hidden;
+}
+
+.gcaidjgw ol li .gcaidjgw_o cite a {
+    font-size: 0.24rem;
+    color: #333;
+}
+
+.gcaidjgw ol li .gcaidjgw_o address {
+    height: 0.4rem;
+    line-height: 0.4rem;
+    font-size: 0.22rem;
+    color: #999;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.gcaidjgw ol li .gcaidjgw_o .gcaidjgw_pol {
+    display: block;
+    font-size: 0.24rem;
+    color: #999;
+    height: 0.4rem;
+    line-height: 0.4rem;
+}
+
+.gcaidjgw ol li .gcaidjgw_r {
+    float: right;
+    font-size: 0.36rem;
+    color: red;
+    margin-top: 0.4rem;
+}
+
+.gcaidjgw ol li .gcaidjgw_poa {
+    display: block;
+    float: left;
+    font-size: 0.26rem;
+    color: #f55637;
+    margin-top: 0.2rem;
+    margin-left: 0.05rem;
+    letter-spacing: 0;
+}
+
+.gcaidjgw ol li .gcaidjgw_poa del {
+    color: #c5c5c5;
+    font-size: 0.2rem;
+    margin-left: 0.1rem;
+    font-weight: normal;
+}
+
+.gcaidjgw ol li .gcaidj_sl {
+    display: block;
+    float: right;
+    margin-top: 0.15rem;
+}
+
+.daily_img {
+    position: absolute;
+    top: 0.4rem;
+    left: 0;
+    z-index: 8;
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+.daily_img img {
+    opacity: 0.8;
+    transform: rotate(-40deg);
+    -ms-transform: rotate(-40deg);
+    /* IE 9 */
+    -moz-transform: rotate(-40deg);
+    /* Firefox */
+    -webkit-transform: rotate(-40deg);
+    /* Safari å’Œ Chrome */
+    -o-transform: rotate(-40deg);
+    /* Opera */
+    margin-top: -0.6rem;
+    margin-left: 0;
+}
+
+.daily_xi {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 8;
+    margin-right: 0.15rem;
+    margin-top: 0.08rem;
+    text-align: center;
+    color: #fff;
+    font-size: 0.12rem;
+}
+
+.daily_xi span {
+    display: block;
+    width: 5.08rem;
+    height: 0;
+    border-top: 1.3rem solid red;
+    border-right: 1.32rem solid transparent;
+    border-left: 1.3rem solid transparent;
+    transform: rotate(-135deg);
+    -ms-transform: rotate(-135deg);
+    -moz-transform: rotate(-135deg);
+    -webkit-transform: rotate(-135deg);
+    -o-transform: rotate(-135deg);
+    position: absolute;
+    top: 0;
+    right: -1.38rem;
+    z-index: 8;
+}
+
+.daily_xi .daily_xis {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: -0.2rem;
+    z-index: 8;
+    width: 3rem;
+    overflow: hidden;
+    height: 2.4rem;
+    font-size: 1rem;
+    line-height: 1.4rem;
+    transform: scale(0.8, 0.8) rotate(48deg);
+    -ms-transform: scale(0.8, 0.8) rotate(48deg);
+    -moz-transform: scale(0.8, 0.8) rotate(48deg);
+    -webkit-transform: scale(0.8, 0.8) rotate(48deg);
+    -o-transform: scale(0.8, 0.8) rotate(48deg);
+    color: #fff;
+}
+
+.gcaidjh_jx ol li .gcaidjh_jxl {
+    float: left;
+    width: 65%;
+    padding-left: 0.1rem;
+}
+
+.gcaidjh_jx ol li .gcaidjh_jxl aside.on {
+    -webkit-line-clamp: 2;
+    height: 36px;
+    line-height: 18px;
+    font-size: 0.6rem;
+    padding-left: 5px;
+}
+
+.gcaidjh_jx ol li .gcaidjh_jxl address.gcaidjh_jxb_m {
+    margin-top: 0.05rem;
+    height: 17px;
+    line-height: 17px;
+    font-size: 0.7rem;
+    padding-left: 5px;
+}
+
+.gcaidjh_jx ol li .gcaidjh_jxl address {
+    font-size: 0.22rem;
+    color: #f55637;
+}
+
+i, em, cite, address, dfn, address {
+    font-style: normal;
+}
+
+.gcaidjh_jx ol li .gcaidjh_jxl aside {
+    display: block;
+    height: 0.36rem;
+    line-height: 0.36rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    color: #666;
+    font-size: 0.2rem;
+}
+
+.gcaidjh_jx ol li .gcaidjh_jxr {
+    float: right;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    -moz-box-shadow: 0px 0px 14px #e2e2e2;
+    -webkit-box-shadow: 0px 0px 14px #e2e2e2;
+    box-shadow: 0px 0px 14px #e2e2e2;
+    border-radius: 1000rem;
+    margin-right: 7%;
+    margin-top: 9.5px;
+    overflow: hidden;
+}
+
+#up {
+  width: 100%;
+  height: 46px;
+  line-height: 46px;
+  font-size: 0.8rem;
+  text-align: center;
+  clear: both;
+  margin-bottom: 60px;
+  color: #999;
+}
+
+.dbbk img {
+    margin-right: auto;
+    margin-left: auto;
+    height: 28px;
+}
+
+.aui-bar-tab .aui-active {
+    color: #14c32f;
+}
+
+#cover {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    /*宽度设置为100%，这样才能使隐藏背景层覆盖原页面*/
+    filter: alpha(opacity=60);
+    /*设置透明度为60%*/
+    opacity: 0.6;
+    /*非IE浏览器下设置透明度为60%*/
+    display: none;
+    z-Index: 999;
+    height: 1125px;
+    z-index: 99999999999999;
+}
+
+#modal {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 250px;
+    background-color: #fff;
+    display: none;
+    cursor: pointer;
+    z-Index: 9999999999999999999999;
+}
+
+
+/* 通用首页规格 */
+
+.gcaidjh_ge .gcaidjh_geb {
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    padding-top: 0.3rem;
+}
+
+.gcaidjh_ge .gcaidjh_gei {
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 10px;
+    width: 90%;
+    margin: 20px auto;
+}
+
+.gcaidjh_ge .gcaidjh_gei .gcaidjh_gei_l {
+    float: left;
+    border: 1px solid #f0f0f0;
+    width: 88px;
+    height: 73px;
+    line-height: 68px;
+    text-align: center;
+}
+
+.clear {
+    clear: both;
+}
+
+.gcaidjh_ge .gcaidjh_gei .gcaidjh_gei_l img {
+    padding: 5px;
+    width: 100%;
+    height: 100%;
+}
+
+.gcaidjh_ge .gcaidjh_gei .gcaidjh_gei_o {
+    float: left;
+    width: 55%;
+    margin-left: 0.2rem;
+}
+
+.gcaidjh_ge .gcaidjh_gei .gcaidjh_gei_o cite {
+    height: 23px;
+    display: block;
+    line-height: 23px;
+    font-size: 0.7rem;
+    color: #333;
+    overflow: hidden;
+}
+
+.gcaidjh_ge .gcaidjh_gei .gcaidjh_gei_o address {
+    height: 23px;
+    line-height: 23px;
+    font-size: 0.7rem;
+    color: #999;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+
+.gcaidjh_ge .gcaidjh_gei .gcaidjh_gei_o aside {
+    display: block;
+    font-size: 0.8rem;
+    color: #f55637;
+}
+
+.gcaidjh_ge .gcaidjh_gei .gcaidjh_gei_o aside del {
+    font-size: 0.7rem;
+    color: #ccc;
+    margin-left: 0.2rem;
+}
+
+.gcaidjh_ge .gcaidjh_gei .gcaidjh_gei_r {
+    float: right;
+}
+
+.gcaidjh_ge .gcaidjh_gei .gcaidjh_gei_r img {
+    display: block;
+    width: 15px;
+    height: 15px;
+}
+
+.gcaidjh_ge .gcaidjh_gex {
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 0.3rem;
+    margin-top: 0.3rem;
+}
+
+.gcaidjh_ge .gcaidjh_gex cite {
+    font-size: 0.24rem;
+    color: #333;
+}
+
+.gcaidjh_ge .gcaidjh_gex address ruby {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 0.2rem;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    height: 0.5rem;
+    line-height: 0.48rem;
+    border-radius: 1000rem;
+    font-size: 0.24rem;
+    color: #56c956;
+    border: 1px solid #56c956;
+    margin-top: 0.2rem;
+}
+
+.gcaidjh_ge .gcaidjh_gex address ruby.on {
+    background: #56c956;
+    color: #fff;
+}
+
+.gcaidjh_ge .gcaidjh_gex address ruby:last-child {
+    margin-right: 0;
+}
+
+.gcaidjh_ge .gcaidjh_geg {
+    clear: both;
+    height: 60px;
+    line-height: 60px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.gcaidjh_ge .gcaidjh_geg cite {
+    display: block;
+    float: left;
+    font-size: 0.8rem;
+    color: #333;
+}
+
+.gcaidjh_ge .gcaidjh_geg .gcaidj_sl {
+    display: block;
+    float: right;
+}
+
+.gcaidjh_ge button {
+    border-radius: 0;
+    display: block;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    color: #fff;
+    font-size: 1rem;
+    background: #56c956;
+    position: absolute;
+    bottom: 0;
+}
+
+
+/* 通用加减 */
+
+.gcaidj_sl {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.gcaidj_sl ruby {
+    display: inline-block;
+    vertical-align: middle;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    border-radius: 1000rem;
+    text-align: center;
+    background: #52ca28;
+}
+
+.gcaidj_sl ruby img {
+    padding: 0.1rem;
+    padding-top: 0.08rem;
+    padding-left: 0.09rem;
+}
+
+.gcaidj_sl input {
+    display: inline-block;
+    vertical-align: middle;
+    height: 25px;
+    line-height: 25px;
+    font-size: 0.8rem;
+    color: #4c4c4c;
+    width: 90px;
+    text-align: center;
+    position: relative;
+    top: 0.02rem;
+}
+
+.gun {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    overflow: hidden;
+}
+.jia del{
+  color: #999;
+  font-size: 14px;
+}

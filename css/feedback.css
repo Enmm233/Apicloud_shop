@@ -1,0 +1,92 @@
+.main {
+    width: 100%;
+    margin: 0 auto;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.gcaidj_gh {
+    height: 12px;
+    background: #f5f5f5;
+}
+.gcaidjfe h3 {
+    height: 49px;
+    line-height: 49px;
+    font-size: 0.8rem;
+    color: #333;
+    border-bottom: 1px solid #f3f3f3;
+    padding-left: 5%;
+}
+.gcaidjfe .gcaidjfe_te {
+    border-bottom: 1px solid #f3f3f3;
+    padding-bottom: 0.2rem;
+}
+.gcaidjfe .gcaidjfe_te textarea {
+    width: 100%;
+    height: 180px;
+    color: #333;
+    font-size: 0.8rem;
+    padding: 10px 5%;
+}
+
+textarea {
+    overflow: auto;
+}
+.gcaidjfe .gcaidjfe_im {
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+}
+.gcaidjfe .gcaidjfe_im dfn {
+    display: block;
+    float: left;
+    margin-top: 20px;
+    margin-right: 10px;
+    /*margin-left: 5%;*/
+}
+.gcaidjfe .gcaidjfe_im img {
+    width: 80px;
+    height: 80px;
+}
+.gcaidjfe .gcaidjfe_im address {
+    display: flex;
+    float: left;
+    line-height: 80px;
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 20px;
+    height: 80px;
+    font-style: normal;
+}
+.clear {
+    clear: both;
+    height: 0;
+}
+.adminis_button1 {
+    display: block;
+    width: 70%;
+    height: 48px;
+    line-height: 48px;
+    margin: auto;
+    margin-top: 20px;
+    text-align: center;
+    background: #6cca28;
+    color: #fff;
+    font-size: 1rem;
+    border-radius: 1000rem;
+    -moz-box-shadow: 0px -2px 0px #57af51 inset;
+    -webkit-box-shadow: 0px -2px 0px #57af51 inset;
+    box-shadow: 0px -2px 0px #57af51 inset;
+}
+
+button, html [type="button"], [type="reset"], [type="submit"] {
+    -webkit-appearance: button;
+}
+button, select {
+    text-transform: none;
+}
+button, input {
+    overflow: visible;
+}
+a, button, input, textarea {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}

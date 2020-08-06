@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/charge.css" />
+    <title>充值确认</title>
+    <style>
+        .shouye {
+            width: 38px;
+            height: 38px;
+            background: #EEEEEE;
+            border-radius: 20px;
+            background-image: url("../image/index.png");
+            background-size: 20px;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            position: fixed;
+            right: 20px;
+            bottom: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header"></div>
+    <div class="wbk">
+        <div class="czbh"> <span>充值编号</span><i class="orderSn"></i> </div>
+        <div class="czbh"> <span>充值金额</span><i class="czje">¥<b class="countPrice">0.00</b></i> </div>
+        <div class="zhushi">注：平台不会以订单异常，系统升级等理由要求您点击任何链接进行退款操作，请提高警惕谨防受骗</div>
+        <div class="anniu"> <span class="fhsy" tampode onclick="openhome()">返回首页</span> <span class="qrcz">确认充值</span> </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/md5.js"></script>
+<script type="text/javascript" src="../script/regular.js"></script>
+<script type="text/javascript" src="../script/encipherment.js"></script>
+<script type="text/javascript" src="../script/date.js"></script>
+<script type="text/javascript">
+    var wxParams;
+    apiready = function() {
+        //修改手机状态栏字体颜色
+        api.setStatusBarStyle({
+            style: 'dark'
+        });
+        var header = $api.byId('header');
+        $api.fixStatusBar(header);
+
+        var orderId = api.pageParam.orderId;
+        api.showProgress({
+            title: '努力加载中...',
+            modal: false
+        });
+        // 获取支付信息
+        var timeStamp = timestamp();
+        var sign = getSign("appid=" + $api.getStorage("appid") + "&id=" + orderId + "&timeStamp=" + timeStamp + "&type=app");
+        api.ajax({
+            url: $api.getStorage("URL") + '/mobileOrder/placeRecharge',
+            method: 'POST',
+            headers: {
+                'Authorization': $api.getStorage('token')
+            },
+            returnAll: true,
+            data: {
+                values: {
+                    appid: $api.getStorage("appid"),
+                    active:2,
+                    id: orderId,
+                    timeStamp: timeStamp,
+                    type: "app",
+                    sign: sign
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                judgement(ret.body.code, ret.msg)
+                var body = ret.body;
+                var headers = ret.headers;
+                if (isNotEmpry(headers.Authorization)) {
+                    $api.setStorage('token', headers.Authorization);
+                }
+                if (body.code == 200) {
+                    $api.text($api.dom(".orderSn"), body.data.order_sn);
+                    $api.text($api.dom(".countPrice"), body.data.count_price);
+                    wxParams = body.data.wxParams;
+                } else {
+                    api.toast({
+                        msg: body.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+            api.hideProgress();
+        });
+        // 确认充值
+        $api.addEvt($api.dom(".qrcz"), 'click', function() {
+            var wxPay = api.require('wxPay');
+            wxPay.payOrder({
+                apiKey: wxParams.appid,
+                orderId: wxParams.prepayid,
+                mchId: wxParams.partnerid,
+                nonceStr: wxParams.noncestr,
+                timeStamp: wxParams.timestamp,
+                package: wxParams.package,
+                sign: wxParams.sign
+            }, function(ret, err) {
+                if (ret.status) {
+                    //支付成功
+                    api.toast({
+                        msg: "充值成功",
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                    setTimeout(function() {
+                        api.closeToWin({
+                            name: 'mine'
+                        });
+                        var jsfun = 'reloads();';
+                        api.closeWin();
+                        api.execScript({
+                            name: 'mine',
+                            script: jsfun
+                        });
+                    }, 2000);
+                } else {
+                    api.toast({
+                        msg: "支付失败",
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            });
+        });
+    };
+    // 返回首页
+    function openhome() {
+        api.openWin({
+            name: 'index',
+            url: 'index.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+    // 跳转首页
+    function openIndex() {
+        api.openWin({
+            name: 'index',
+            url: './index.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+</script>
+
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>下单成功</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../css/car.css" />
+    <style>
+        .gcaidjs_list ol li {
+            border-bottom: 1px solid #f0f0f0 !important;
+        }
+
+        .ok {
+            height: 51px;
+            line-height: 51px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 1rem;
+            font-weight: 700;
+            color: black;
+        }
+
+        .fan {
+            display: inline-block;
+            height: 46px;
+            line-height: 46px;
+            width: 40%;
+            background: #f0f0f0;
+            border-radius: 1000rem;
+            font-size: 0.8rem;
+            color: #999;
+            text-align: center;
+            margin: 0 3.5%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 购物车有商品 -->
+    <div class="you_good" style="width: 95%;margin: 25px auto;">
+        <article class="gcaidjs_list">
+            <p class="ok">订单下单成功</p>
+            <ol>
+                <li>
+                    <section class="gcaidjs_list_l">
+                        <dfn>订单编号</dfn>
+                    </section>
+                    <section class="gcaidjs_list_xl orderSn" style="cursor: pointer;"></section>
+                    <section class="clear"></section>
+                </li>
+                <li>
+                    <section class="gcaidjs_list_l">
+                        <dfn>配送时间</dfn>
+                    </section>
+                    <section class="gcaidjs_list_xl sendTime" style="cursor: pointer;"></section>
+                    <section class="clear"></section>
+                </li>
+                <li>
+                    <section class="gcaidjs_list_l">
+                        <dfn>下单金额</dfn>
+                    </section>
+                    <section class="gcaidjs_list_xl countPrice" style="cursor: pointer;color: #f55637;font-weight: 600;">￥0.00</section>
+                    <section class="clear"></section>
+                </li>
+            </ol>
+        </article>
+        <section class="clear"></section>
+        <div style="display:flex;padding-left: 0.3rem;padding-right: 0.3rem;color: #999;margin-top: 20px;">
+            <div>注&nbsp;:&nbsp;</div>
+            <div>平台不会以订单异常，系统升级等理由要求您点击任何链接进行退款操作，请提高警惕谨防受骗</div>
+        </div>
+        <div style="display:flex;justify-content: center;margin-top: 20px;">
+            <div class="fan" tampode onclick="openIndex()">返回首页</div>
+            <div class="fan" style="background:#6cca28;color:#fff;" tampode onclick="openOrderDetail()">查看订单详情</div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../script/encipherment.js"></script>
+<script type="text/javascript" src="../script/md5.js"></script>
+<script type="text/javascript" src="../script/regular.js"></script>
+<script type="text/javascript" src="../script/date.js"></script>
+<script type="text/javascript">
+    var id; // 订单id
+    apiready = function() {
+        //修改手机状态栏字体颜色
+        api.setStatusBarStyle({
+            style: 'dark'
+        });
+        api.showProgress({
+            title: '努力加载中...',
+            modal: false
+        });
+        id = api.pageParam.id;
+        var timeStamp = timestamp();
+        var sign = getSign("appid=" + $api.getStorage("appid") + "&id=" + id + "&timeStamp=" + timeStamp);
+        api.ajax({
+            url: $api.getStorage("URL") + '/mobileOrder/orderSuccess',
+            method: 'GET',
+            headers: {
+                'Authorization': $api.getStorage('token')
+            },
+            returnAll: true,
+            data: {
+                values: {
+                    appid: $api.getStorage("appid"),
+                    active:2,
+                    id: id,
+                    timeStamp: timeStamp,
+                    sign: sign
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                judgement(ret.body.code, ret.msg)
+                var body = ret.body;
+                var headers = ret.headers;
+                if (isNotEmpry(headers.Authorization)) {
+                    $api.setStorage('token', headers.Authorization);
+                }
+                if (body.code == 200) {
+                    if (body.data.is_look == 1) {
+                        $api.text($api.dom(".countPrice"), "￥" + body.data.count_price);
+                    } else {
+                        $api.text($api.dom(".countPrice"), "￥***");
+                    }
+                    $api.text($api.dom(".orderSn"), body.data.order_sn);
+                    $api.text($api.dom(".sendTime"), body.data.send_time);
+
+                } else {
+                    api.toast({
+                        msg: body.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+            api.hideProgress();
+        });
+    };
+    // 跳转首页
+    function openIndex() {
+        api.openWin({
+            name: 'index',
+            url: 'index.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+    // 订单详情
+    function openOrderDetail() {
+        api.openWin({
+            name: 'order_details',
+            url: 'order_details.html',
+            pageParam: id,
+            slidBackEnabled: false
+        });
+    }
+</script>
+
+</html>

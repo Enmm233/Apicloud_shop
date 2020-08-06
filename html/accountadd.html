@@ -1,0 +1,270 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/register.css" />
+    <title>收货信息</title>
+    <style>
+        .shouye {
+            width: 38px;
+            height: 38px;
+            background: #EEEEEE;
+            border-radius: 20px;
+            background-image: url("../image/index.png");
+            background-size: 20px;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            position: fixed;
+            right: 20px;
+            bottom: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header"></div>
+    <div class="wbk">
+        <form>
+            <div class="srbk yhname">
+                <input type="text" id="nickname" placeholder="请输入子账号名称">
+            </div>
+            <div class="srbk contact">
+                <input type="text" id="contact" placeholder="请输入联系人">
+            </div>
+            <div class="srbk phone">
+                <input type="tel" id="mobile" placeholder="输入手机号码">
+            </div>
+            <div class="srbk zfc">
+                <input type="password" id="password" placeholder="请设置6位以上的密码">
+            </div>
+            <!-- <div class="srbk ads" tampode onclick="openMap();">
+                <input type="text" id="address" placeholder="请输入收货地址">
+            </div> -->
+
+            <div class="srbk ads" tampode>
+                <input type="text" id="address" placeholder="请输入收货地址">
+            </div>
+
+            <div class="srbk name">
+                <input type="text" id="details" placeholder="请输入详细地址">
+            </div>
+            <div class="zcan" tampode>保 存</div>
+        </form>
+    </div>
+    <!-- 返回首页按钮 -->
+    <div class="shouye" id="div" tampode onclick="openIndex()"></div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/encipherment.js"></script>
+<script type="text/javascript" src="../script/md5.js"></script>
+<script type="text/javascript" src="../script/regular.js"></script>
+<script type="text/javascript" src="../script/date.js"></script>
+<script type="text/javascript">
+    var longitude, latitude, addressArr = new Array();;
+    apiready = function() {
+            //修改手机状态栏字体颜色
+            api.setStatusBarStyle({
+                style: 'dark'
+            });
+            var header = $api.byId('header');
+            $api.fixStatusBar(header);
+            api.addEventListener({
+                name: 'accountadd'
+            }, function(ret, err) {
+                var adres = ret.value;
+                adress = adres.addressInfo;
+                if (isNotEmpry(adress)) {
+                    if (isNotEmpry(adress[0])) {
+                        addressNew = adress[0];
+                        $api.val($api.dom("#address"), adress[0]);
+                    }
+                    if (isNotEmpry(adress[1])) {
+                        longitude = adress[1];
+                    }
+                    if (isNotEmpry(adress[2])) {
+                        latitude = adress[2];
+                    }
+                    if (isNotEmpry(adress[3])) {
+                        mapAddress = adress[3];
+                    }
+                    addressArr[0] = adress[0];
+                    addressArr[1] = adress[1];
+                    addressArr[2] = adress[2];
+                    addressArr[3] = adress[3];
+                }
+            });
+            // 执行添加账号信息操作
+            $api.addEvt($api.dom('.zcan'), 'click', function() {
+                var nickname = $api.byId('nickname').value;
+                var contact = $api.byId('contact').value;
+                var mobile = $api.byId('mobile').value;
+                var password = $api.byId('password').value;
+                var address = $api.byId('address').value;
+                var details = $api.byId('details').value;
+
+                if (!isNotEmpry(nickname)) {
+                    api.toast({
+                        msg: '子账号名称不能为空',
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                    return;
+                }
+                if (!isNotEmpry(contact)) {
+                    api.toast({
+                        msg: '联系人不能为空',
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                    return;
+                }
+                if (!isNotEmpry(mobile)) {
+                    api.toast({
+                        msg: '手机号不能为空',
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                    return;
+                } else {
+                    if (!isTel(mobile)) {
+                        api.toast({
+                            msg: '请输入正确的手机号',
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                        return;
+                    }
+                }
+                if (!isNotEmpry(password)) {
+                    api.toast({
+                        msg: '密码不能为空',
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                    return;
+                } else {
+                    if (password.length < 6) {
+                        api.toast({
+                            msg: '密码必须6位以上',
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                        return;
+                    }
+                }
+                if (!isNotEmpry(address)) {
+                    api.toast({
+                        msg: '收货地址不能为空',
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                    return;
+                }
+                if (!isNotEmpry(details)) {
+                    api.toast({
+                        msg: '详细地址不能为空',
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                    return;
+                }
+
+                api.showProgress({
+                    title: '努力加载中...',
+                    modal: false
+                });
+                var timeStamp = timestamp();
+                var sign = getSign("address=" + address + "&appid=" + $api.getStorage("appid") + "&contact=" + contact + "&mobile=" + mobile +
+                    "&nickname=" + nickname + "&password=" + password + "&timeStamp=" + timeStamp);
+                api.ajax({
+                    url: $api.getStorage('URL') + '/mobileOrder/addChild',
+                    returnAll: true,
+                    method: "POST",
+                    headers: {
+                        'Authorization': $api.getStorage('token')
+                    },
+                    data: {
+                        values: {
+                            address: address,
+                            appid: $api.getStorage("appid"),
+                            active:2,
+                            contact: contact,
+                            mobile: mobile,
+                            nickname: nickname,
+                            longitude: 1,
+                            latitude: 1,
+                            // longitude: longitude,
+                            // latitude: latitude,
+                            password: password,
+                            timeStamp: timeStamp,
+                            sign: sign
+                        }
+                    }
+                }, function(ret, err) {
+                    if (ret) {
+                        judgement(ret.body.code, ret.msg)
+                        var body = ret.body;
+                        var headers = ret.headers;
+                        if (isNotEmpry(headers.Authorization)) {
+                            $api.setStorage('token', headers.Authorization);
+                        }
+                        if (body.code == 200) {
+                            api.toast({
+                                msg: body.msg,
+                                duration: 2000,
+                                location: 'middle'
+                            });
+                            setTimeout(function() {
+                                api.closeWin();
+                                var jsfun = 'reloads();';
+                                api.execScript({
+                                    name: 'accountlist',
+                                    script: jsfun
+                                });
+                            }, 2000);
+                        } else {
+                            api.toast({
+                                msg: body.msg,
+                                duration: 2000,
+                                location: 'middle'
+                            });
+                        }
+                    } else {
+                        api.toast({
+                            msg: JSON.stringify(err),
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                    }
+                    api.hideProgress();
+                });
+            });
+        }
+        // 跳转地图页面
+    function openMap() {
+        api.openWin({
+            name: 'map',
+            url: 'map.html',
+            pageParam: {
+                addressArr: addressArr,
+                falg: 4
+            },
+            slidBackEnabled: false,
+        });
+    }
+    // 跳转首页
+    function openIndex() {
+        api.openWin({
+            name: 'index',
+            url: './index.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+</script>
+
+</html>

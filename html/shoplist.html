@@ -1,0 +1,899 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>购物车列表</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../css/search.css" />
+    <link rel="stylesheet" type="text/css" href="../css/shoplist.css" />
+    <link rel="stylesheet" type="text/css" href="../css/jianpan.css" />
+    <style>
+        .foot {
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            font-size: 0.9rem;
+        }
+
+        .foot_box {
+            height: 60px;
+            line-height: 60px;
+            display: flex;
+            justify-content: flex-end;
+            border-top: 1px solid #EEEEEE;
+        }
+
+        .sure {
+            background: #6bca28;
+            color: white;
+            padding: 0 20px;
+            font-size: 1rem;
+            margin-left: 20px;
+        }
+
+        .sum span {
+            font-size: 1rem;
+            color: red;
+            font-weight: 700;
+        }
+
+        .sum .del {
+            font-size: 13px;
+            color: #999;
+            margin-left: 0.1rem;
+            font-weight: 400;
+            text-decoration: line-through;
+            display: none;
+        }
+
+        .sum .del span {
+            font-size: 13px;
+            color: #999;
+            margin-left: 0.1rem;
+            font-weight: 400;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 购物车弹窗 -->
+    <div id="carts">
+        <div class="gcaidjsl_list gcaidjsl_seg gcaidjsl_psp">
+            <!-- <ol>
+                <div class="mar">
+                    <span class="leibie">类别</span>
+                    <span class="zhonglei">蔬菜类&nbsp;(1)</span>
+                </div>
+                <li data-item_idp="2" data-indexp="1" style="border-bottom:none;">
+                    <section class="gcaidjsl_list_l" style="height: 113px;">
+                        <a href="javascript:;" class="gcaidjimg_po" style="border: 1px solid #f0f0f0;">
+                            <img src="../image/Vc1J8Zd9k4loYqHbORFVztgmJxSVkqXtdDoSf0sf.jpeg" alt="" class="gcaidjimg_poi" height="100px">
+                        </a>
+                        <section class="daily_img1">
+                            <img src="../image/726Yn0GUJ6U7KgPTC2J1SLWCkNao00BIpxk4ArdO.png" alt="">
+                        </section>
+                        <span class="daily_xi1">
+                            <span></span>
+                            <strong class="daily_xis">扶贫</strong>
+                        </span>
+                    </section>
+                    <section class="gcaidjsl_list_r">
+                        <div class="g_title">
+                            <div class="g_gtitle">
+                                <cite>
+                                    <a href="javascript:;" class="">白菜</a>
+                                </cite>
+                                <address class="vueappsy_add on">线椒颜色鲜艳,辣性强。线椒颜色鲜艳,辣性强。线椒颜色鲜艳,辣性强。</address>
+                            </div>
+                            <div class="g_img"><img src="../image/del.png" alt="" width="100%" height="100%"></div>
+                        </div>
+                        <section class="gcaidjsl_list_jg">
+                            <section class="gcaidjsl_list_lt">￥4.00/斤</section>
+                            <section class="clear"></section>
+                        </section>
+                        <section class="gcaidjsl_list_jg">
+                            <section class="gcaidjsl_list_lt edit" tampode onclick="openTextarea()">备注:&nbsp;<span class="edit_dian"></span><em class="edit_liu"></em></section>
+                            <section class="gcaidj_sl">
+                                <ruby data-val="1" data-item_id="2" data-attr_id="0" data-index="1" class="gcaidj_sls gcaidj_sln g_jians">
+                                    <img src="../image/gcaidj_pic7.png" alt="">
+                                </ruby>
+                                <input type="text" data-item_id="2" data-attr_id="0" data-index="1" class="gcaidj_sli g_zhis" value="1">
+                                <ruby data-item_id="2" data-attr_id="0" data-val="1" data-index="1" class="gcaidj_sla g_jias">
+                                    <img src="../image/gcaidj_pic8.png" alt="">
+                                </ruby>
+                            </section>
+                            <section class="clear"></section>
+                        </section>
+                    </section>
+                    <section class="clear"></section>
+                </li>
+            </ol> -->
+        </div>
+        <div class="gcaidjsl_list gcaidjsl_seg gcaidjd_mz_box">
+            <!-- <ol>
+              <div class='mar'>
+                  <span class='mz_leibie'>满赠</span>
+                  <span class='mz_zhonglei'>赠品&nbsp;(1)</span>
+              </div>
+              <li data-item_idp='2' data-indexp='1' style='border-bottom:none;'>
+                  <section class='gcaidjsl_list_l' style='height: 100px;width: 25%;'>
+                      <a href='javascript:;' class='gcaidjimg_po' style='border: 1px solid #f0f0f0;display: flex;align-items: center;justify-content: center;'>
+                          <img src='../image/Vc1J8Zd9k4loYqHbORFVztgmJxSVkqXtdDoSf0sf.jpeg' class='gcaidjimg_poi' height='100px'>
+                      </a>
+                  </section>
+                  <section class='gcaidjsl_list_r' style='width: 70%;'>
+                      <div class='g_title'>
+                          <div class='g_gtitle' style='margin-top:1rem;'>
+                              <cite>
+                                  <a href='javascript:;'>白菜</a>
+                              </cite>
+                          </div>
+                      </div>
+                      <section class='gcaidjsl_list_jg' style='margin-top:1rem;'>
+                          <section class='gcaidjsl_list_lt'>￥4.00/斤</section>
+                          <section class='gcaidj_sl' style='color: #4c4c4c;'>
+                              x1
+                          </section>
+                          <section class='clear'></section>
+                      </section>
+                  </section>
+                  <section class='clear'></section>
+              </li>
+          </ol> -->
+        </div>
+    </div>
+    <!-- 返回首页按钮 -->
+    <div class="shouye" id="div" tampode onclick="openIndex()"></div>
+    <!-- 底部 -->
+    <div class="foot" style="background-color:#ffffff;z-index:999;">
+        <div id="shopMJ">
+            <div class="gcaidjs_mj">
+                <div class="gcaidjs_mj_left">
+                    <!-- 再买<span>8.81</span>元减<span>10</span>元 -->
+                </div>
+                <div class="gcaidjs_mj_right" onclick="openclassify()">
+                    去凑单
+                    <div class="gcaidjd_mz_jt">
+                        <img src="../image/mz_jt.png" alt="" width="10px">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="foot_box">
+            <div class="sum">合计: <span>￥<span class="countPrice">0.00</span></span>
+                <span class="del">￥<span class="countDel"></span></span>
+            </div>
+            <div class="sure" tampode onclick="openShopCart()">确定(<span class="countNum">15</span>)</div>
+        </div>
+
+
+    </div>
+    <!-- 留言遮罩层 -->
+    <div id="cover"></div>
+    <div id="message">
+        <div class="mint-msgbox" style="">
+            <div class="mint-msgbox-header">
+                <div class="mint-msgbox-title">确定要修改备注吗？</div>
+            </div>
+            <div class="mint-msgbox-content">
+                <div class="mint-msgbox-message">
+                    <textarea type="text" class="placefl_list_tex" id="messages" placeholder="请输入您想说的" style="height: 100px;width: 100%;border: 1px solid #ccc;padding-top: 5px;padding-left: 10px;margin-top: 10px;border-radius: 5px;"></textarea>
+                </div>
+                <div class="mint-msgbox-input" style="display: none;">
+                    <input placeholder="" type="text">
+                    <div class="mint-msgbox-errormsg" style="visibility: hidden;"></div>
+                </div>
+            </div>
+            <div class="mint-msgbox-btns">
+                <button class="mint-msgbox-btn mint-msgbox-cancel" style="border-right: 2px solid #ddd;" tampode onclick="Canel()">取消</button>
+                <button class="mint-msgbox-btn mint-msgbox-confirm " tampode onclick="Confirms()">确定</button>
+            </div>
+        </div>
+    </div>
+    <!-- 数值键盘遮罩层 -->
+    <div id="coverd"></div>
+    <div id="t-keybord">
+        <div class="numbers-content">
+            <div class="numbers-txt-ba2">
+                <!-- <div class="numbers-title">最大数量<span class="sum2">999</span></div> -->
+            </div>
+            <div class="numbers-txt-ba">
+                <div class="numbers-txt-box"><span class="numbers-txts"></span><em class="numbers-txte"></em></div>
+                <div class="numbers-txt-cler">
+                    <div class="clear-text" id="t-del"><img src="../image/del1.png" alt=""></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="numbers-txt-ba1">
+                <div class="numbers-btn-group">
+                    <button type="button" value="1" class="sum-btn-value" onmousedown="sumBtnValue(this);">1</button>
+                    <button type="button" value="2" class="sum-btn-value" onmousedown="sumBtnValue(this);">2</button>
+                    <button type="button" value="3" class="sum-btn-value" onmousedown="sumBtnValue(this);">3</button>
+                    <button type="button" value="4" class="sum-btn-value" onmousedown="sumBtnValue(this);">4</button>
+                    <button type="button" value="5" class="sum-btn-value" onmousedown="sumBtnValue(this);">5</button>
+                    <button type="button" value="6" class="sum-btn-value" onmousedown="sumBtnValue(this);">6</button>
+                    <button type="button" value="7" class="sum-btn-value" onmousedown="sumBtnValue(this);">7</button>
+                    <button type="button" value="8" class="sum-btn-value" onmousedown="sumBtnValue(this);">8</button>
+                    <button type="button" value="9" class="sum-btn-value" onmousedown="sumBtnValue(this);">9</button>
+                    <button type="button" value="0" class="sum-btn-value" onmousedown="sumBtnValue(this);">0</button>
+                    <button type="button" value="." class="sum-btn-value wrap_xsd" onmousedown="sumBtnValue(this);">.</button>
+                    <button type="button" value="" class="sum-btn-value"></button>
+                    <spanclass="wrap_xsd1" style="display: none;">
+                        </span>
+                </div>
+                <div class="cifg-btn">
+                    <div class="cifg-btn-confirm modifymi_qk" id="t-clear">清空</div>
+                    <div class="cifg-btn-confirm cancel-btn" id="t-close">取消</div>
+                    <div class="clear"></div>
+                    <div class="cifg-btn-confirm1 modifymi_con" id="t-submit">确认</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../script/encipherment.js"></script>
+<script type="text/javascript" src="../script/md5.js"></script>
+<script type="text/javascript" src="../script/regular.js"></script>
+<script type="text/javascript" src="../script/date.js"></script>
+<script type="text/javascript" src="../script/jianpan_shopcar.js"></script>
+<script type="text/javascript">
+    var Is_look = '';
+    var goodsList = '';
+    apiready = function() {
+        //修改手机状态栏字体颜色
+        api.setStatusBarStyle({
+            style: 'dark'
+        });
+        api.addEventListener({
+            name: 'keyback'
+        }, function(ret, err) {
+            openShopCart();
+        });
+        getShopCratList()
+    };
+    var remarkObj, itemId, attrIds = 0;
+    function getShopCratList(){
+      api.showProgress({
+          title: '努力加载中...',
+          modal: false
+      });
+      var timeStamp = timestamp();
+      // 获取购物车商品列表
+      var sign = getSign("appid=" + $api.getStorage("appid") + "&timeStamp=" + timeStamp);
+      api.ajax({
+          url: $api.getStorage("URL") + '/mobileOrder/openCart',
+          method: 'GET',
+          headers: {
+              'Authorization': $api.getStorage('token')
+          },
+          returnAll: true,
+          data: {
+              values: {
+                  appid: $api.getStorage("appid"),
+                  active: 2,
+                  timeStamp: timeStamp,
+                  sign: sign
+              }
+          }
+      }, function(ret, err) {
+          if (ret) {
+              judgement(ret.body.code, ret.msg)
+              var body = ret.body;
+              var headers = ret.headers;
+              if (isNotEmpry(headers.Authorization)) {
+                  $api.setStorage('token', headers.Authorization);
+              }
+              if (body.code == 200) {
+                  var data = body.data;
+                  goodsList = body.data;
+                  var shop = data.shop;
+                  var listStr = "";
+                  getCountNum();
+                  for (var i = 0; i < shop.length; i++) {
+                      listStr += "<ol style='margin-bottom:50px;'>";
+                      listStr += "<div class='mar'>";
+                      listStr += "<span class='leibie'>类别</span>";
+                      listStr += "<span class='zhonglei'>" + shop[i].p_name + "&nbsp;(" + shop[i].count + ")</span>";
+                      listStr += "</div>";
+                      var list = shop[i].list;
+                      for (var j = 0; j < list.length; j++) {
+                          listStr += "<li data-item_idp='2' data-indexp='1' style='border-bottom:none;'>";
+                          listStr += "<section class='gcaidjsl_list_l' style='height: 113px;'>";
+                          listStr += "<a class='gcaidjimg_po' onclick='openGood(" + data.is_detail + "," + list[j].id + ");'>";
+                          // 判断商品图片
+                          if (isNotEmpry(list[j].img)) {
+                              listStr += "<img src='" + $api.getStorage("URL") + list[j].img + "' class='gcaidjimg_poi' height='100px' onerror='onerrors(this,\"" + data.item_default + "\");'>";
+                          } else {
+                              listStr += "<img src='" + $api.getStorage("URL") + data.item_default + "' class='gcaidjimg_poi' height='100px' onerror='onerrors(this,\"" + data.item_default + "\");'>";
+                          }
+                          listStr += "</a>";
+                          // 判断是否显示水印 0否1是
+                          if (data.shuiyin == 1) {
+                              listStr += "<section class='daily_img1'>";
+                              listStr += "<img src='" + $api.getStorage("URL") + data.logo + "'>";
+                              listStr += "</section>";
+                          }
+                          // 判断是否显示右上角标
+                          if (isNotEmpry(list[j].label)) {
+                              listStr += "<span class='daily_xi1'>";
+                              listStr += "<span></span>";
+                              listStr += "<strong class='daily_xis'>" + list[j].label + "</strong>";
+                              listStr += "</span>";
+                          }
+                          listStr += "</section>";
+                          listStr += "<section class='gcaidjsl_list_r'>";
+                          listStr += "<div class='g_title'>";
+                          listStr += "<div class='g_gtitle'>";
+                          listStr += "<cite onclick='openGood(" + data.is_detail + "," + list[j].id + ");'>";
+                          listStr += "<a href='javascript:;'>" + list[j].title + "</a>";
+                          listStr += "</cite>";
+                          if (isNotEmpry(list[j].describe)) {
+                              listStr += "<address class='vueappsy_add on'>" + list[j].describe + "</address>";
+                          }
+                          listStr += "</div>";
+                          listStr += "<div class='g_img' onclick='deleteCart(" + list[j].id + "," + JSON.stringify(list[j].attr) + ");'><img src='../image/del.png' width='100%' height='100%'></div>";
+                          listStr += "</div>";
+                          listStr += "<section class='gcaidjsl_list_jg'>";
+                          // 判断是否显示价格 0否1是
+                          if (data.is_look == 1) {
+                              // 判断属性
+                              if (isNotEmpry(list[j].attr)) {
+                                  // 判断商品属性是否参与活动 0否1是
+                                  if (list[j].attr.is_activity == 1) {
+                                    if (list[j].cart_num > list[j].attr.activity_num) {
+                                        listStr += "<section class='gcaidjsl_list_lt'>￥" + list[j].attr.attr_price + "/" + list[j].attr.unit + "</section>"
+                                        listStr += "<span>(已选" + list[j].attr.attr_title + ")</span>";
+                                        listStr += "<del class='gcaidjsl_del'>" + list[j].attr.attr_price + "</del>"
+                                    } else {
+                                        listStr += "<section class='gcaidjsl_list_lt'>￥" + list[j].attr.activity_price + "/" + list[j].attr.unit + "</section>"
+                                        listStr += "<span>(已选" + list[j].attr.attr_title + ")</span>";
+                                        listStr += "<del class='gcaidjsl_del'>" + list[j].attr.attr_price + "</del>"
+                                    }
+
+                                  } else {
+                                      // 判断是否是时价
+                                      if (list[j].attr.market_price == 1) {
+                                          listStr += "<section class='gcaidjsl_list_lt'>￥时价</section><span>(已选" + list[j].attr.attr_title + ")</span>";
+                                      } else {
+                                          listStr += "<section class='gcaidjsl_list_lt'>￥" + list[j].attr.attr_price + "/" + list[j].attr.unit + "</section><span>(已选" + list[j].attr.attr_title + ")</span>";
+                                      }
+                                  }
+                              } else {
+                                  // 判断是否参与活动 0否1是
+                                  if (list[j].is_activity == 1) {
+                                    if (list[j].cart_num > list[j].activity_num) {
+                                        listStr += "<section class='gcaidjsl_list_lt'>￥" + list[j].price + "/" + list[j].unit + "</section>";
+                                        listStr += "<del class='gcaidjsl_del'>" + list[j].price + "</del>"
+                                    } else {
+                                        listStr += "<section class='gcaidjsl_list_lt'>￥" + list[j].activity_price + "/" + list[j].unit + "</section>";
+                                        listStr += "<del class='gcaidjsl_del'>" + list[j].price + "</del>"
+                                    }
+                                  } else {
+                                      // 判断是否是时价
+                                      if (list[j].market_price == 1) {
+                                          listStr += "<section class='gcaidjsl_list_lt'>￥时价</section>";
+                                      } else {
+                                          listStr += "<section class='gcaidjsl_list_lt'>￥" + list[j].price + "/" + list[j].unit + "</section>";
+                                      }
+                                  }
+                              }
+                          } else {
+                              // 判断属性
+                              if (isNotEmpry(list[j].attr)) {
+                                  listStr += "<section class='gcaidjsl_list_lt'>￥***</section><span>(已选" + list[j].attr.attr_title + ")</span>";
+                              } else {
+                                  listStr += "<section class='gcaidjsl_list_lt'>￥***</section>";
+                              }
+                          }
+                          listStr += "<section class='clear'></section>";
+                          listStr += "</section>";
+                          listStr += "<section class='gcaidjsl_list_jg'>";
+                          if (isNotEmpry(list[j].remark)) {
+                              listStr += "<section class='gcaidjsl_list_lt edit' tampode onclick='openTextarea(this," + list[j].id + "," + JSON.stringify(list[j].attr) + ");'>备注:&nbsp;<span class='edit_dian'>" + list[j].remark +
+                                  "</span><em class='edit_liu'></em></section>";
+                          } else {
+                              listStr += "<section class='gcaidjsl_list_lt edit' tampode onclick='openTextarea(this," + list[j].id + "," + JSON.stringify(list[j].attr) +
+                                  ");'>备注:&nbsp;<span class='edit_dian'></span><em class='edit_liu'></em></section>";
+                          }
+                          listStr += "<section class='gcaidj_sl'>";
+                          listStr += "<ruby cart_num='" + list[j].cart_num + "' class='gcaidj_sls g_jians' tampode onclick='changeNum(1,this," + list[j].id + "," + JSON.stringify(list[j].attr) + ");'>";
+                          listStr += "<img src='../image/gcaidj_pic7.png'>";
+                          listStr += "</ruby>";
+                          listStr += "<input style='width:90px;' type='text' readonly data-float='" + list[j].is_float + "' class='gcaidj_sli g_zhis cartNum' value='" + list[j].cart_num + "' onmousedown='keybord(this," + list[j].id +
+                              "," + JSON.stringify(list[j].attr) + ");'>";
+                          listStr += "<ruby cart_num='" + list[j].cart_num + "' class='gcaidj_sla g_jias' tampode  onclick='changeNum(2,this," + list[j].id + "," + JSON.stringify(list[j].attr) + ");'>";
+                          listStr += "<img src='../image/gcaidj_pic8.png'>";
+                          listStr += "</ruby>";
+                          listStr += "</section>";
+                          listStr += "<section class='clear'></section>";
+                          listStr += "</section>";
+                          listStr += "</section>";
+                          listStr += "<section class='clear'></section>";
+                          listStr += "</li>";
+                      }
+                      listStr += "</ol>";
+                  }
+                  $api.html($api.dom(".gcaidjsl_psp"), listStr);
+              } else {
+                  api.toast({
+                      msg: body.msg,
+                      duration: 2000,
+                      location: 'middle'
+                  });
+              }
+          } else {
+              api.toast({
+                  msg: JSON.stringify(err),
+                  duration: 2000,
+                  location: 'middle'
+              });
+          }
+          api.hideProgress();
+      });
+    }
+    // 获取购物车数量
+    function getCountNum() {
+        var timeStamp = timestamp();
+        var sign2 = getSign("appid=" + $api.getStorage("appid") + "&timeStamp=" + timeStamp);
+        api.ajax({
+            url: $api.getStorage("URL") + '/mobileOrder/getCountNum',
+            returnAll: true,
+            headers: {
+                'Authorization': $api.getStorage('token')
+            },
+            method: 'GET',
+            data: {
+                values: {
+                    appid: $api.getStorage("appid"),
+                    active: 2,
+                    timeStamp: timeStamp,
+                    sign: sign2
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                judgement(ret.body.code, ret.msg)
+                var body = ret.body;
+                var headers = ret.headers;
+                if (isNotEmpry(headers.Authorization)) {
+                    $api.setStorage('token', headers.Authorization);
+                }
+                if (body.code == 200) {
+                    $api.html($api.dom(".countNum"), body.data.countNum);
+                    // console.log("getCountNum"+JSON.stringify(body.data))
+                    chengMoney(body.data)
+                        // 判断是否显示价格 0否1是
+                    Is_look = body.data.is_look;
+                    if (body.data.is_look == 1) {
+                        if (body.data.activity_type == 1 && body.data.discount != 0) {
+                            $(".del").show()
+                            var money = (body.data.countPrice - body.data.discount).toFixed(2)
+                            $api.html($api.dom(".countPrice"), money);
+                            $api.html($api.dom(".countDel"), body.data.countPrice);
+                        } else {
+                            $(".del").hide()
+                            $api.html($api.dom(".countPrice"), body.data.countPrice);
+                        }
+
+                    } else {
+                        $(".del").hide()
+                        $api.html($api.dom(".countPrice"), "***");
+                    }
+                } else {
+                    api.toast({
+                        msg: body.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+        });
+    }
+    // 凑单
+    function openclassify() {
+        api.openWin({
+            name: 'classify',
+            url: 'classify.html',
+            reload: true,
+            slidBackEnabled: false,
+        });
+    }
+
+    //更新价格
+    function chengMoney(data) {
+        if (goodsList) {
+            // console.log(JSON.stringify(goodsList));
+            if (goodsList.activity_type == 2) { //满赠
+                full_gift(data);
+            } else if (goodsList.activity_type == 1) { //满减
+                full_reduction(data);
+                $("#shopMJ").show();
+            } else {
+                $("#shopMJ").hide();
+            }
+        }
+    }
+
+    function full_gift(data) {
+        // console.log(JSON.stringify(data))
+        var mz_item = '';
+        var html = '';
+        var list = goodsList.activity_rule;
+        var num = data.fullPrice;
+        var arr = []
+        if (list || num) {
+            for (var i = 0; i < list.length; i++) {
+                if (num > list[i].price) {
+                    arr.push(list[i])
+                }
+            }
+            if (arr != '') {
+                var max = arr[0].price;
+                if (arr.length <= 1) {
+                    mz_item = arr[0].item;
+                } else {
+                    for (var i = 1; i < arr.length; i++) {
+                        if (arr[i].price > max) {
+                            mz_item = arr[i].item;
+                        }
+                    }
+                }
+                // console.log(JSON.stringify(mz_item))
+                if (mz_item != '') {
+                    html += "<ol>"
+                    html += "<div class='mar'>"
+                    html += "<span class='mz_leibie'>满赠</span>"
+                    html += "<span class='mz_zhonglei'>赠品&nbsp;(" + mz_item.length + ")</span>"
+                    html += "</div>"
+                    for (var i = 0; i < mz_item.length; i++) {
+                        // mz_item[i]
+                        html += "<li data-item_idp='2' data-indexp='1' style='border-bottom:none;'>"
+                        html += "<section class='gcaidjsl_list_l' style='height: 100px;width: 25%;'>"
+                        html += "<a href='javascript:;' class='gcaidjimg_po' style='border: 1px solid #f0f0f0;display: flex;align-items: center;justify-content: center;'>"
+                        html += "<img src='" + $api.getStorage("URL") + mz_item[i].img + "' class='gcaidjimg_poi' height='100px'>"
+                        html += "</a>"
+                        html += "</section>"
+                        html += "<section class='gcaidjsl_list_r' style='width: 70%;'>"
+                        html += "<div class='g_title'>"
+                        html += "<div class='g_gtitle' style='margin-top:1rem;'>"
+                        html += "<cite>"
+                        html += "<a href='javascript:;'>" + mz_item[i].title + "</a>"
+                        html += "</cite>"
+                        html += "</div>"
+                        html += "</div>"
+                        html += "<section class='gcaidjsl_list_jg' style='margin-top:1rem;'>"
+                        html += "<section class='gcaidjsl_list_lt'>￥0.00/" + mz_item[i].unit + "</section>"
+                        html += "<section class='gcaidj_sl' style='color: #4c4c4c;'>x" + mz_item[i].num + "</section>"
+                        html += "<section class='clear'></section>"
+                        html += "</section>"
+                        html += "</section>"
+                        html += "<section class='clear'></section>"
+                        html += "</li>"
+                    }
+                    html += "</ol>"
+                }
+                $api.html($api.dom(".gcaidjd_mz_box"), html);
+            } else {
+                $api.html($api.dom(".gcaidjd_mz_box"), '');
+            }
+        }
+    }
+
+    function full_reduction(data) {
+        var list = goodsList.activity_rule;
+        var num = data.fullPrice;
+        var html = '';
+
+        function pricejReduce(list) {
+            for (var i = 0; i < list.length; i++) {
+                if (num <= list[i].price) {
+                    return i
+                }
+            }
+        }
+        if (num < list[list.length - 1].price) {
+            var num1 = pricejReduce(list);
+            if (num1 <= 0) {
+                html = "还差<span>" + (list[num1].price - num).toFixed(2) + "</span>元减<span>" + list[num1].reduce + "</span>元";
+            } else if (num1 > 0) {
+                html = "已享满<span>" + (list[num1 - 1].price) + "</span>元减<span>" + list[num1 - 1].reduce + "</span>元再买<span>" + (list[num1].price - num).toFixed(2) + "</span>元减<span>" + list[num1].reduce + "</span>元";
+            }
+        } else {
+            html = "已享满<span>" + (list[list.length - 1].price) + "</span>元减<span>" + list[list.length - 1].reduce + "</span>元";
+        }
+        $api.html($api.dom(".gcaidjs_mj_left"), html);
+    }
+    // 留言zhezhao
+    function openTextarea(obj, id, attr) {
+        $("#cover").show();
+        $("#message").show();
+        remarkObj = obj;
+        itemId = id;
+        if (isNotEmpry(attr)) {
+            attrIds = attr.id;
+        }
+        var remark = $(remarkObj).children(".edit_dian").html();
+        if (isNotEmpry(remark)) {
+            $api.val($api.byId("messages"), remark);
+        } else {
+            $api.val($api.byId("messages"), "");
+        }
+    }
+    // 执行修改购物车商品备注
+    function Confirms() {
+        api.showProgress({
+            title: '努力加载中...',
+            modal: false
+        });
+        var timeStamp = timestamp();
+        var sign = getSign("appid=" + $api.getStorage("appid") + "&attr_id=" + attrIds + "&item_id=" + itemId + "&remark=" + $api.val($api.byId("messages")) + "&timeStamp=" + timeStamp);
+        api.ajax({
+            url: $api.getStorage("URL") + '/mobileOrder/itemRemark',
+            method: 'POST',
+            headers: {
+                'Authorization': $api.getStorage('token')
+            },
+            returnAll: true,
+            data: {
+                values: {
+                    appid: $api.getStorage("appid"),
+                    active: 2,
+                    attr_id: attrIds,
+                    item_id: itemId,
+                    remark: $api.val($api.byId("messages")),
+                    timeStamp: timeStamp,
+                    sign: sign
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                judgement(ret.body.code, ret.msg)
+                var body = ret.body;
+                var headers = ret.headers;
+                if (isNotEmpry(headers.Authorization)) {
+                    $api.setStorage('token', headers.Authorization);
+                }
+                if (body.code == 200) {
+                    api.toast({
+                        msg: body.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                    $("#cover").hide();
+                    $("#message").hide();
+                    $(remarkObj).children(".edit_dian").html($api.val($api.byId("messages")));
+                } else {
+                    api.toast({
+                        msg: body.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+            api.hideProgress();
+        });
+    }
+    // 取消弹窗
+    function Canel() {
+        $("#cover").hide();
+        $("#message").hide();
+    }
+    // 更新购物车数量
+    function changeNum(falg, obj, id, attr) {
+        var cartNum = $(obj).siblings(".cartNum").val();
+        // falg 增减判断标识 1减2加
+        if (falg == 1) {
+            cartNum--;
+        } else {
+            cartNum++;
+        }
+        var attrId = 0;
+        if (isNotEmpry(attr)) {
+            attrId = attr.id;
+        }
+        // 删除购物车商品
+        if (cartNum == 0) {
+            // 删除购物车商品
+            deleteCart(id, attr);
+            getShopCratList();
+        } else {
+            var timeStamp = timestamp();
+            var sign = getSign("appid=" + $api.getStorage("appid") + "&attr_id=" + attrId + "&item_num=" + cartNum + "&item_id=" + id + "&timeStamp=" + timeStamp);
+            api.showProgress({
+                title: '努力加载中...',
+                modal: false
+            });
+            api.ajax({
+                url: $api.getStorage("URL") + '/mobileOrder/changeNum',
+                method: 'POST',
+                headers: {
+                    'Authorization': $api.getStorage('token')
+                },
+                returnAll: true,
+                data: {
+                    values: {
+                        appid: $api.getStorage("appid"),
+                        active: 2,
+                        attr_id: attrId,
+                        item_num: cartNum,
+                        item_id: id,
+                        timeStamp: timeStamp,
+                        sign: sign
+                    }
+                }
+            }, function(ret, err) {
+                if (ret) {
+                    judgement(ret.body.code, ret.msg)
+                    var body = ret.body;
+                    var headers = ret.headers;
+                    if (isNotEmpry(headers.Authorization)) {
+                        $api.setStorage('token', headers.Authorization);
+                    }
+                    if (body.code == 200) {
+                        $api.html($api.dom(".countNum"), body.data.countNum);
+                        // console.log("changeNum"+JSON.stringify(body.data))
+                        chengMoney(body.data)
+                        getShopCratList();
+                            // 判断是否显示价格 0否1是
+                        if (body.data.is_look == 1) {
+                            if (body.data.activity_type == 1 && body.data.discount != 0) {
+                                $(".del").show()
+                                var money = (body.data.countPrice - body.data.discount).toFixed(2)
+                                $api.html($api.dom(".countPrice"), money);
+                                $api.html($api.dom(".countDel"), body.data.countPrice);
+                            } else {
+                                $(".del").hide()
+                                $api.html($api.dom(".countPrice"), body.data.countPrice);
+                            }
+                        } else {
+                            $api.html($api.dom(".countPrice"), "***");
+                        }
+                        $(obj).siblings(".cartNum").val(cartNum);
+                    } else {
+                        api.toast({
+                            msg: body.msg,
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                    }
+                } else {
+                    api.toast({
+                        msg: JSON.stringify(err),
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+                api.hideProgress();
+            });
+        }
+    }
+    // 删除购物车商品
+    function deleteCart(id, attr) {
+        var attrId = 0;
+        if (isNotEmpry(attr)) {
+            attrId = attr.id;
+        }
+        api.showProgress({
+            title: '努力加载中...',
+            modal: false
+        });
+        var timeStamp = timestamp();
+        var sign = getSign("appid=" + $api.getStorage("appid") + "&attr_id=" + attrId + "&item_id=" + id + "&timeStamp=" + timeStamp);
+        api.ajax({
+            url: $api.getStorage("URL") + '/mobileOrder/deleteCart',
+            method: 'POST',
+            headers: {
+                'Authorization': $api.getStorage('token')
+            },
+            returnAll: true,
+            data: {
+                values: {
+                    appid: $api.getStorage("appid"),
+                    active: 2,
+                    attr_id: attrId,
+                    item_id: id,
+                    timeStamp: timeStamp,
+                    sign: sign
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                judgement(ret.body.code, ret.msg)
+                var body = ret.body;
+                var headers = ret.headers;
+                if (isNotEmpry(headers.Authorization)) {
+                    $api.setStorage('token', headers.Authorization);
+                }
+                if (body.code == 200) {
+                    location.reload();
+                } else {
+                    api.toast({
+                        msg: body.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+            api.hideProgress();
+        });
+    }
+    // 跳转到商品详情页
+    function openGood(is_detail, id) {
+        // 判断是否可以查看详情页
+        if (is_detail == 1) {
+            api.openWin({
+                name: 'good_details',
+                url: 'good_details.html',
+                pageParam: {
+                    id: id
+                },
+                reload: true,
+                slidBackEnabled: false
+            });
+        } else {
+            api.toast({
+                msg: '详情页暂未开放',
+                duration: 2000,
+                location: 'middle'
+            });
+        }
+    }
+    // 跳转到首页
+    function openIndex() {
+        api.openWin({
+            name: 'index',
+            url: './index.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+    // 返回购物车页面
+    function openShopCart() {
+        if (Is_look == 1) {
+            var countNum = $api.html($api.dom(".countNum"));
+            var countPrice = $api.html($api.dom(".countPrice"));
+            api.closeWin();
+            var jsonStr = {
+                countPrice: countPrice,
+                countNum: countNum
+            }
+            var jsfun = "shopInfos(" + JSON.stringify(jsonStr) + ");";
+            api.execScript({
+                name: 'shopcart',
+                script: jsfun
+            });
+        } else {
+            api.closeWin();
+        }
+
+    }
+</script>
+
+</html>

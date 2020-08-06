@@ -1,0 +1,57 @@
+@charset "utf-8";
+.wbk {
+	max-width: 700px;
+	margin-right: auto;
+	margin-left: auto;
+	border-top-width: 10px;
+	border-top-style: solid;
+	border-top-color: #f5f5f5;
+	color: #333;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+.bxs {
+	display: none;
+}
+
+.wbk .czbk {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	line-height: 25px;
+	height: 50px;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #f0f0f0;
+}
+.wbk .czbk .cz_z {
+	float: left;
+	font-size: 12px;
+	width: 75%;
+}
+
+.wbk .czbk .cz_y {
+	float: right;
+	line-height: 50px;
+	font-weight: bold;
+	width: 23%;
+	text-align: right;
+}
+.wbk .czbk .cz_z .cztime {
+	color: #666;
+}
+
+.wbk .czbk .ht {
+	color: #f55637;
+}
+.wbk .czbk .qt {
+	color: #50cb19;
+}
+.zwsj {
+	text-align: center;
+	width: 100%;
+	padding-top: 20px;
+}
+.zwsj img {
+	max-width:415px;
+	width: 100%;
+}

@@ -1,0 +1,304 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/orderlist.css" />
+    <title>账单记录</title>
+    <style media="screen">
+        .zwsj {
+            text-align: center;
+            width: 100%;
+            padding-top: 50px;
+        }
+
+        .zwsj img {
+            width: 70%;
+            max-width: 415px;
+        }
+        #up {
+            width: 100%;
+            height: 46px;
+            line-height: 46px;
+            font-size: 1rem;
+            text-align: center;
+            clear: both;
+            margin-bottom: 60px;
+        }
+
+        .shouye {
+            width: 38px;
+            height: 38px;
+            background: #EEEEEE;
+            border-radius: 20px;
+            background-image: url("../image/index.png");
+            background-size: 20px;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            position: fixed;
+            right: 20px;
+            bottom: 100px;
+        }
+      .time_box{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 15px;
+      }
+      .time{
+        line-height: 25px;
+        height: 25px;
+        font-size: 16px;
+        text-align: center;
+        color: #52CA28;
+      }
+      .time_img{
+        width: 25px;
+        height: 25px;
+      }
+      .inp_box{
+        display: flex;
+        text-align: center;
+        border: 1px solid #f5f5f5;
+        padding: 5px 10px;
+        margin-right: 10px;
+      }
+      .del{
+        color: #666;
+      }
+    </style>
+</head>
+
+<body>
+    <div id="header"></div>
+    <div class="time_box">
+      <div class="inp_box">
+        <input onclick="data()" readonly class="time" type="text" id="start_time" value="" placeholder="请选择时间">
+        <img onclick="pick()" class="time_img" src="../image/calendar.png" alt="">
+      </div>
+      <div class='del' onclick="del()">清空日期</div>
+    </div>
+
+
+    <div class="xian"></div>
+    <div class="wbk">
+        <!-- <div class="lbbk" tampode onclick="openordercon();">
+            <div class="zdnum"><span>账单编号：5483287845474845账单编号：5483287845474845</span><i>余额</i></div>
+            <div class="zdnr">订单创建时间：2019-08-08 10:50</div>
+            <div class="zdnr"><span>应收:<i>¥100.00</i></span><span class="ce">差额:0.00</span><span>实收:<i>¥100.00</i></span></div>
+        </div>
+        <div class="lbbk" tampode onclick="openordercon();">
+            <div class="zdnum"><span>账单编号：5483287845474845</span><i class="xj">现金</i></div>
+            <div class="zdnr">订单创建时间：2019-08-08 10:50订单创建时间：2019-08-08 10:50</div>
+            <div class="zdnr"><span>应收:<i>¥100.00</i></span><span class="ce">差额:0.00</span><span>实收:<i>¥100.00</i></span></div>
+        </div> -->
+    </div>
+    <div id="up">上拉加载更多</div>
+    <div class="zwsj bxs"><img src="../image/wjl.png"></div>
+    <!-- 返回首页按钮 -->
+    <div class="shouye" id="div" tampode onclick="openIndex()"></div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../script/encipherment.js"></script>
+<script type="text/javascript" src="../script/md5.js"></script>
+<script type="text/javascript" src="../script/regular.js"></script>
+<script type="text/javascript" src="../script/date.js"></script>
+<script type="text/javascript" src="../script/rolldate.min.js"></script>
+<script type="text/javascript">
+    var skip = 0,
+        LIMIT = 10;
+    apiready = function() {
+        //修改手机状态栏字体颜色
+        api.setStatusBarStyle({
+            style: 'dark'
+        });
+        var header = $api.byId('header');
+        $api.fixStatusBar(header);
+
+        // 获取账单记录列表
+        moneyList();
+        // 监听底部
+        loadMore();
+        //配送时间选择
+        data();
+
+    };
+
+    // 配送时间选择
+    function data() {
+        var date = '';
+        var myDate = new Date();
+        new rolldate.Date({
+            el: '#start_time',
+            format: 'YYYY-MM',
+            beginYear: myDate.getFullYear()-5,
+            endYear: myDate.getFullYear(),
+            value: date //或2017-10-21 23:52:50
+        })
+    }
+
+    function pick() {
+      moneyList();
+      // var sendTime = $api.val($api.dom("#start_time"));
+      // if(sendTime == ""){
+      //   api.toast({
+      //       msg: "请选择时间",
+      //       duration: 2000,
+      //       location: 'middle'
+      //   });
+      // }else{
+      //   moneyList();
+      // }
+
+    }
+
+    function del() {
+      var sendTime = $api.val($api.dom("#start_time"));
+      if(sendTime == ""){
+        api.toast({
+            msg: "当前时间为空",
+            duration: 2000,
+            location: 'middle'
+        });
+      }else{
+        $("#start_time").val("");
+      }
+    }
+
+    function moneyList(loadMore_) {
+        if (loadMore_) {
+            skip++;
+        } else {
+            skip = 0;
+        }
+        api.showProgress({
+            title: '努力加载中...',
+            modal: false
+        });
+
+        var sendTime = $api.val($api.dom("#start_time"));
+        var timeStamp = timestamp();
+        var sign = getSign("appid=" + $api.getStorage("appid") + "&timeStamp=" + timeStamp);
+        api.ajax({
+            url: $api.getStorage("URL") + '/mobileOrder/moneyList',
+            method: 'GET',
+            headers: {
+                'Authorization': $api.getStorage('token')
+            },
+            returnAll: true,
+            data: {
+                values: {
+                    appid: $api.getStorage("appid"),
+                    active:2,
+                    page: skip + 1,
+                    num: LIMIT,
+                    date:sendTime,
+                    timeStamp: timeStamp,
+                    sign: sign
+                }
+            }
+        }, function(ret, err) {
+          // console.log(sendTime)
+          // console.log(JSON.stringify(ret));
+            api.hideProgress();
+            if (ret) {
+                judgement(ret.body.code, ret.msg)
+                var body = ret.body;
+                var headers = ret.headers;
+                // 判断token是否失效
+                if (isNotEmpry(headers.Authorization)) {
+                    $api.setStorage('token', headers.Authorization);
+                }
+                if (body.code == 200) {
+                    var list = body.data;
+                    if (skip == 0) {
+                        if (list.length <= 0) {
+                            // $api.remove($api.dom('.wbk'))
+                             $(".wbk").empty();
+                             $('.zwsj').css("display","block")
+                            $api.addCls($api.dom("#up"), 'bxs');
+                            // $api.removeCls($api.dom(".zwsj"), 'bxs');
+                            return;
+                        }
+                    }
+                    if (list.length > 0) {
+                        $('.zwsj').css("display","none")
+                        $api.removeCls($api.dom("#up"), 'bxs');
+                        var listStr = "";
+                        for (var i = 0; i < list.length; i++) {
+                            listStr += "<div class='lbbk' tampode onclick='openordercon(" + list[i].id + ");'>";
+                            // pay_type: 支付方式 1余额，2现金，3转账
+                            if (list[i].pay_type == 1) {
+                                listStr += "<div class='zdnum'><span>账单编号：" + list[i].order_sn + "</span><i>余额</i></div>";
+                            } else if (list[i].pay_type == 2) {
+                                listStr += "<div class='zdnum'><span>账单编号：" + list[i].order_sn + "</span><i class='xj'>现金</i></div>";
+                            } else {
+                                listStr += "<div class='zdnum'><span>账单编号：" + list[i].order_sn + "</span><i style='color:blue;'>转账</i></div>";
+                            }
+                            listStr += "<div class='zdnr'>订单创建时间：" + list[i].date + "</div>";
+                            listStr += "<div class='zdnr'><span>应收:<i>¥" + list[i].receivable + "</i></span><span class='ce'>差额:" + list[i].difference + "</span><span>实收:<i>¥" + list[i].net_receipts + "</i></span></div>";
+                            listStr += "</div>";
+                        }
+                        var list = $api.dom('.wbk');
+                        if (loadMore_) {
+                            $api.append(list, listStr);
+                        } else {
+                            $api.html(list, listStr);
+                        }
+                    } else {
+                        $api.html($api.dom("#up"), '已加载完');
+                    }
+                } else {
+                    api.toast({
+                        msg: body.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+            api.hideProgress();
+        });
+    }
+    // 监听底部
+    function loadMore() {
+        api.addEventListener({
+            name: 'scrolltobottom',
+        }, function(ret, err) {
+            moneyList(true);
+        });
+    }
+    // 跳转到账单详情页面
+    function openordercon(id) {
+        api.openWin({
+            name: 'ordercon',
+            url: 'ordercon.html',
+            reload: true,
+            pageParam: {
+                id: id
+            },
+            slidBackEnabled: false
+        });
+    }
+    // 跳转首页
+    function openIndex() {
+        api.openWin({
+            name: 'index',
+            url: './index.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+</script>
+
+</html>

@@ -1,0 +1,149 @@
+.main {
+    margin: 0 auto;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.gcaidj_gh {
+    height: 12px;
+    background: #f5f5f5;
+}
+.gcaidji {
+    width: 90%;
+    margin: 10px auto;
+}
+form {
+    display: inline;
+}
+.gcaidji .gcaidji_xz address {
+    display: block;
+    float: left;
+    width: 50%;
+    height: 70px;
+    line-height: 70px;
+    text-align: center;
+}
+i, em, cite, address, dfn, address {
+    font-style: normal;
+}
+.gcaidji .gcaidji_xz address:first-child aside {
+    margin-right: 0.3rem;
+}
+.gcaidji .gcaidji_xz address aside {
+    display: block;
+    border: 2px solid #e6e6e6;
+    border-radius: 5px;
+}
+.gcaidji .gcaidji_xz address aside dfn {
+    display: inline-block;
+    vertical-align: middle;
+    height: 25px;
+    line-height: 25px;
+    width: 25px;
+    border-radius: 1000rem;
+}
+.gcaidji .gcaidji_xz address aside dfn i {
+    font-size: 0.4rem;
+    color: #ebfaef;
+}
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.gcaidji .gcaidji_xz address aside ruby {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 0.1rem;
+    font-size: 0.8rem;
+    color: #999;
+}
+.gcaidji .gcaidji_xz address:first-child+address aside {
+    margin-left: 0.3rem;
+}
+
+input {
+    border: none;
+    -webkit-appearance: none;
+    position: relative;
+    z-index: 9;
+}
+button, input {
+    overflow: visible;
+}
+
+a, button, input, textarea {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+.clear {
+    clear: both;
+    height: 0;
+}
+.gcaidji_zs {
+    font-size: 0.7rem;
+    color: #ccc;
+    margin-top: 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #f0f0f0;
+}
+.gcaidji ol li {
+    border-bottom: 1px solid #f0f0f0;
+    height: 49px;
+    line-height: 49px;
+}
+
+li {
+    list-style: none;
+}
+.gcaidji ol li cite {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 0.7rem;
+    color: #333;
+    width: 70px;
+    text-align: justify;
+    text-align-last: justify;
+}
+.gcaidji ol li input {
+    display: inline-block;
+    vertical-align: middle;
+    width: 60%;
+    font-size: 0.7rem;
+    color: #666;
+    height: 35px;
+    margin-left: 0.1rem;
+    position: relative;
+    top: 0.01rem;
+}
+
+input[type="text"], input[type="password"] {
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    border-radius: 0;
+}
+.adminis_button1 {
+    display: block;
+    width: 70%;
+    height: 48px;
+    line-height: 48px;
+    margin: auto;
+    margin-top: 0.8rem;
+    text-align: center;
+    background: #6cca28;
+    color: #fff;
+    font-size: 1rem;
+    border-radius: 1000rem;
+    box-shadow: 0px -2px 0px #57af51 inset;
+}
+.gcaidji .gcaidji_xz address.on aside {
+    border: 2px solid #5bca28;
+    background: #5bca28;
+}
+.gcaidji .gcaidji_xz address.on aside ruby {
+    color: #fff;
+}

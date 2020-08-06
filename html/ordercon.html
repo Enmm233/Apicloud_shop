@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/orderlist.css" />
+    <title>账单记录</title>
+    <style>
+        .shouye {
+            width: 38px;
+            height: 38px;
+            background: #EEEEEE;
+            border-radius: 20px;
+            background-image: url("../image/index.png");
+            background-size: 20px;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            position: fixed;
+            right: 20px;
+            bottom: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header"></div>
+    <div class="wbk">
+        <div class="ddsl">订单数量<span class="count">(0)</span><i>账单编号：<span class="moneySn"></span></i></div>
+        <div class="list">
+            <div class="ddbh">
+                <span>订单编号:<span class="orderSn"></span></span><i>¥<span class="totalPrice"></span></i>
+            </div>
+            <div class="ddbh">
+                <span>订单编号:<span class="orderSn"></span></span><i>¥<span class="totalPrice"></span></i>
+            </div>
+        </div>
+        <div class="ddje">总额:¥<span class="total"></span><i>账单创建时间:<span class="date"></span></i></div>
+    </div>
+    <!-- 返回首页按钮 -->
+    <div class="shouye" id="div" tampode onclick="openIndex()"></div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/encipherment.js"></script>
+<script type="text/javascript" src="../script/md5.js"></script>
+<script type="text/javascript" src="../script/regular.js"></script>
+<script type="text/javascript" src="../script/date.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+            //修改手机状态栏字体颜色
+            api.setStatusBarStyle({
+                style: 'dark'
+            });
+            var header = $api.byId('header');
+            $api.fixStatusBar(header);
+            var id = api.pageParam.id;
+            api.showProgress({
+                title: '努力加载中...',
+                modal: false
+            });
+            var timeStamp = timestamp();
+            var sign = getSign("appid=" + $api.getStorage("appid") + "&id=" + id + "&timeStamp=" + timeStamp);
+            api.ajax({
+                url: $api.getStorage("URL") + '/mobileOrder/moneyListInfo',
+                method: 'GET',
+                headers: {
+                    'Authorization': $api.getStorage('token')
+                },
+                returnAll: true,
+                data: {
+                    values: {
+                        appid: $api.getStorage("appid"),
+                        active:2,
+                        id: id,
+                        timeStamp: timeStamp,
+                        sign: sign
+                    }
+                }
+            }, function(ret, err) {
+                if (ret) {
+                    judgement(ret.body.code, ret.msg)
+                    var body = ret.body;
+                    var headers = ret.headers;
+                    // 判断token是否失效
+                    if (isNotEmpry(headers.Authorization)) {
+                        $api.setStorage('token', headers.Authorization);
+                    }
+                    if (body.code == 200) {
+                        if (isNotEmpry(body.data.count)) {
+                            $api.html($api.dom(".count"), "(" + body.data.count + ")");
+                        }
+                        if (isNotEmpry(body.data.moneySn)) {
+                            $api.html($api.dom(".moneySn"), body.data.moneySn);
+                        }
+                        if (isNotEmpry(body.data.total)) {
+                            $api.html($api.dom(".total"), body.data.total);
+                        }
+                        if (isNotEmpry(body.data.date)) {
+                            $api.html($api.dom(".date"), body.data.date);
+                        }
+                        var list = body.data.list;
+                        if (isNotEmpry(list)) {
+                            if (list.length > 0) {
+                                var listStr = "";
+                                for (var i = 0; i < list.length; i++) {
+                                    listStr += "<div class='ddbh'>";
+                                    listStr += "<span>订单编号:" + list[i].order_sn + "</span><i>¥" + list[i].totalPrice + "</i>";
+                                    listStr += "</div>";
+                                }
+                                $api.html($api.dom(".list"), listStr);
+                            }
+                        }
+                    } else {
+                        api.toast({
+                            msg: body.msg,
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                    }
+                } else {
+                    api.toast({
+                        msg: JSON.stringify(err),
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+                api.hideProgress();
+            });
+        }
+        // 跳转首页
+    function openIndex() {
+        api.openWin({
+            name: 'index',
+            url: './index.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+</script>
+
+</html>

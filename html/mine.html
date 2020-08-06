@@ -1,0 +1,710 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, initial-scale=1.0, width=device-width" />
+    <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+    <title>个人中心</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../css/mine.css" />
+    <link rel="stylesheet" type="text/css" href="../css/shoplist.css" />
+</head>
+
+<body>
+    <article class="gcaidju_t">
+        <h3>账户余额：<span class="balance">0.00</span>元</h3>
+        <section class="gcaidju_ty" tampode onclick="openEdits()">
+            <input id="avatarSlect" type="hidden">
+            <img class="logo" src="../image/member-default.jpg" alt="">
+        </section>
+        <cite class="wlogin" onclick="openlogin();">请先登录</cite>
+        <cite class="nickname" style="display:none;"></cite>
+        <section class="clear"></section>
+        <ol>
+            <li tampode onclick="openCommonly()">
+                <a href="javascript:;" class=""><img src="../image/gcaidj_pic12.png" alt="">
+                    <aside>常用</aside>
+                </a>
+            </li>
+            <li tampode onclick="openSaddress()">
+                <a href="javascript:;" class=""><img src="../image/gcaidj_pic13.png" alt="">
+                    <aside>地址</aside>
+                </a>
+            </li>
+            <li tampode onclick="openUforget()">
+                <a href="javascript:;" class=""><img src="../image/gcaidj_pic10.png" alt="">
+                    <aside>密码</aside>
+                </a>
+            </li>
+            <section class="clear"></section>
+        </ol>
+        <section class="clear"></section>
+    </article>
+    <section class="gcaidj_gh"></section>
+    <article class="gcaidju_list">
+        <ol>
+            <li tampode onclick="openaccountlist()">
+                <a href="javascript:;" class="">
+                    <cite>
+                    <i class="iconfont"><img src="../image/1.jpg" alt="" width="24px"></i>
+                    <dfn>账号管理</dfn>
+                  </cite>
+                    <aside>
+                        <i class="iconfont"><img src="../image/next.png" alt="" width="25px"></i>
+                    </aside>
+                </a>
+                <section class="clear"></section>
+            </li>
+            <li tampode onclick="openinvoice()">
+                <a href="javascript:;" class="">
+                    <cite>
+                    <i class="iconfont"><img src="../image/2.jpg" alt="" width="24px"></i>
+                    <dfn>开具发票</dfn>
+                  </cite>
+                    <aside>
+                        <i class="iconfont"><img src="../image/next.png" alt="" width="25px"></i>
+                    </aside>
+                </a>
+                <section class="clear"></section>
+            </li>
+            <li tampode onclick="openorderlist()">
+                <a href="javascript:;" class="">
+                    <cite>
+                    <i class="iconfont"><img src="../image/3.jpg" alt="" width="24px"></i>
+                    <dfn>账单记录</dfn>
+                  </cite>
+                    <aside>
+                        <i class="iconfont"><img src="../image/next.png" alt="" width="25px"></i>
+                    </aside>
+                </a>
+                <section class="clear"></section>
+            </li>
+            <li tampode onclick="opencharge()">
+                <a href="javascript:;" class="">
+                    <cite>
+                    <i class="iconfont"><img src="../image/4.jpg" alt="" width="24px"></i>
+                    <dfn>充值</dfn>
+                  </cite>
+                    <aside>
+                        <i class="iconfont"><img src="../image/next.png" alt="" width="25px"></i>
+                    </aside>
+                </a>
+                <section class="clear"></section>
+            </li>
+            <!-- <li>
+                <cite>
+                  <i class="iconfont"><img src="../image/5.jpg" alt="" width="24px"></i>
+                  <dfn>绑定微信</dfn>
+                </cite>
+                <aside>
+                    <i class="iconfont"><img src="../image/next.png" alt="" width="25px"></i>
+                </aside>
+                <section class="clear"></section>
+            </li> -->
+        </ol>
+    </article>
+    <section class="clear"></section>
+    <article class="gcaidju_tc" tampode onclick="loginOut();">退出登录</article>
+    <!-- 底部 -->
+    <footer class="aui-bar aui-bar-tab dbbk" id="foot" style="border-top: 1px solid #f5f0f0;">
+        <div class="aui-bar-tab-item" tampode onclick="openIndex()">
+            <img src="../image/home1.jpg">
+            <div class="aui-bar-tab-label">首页</div>
+        </div>
+        <div class="aui-bar-tab-item" tampode onclick="openClassify()">
+            <img src="../image/fenlei1.jpg">
+            <div class="aui-bar-tab-label">分类</div>
+        </div>
+        <div class="aui-bar-tab-item" tampode onclick="openShopCart()">
+            <img src="../image/car1.jpg">
+            <div class="aui-bar-tab-label">购物车</div>
+        </div>
+        <div class="aui-bar-tab-item" tampode onclick="openOrder()">
+            <img src="../image/dingdan.jpg">
+            <div class="aui-bar-tab-label">订单</div>
+        </div>
+        <div class="aui-bar-tab-item  aui-active">
+            <img src="../image/wode2.jpg">
+            <div class="aui-bar-tab-label">我的</div>
+        </div>
+    </footer>
+    <!-- 留言遮罩层 -->
+    <div id="cover1"></div>
+    <div id="edits">
+        <div class="mint-actionsheet">
+            <ul class="mint-actionsheet-list" style="margin-bottom: 5px;">
+                <li class="mint-actionsheet-listitem" tampode onclick="editImg()">更换头像</li>
+                <li class="mint-actionsheet-listitem" tampode onclick="editNmae()">修改单位名称</li>
+            </ul>
+            <a href="javascript:;" class="mint-actionsheet-button" tampode onclick="openClose()">取消</a>
+        </div>
+    </div>
+    <!-- 修改名称 -->
+    <div id="message" style="height: 155px;">
+        <div class="mint-msgbox" style="">
+            <div class="mint-msgbox-header">
+                <div class="mint-msgbox-title">单位名称</div>
+            </div>
+            <div class="mint-msgbox-content">
+                <div class="mint-msgbox-message">
+                    <input type="text" id="messages" placeholder="请输入单位名称" style="border: 1px solid #ccc;border-radius: 5px;padding-left: 15px;">
+                </div>
+                <div class="mint-msgbox-input" style="display: none;">
+                    <input placeholder="" type="text">
+                    <div class="mint-msgbox-errormsg" style="visibility: hidden;"></div>
+                </div>
+            </div>
+            <div class="mint-msgbox-btns">
+                <button class="mint-msgbox-btn mint-msgbox-cancel" style="border-right: 2px solid #ddd;" tampode onclick="Canel()">取消</button>
+                <button class="mint-msgbox-btn mint-msgbox-confirm " tampode onclick="confirms();">确定</button>
+            </div>
+        </div>
+    </div>
+    <div id="edi_img" style="height: 216px;">
+        <div class="mint-msgbox" style="">
+            <div class="mint-msgbox-header">
+                <div class="mint-msgbox-title">更换头像</div>
+            </div>
+            <div class="mint-msgbox-content">
+                <div class="mint-msgbox-message" style="position: relative;width: 100px;margin: 0 auto;">
+                    <input type="file" class="imgFile" onChange="handleFiles(this,'icon')" style="opacity: 0;width: 100px;height: 100px;position: absolute;top: 0;left: 0;">
+                    <img src="../image/upload_file.png" id="icon" width="100px" height="100px">
+                </div>
+                <div class="mint-msgbox-input" style="display: none;">
+                    <input placeholder="" type="text">
+                    <div class="mint-msgbox-errormsg" style="visibility: hidden;"></div>
+                </div>
+            </div>
+            <div class="mint-msgbox-btns">
+                <button class="mint-msgbox-btn mint-msgbox-cancel" style="border-right: 2px solid #ddd;" tampode onclick="Canels()">取消</button>
+                <button class="mint-msgbox-btn mint-msgbox-confirm " tampode onclick="Confirmss()">确定</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../script/swiper.min.js"></script>
+<script type="text/javascript" src="../script/encipherment.js"></script>
+<script type="text/javascript" src="../script/md5.js"></script>
+<script type="text/javascript" src="../script/regular.js"></script>
+<script type="text/javascript" src="../script/date.js"></script>
+<script type="text/javascript">
+    var token;
+    apiready = function() {
+        //修改手机状态栏字体颜色
+        api.setStatusBarStyle({
+            style: 'dark'
+        });
+        token = $api.getStorage('token');
+        // 判断是否登录
+        if (isNotEmpry(token)) {
+            api.showProgress({
+                title: '努力加载中...',
+                modal: false
+            });
+            var timeStamp = timestamp();
+            var sign = getSign("appid=" + $api.getStorage("appid") + "&timeStamp=" + timeStamp);
+            // 获取用户信息
+            api.ajax({
+                url: $api.getStorage("URL") + '/mobileOrder/memberInfo',
+                method: 'GET',
+                returnAll: true,
+                headers: {
+                    'Authorization': $api.getStorage('token')
+                },
+                data: {
+                    values: {
+                        appid: $api.getStorage("appid"),
+                        active:2,
+                        timeStamp: timeStamp,
+                        sign: sign
+                    }
+                }
+            }, function(ret, err) {
+                if (ret) {
+                    judgement(ret.body.code, ret.msg)
+                    var body = ret.body;
+                    var headers = ret.headers;
+                    // 判断token是否失效
+                    if (isNotEmpry(headers.Authorization)) {
+                        $api.setStorage('token', headers.Authorization);
+                    }
+                    if (body.code == 200) {
+                        var info = body.data.info;
+                        // 判断是否是子账号
+                        if (info.is_child == 1) {
+                            $api.css($api.dom(".gcaidju_list"), 'display:none');
+                        }
+                        // 单位名称
+                        if (isNotEmpry(info.nickname)) {
+                            $api.html($api.dom(".nickname"), info.nickname);
+                            $api.css($api.dom(".nickname"), 'display:block')
+                            $api.css($api.dom(".wlogin"), 'display:none')
+                        }
+                        // 用户头像 用户没有自定义头像则显示默认头像
+                        if (isNotEmpry(info.logo)) {
+                            $api.attr($api.dom(".logo"), 'src', $api.getStorage("URL") + "/" + info.logo);
+                        } else {
+                            $api.attr($api.dom(".logo"), 'src', $api.getStorage("URL") + "/" + body.data.member_default);
+                        }
+                        // 显示余额
+                        if (isNotEmpry(info.balance)) {
+                            $api.html($api.dom(".balance"), info.balance);
+                        }
+                    } else {
+                        api.toast({
+                            msg: body.msg,
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                    }
+                } else {
+                    api.toast({
+                        msg: JSON.stringify(err),
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+                api.hideProgress();
+            });
+        } else {
+            // 没有登录，不显示退出登录按钮
+            $api.css($api.dom(".gcaidju_tc"), 'display:none');
+        }
+    };
+    // 常用
+    function openCommonly() {
+        if (isNotEmpry(token)) {
+            api.openWin({
+                name: 'commonly',
+                url: './commonly.html',
+                reload: true,
+                slidBackEnabled: false,
+            });
+        } else {
+            openlogin();
+        }
+    }
+    // 地址
+    function openSaddress() {
+        if (isNotEmpry(token)) {
+            api.openWin({
+                name: 'saddress',
+                url: 'saddress.html',
+                reload: true,
+                slidBackEnabled: false,
+            });
+        } else {
+            openlogin();
+        }
+    }
+    //密码
+    function openUforget() {
+        if (isNotEmpry(token)) {
+            api.openWin({
+                name: 'uforget',
+                url: 'uforget.html',
+                reload: true,
+                slidBackEnabled: false,
+            });
+        } else {
+            openlogin();
+        }
+    }
+    // 跳转到账号管理
+    function openaccountlist() {
+        if (isNotEmpry(token)) {
+            api.openWin({
+                name: 'accountlist',
+                url: 'accountlist.html',
+                reload: true,
+                slidBackEnabled: false
+            });
+        } else {
+            openlogin();
+        }
+    }
+    // 跳转到开具发票
+    function openinvoice() {
+        if (isNotEmpry(token)) {
+            api.openWin({
+                name: 'invoice',
+                url: 'invoice.html',
+                reload: true,
+                slidBackEnabled: false,
+            });
+        } else {
+            openlogin();
+        }
+    }
+    // 跳转到账单记录
+    function openorderlist() {
+        if (isNotEmpry(token)) {
+            api.openWin({
+                name: 'orderlist',
+                url: 'orderlist.html',
+                reload: true,
+                slidBackEnabled: false
+            });
+        } else {
+            openlogin();
+        }
+    }
+    // 充值
+    function opencharge() {
+        if (isNotEmpry(token)) {
+            api.openWin({
+                name: 'charge',
+                url: 'charge.html',
+                reload: true,
+                slidBackEnabled: false
+            });
+        } else {
+            openlogin();
+        }
+    }
+    // 显示更换头像 修改单位名称弹窗
+    function openEdits() {
+        if (isNotEmpry($api.getStorage("token"))) {
+            if ($api.getStorage("child") == 0) {
+                $("#cover1").show();
+                $("#edits").show();
+            }
+        } else {
+            openlogin();
+        }
+    }
+    // 关闭更换头像 修改单位名称弹窗
+    function openClose() {
+        $("#cover1").hide();
+        $("#edits").hide();
+    }
+    // 显示修改单位名称弹窗
+    function editNmae() {
+        $("#edits").hide();
+        $("#message").show();
+    }
+    // 显示修改头像弹窗
+    function editImg() {
+        $("#edits").hide();
+        $("#edi_img").show();
+    }
+    // 更换头像取消
+    function Canels() {
+        $("#cover1").hide();
+        $("#edi_img").hide();
+    }
+    // 确认修改头像
+    function Confirmss() {
+        var imgFile = $api.val($api.dom(".imgFile"));
+        // 判断图片不能为空
+        if (!isNotEmpry(imgFile)) {
+            api.toast({
+                msg: "请上传图片",
+                duration: 2000,
+                location: 'middle'
+            });
+            return;
+        }
+        var fileExt = imgFile.substring(imgFile.lastIndexOf(".")).toLowerCase();
+        if (!checkFileExt(fileExt)) {
+            api.toast({
+                msg: '您上传的文件不是图片,请重新上传',
+                duration: 2000,
+                location: 'middle'
+            });
+            $api.val($api.dom(".imgFile"), "");
+            return;
+        }
+        // 判断图片
+        if ((($('.imgFile')[0].files[0].size).toFixed(2)) >= (5 * 1024 * 1024)) { //返回Byte(B),保留小数点后两位
+            api.toast({
+                msg: '请上传小于5M的图片1',
+                duration: 2000,
+                location: 'middle'
+            });
+            return;
+        }
+        api.showProgress({
+            title: '努力加载中...',
+            modal: false
+        });
+        var timeStamp = timestamp();
+        var active = 2;
+        var sign = getSign("appid=" + $api.getStorage("appid") + "&timeStamp=" + timeStamp + "&type=avatars");
+        var formData = new FormData($('.imgFile')[0]);
+        formData.append('appid', $api.getStorage("appid"));
+        formData.append('active', active);
+        formData.append('img', $('.imgFile')[0].files[0]);
+        formData.append('timeStamp', timeStamp);
+        formData.append('type', "avatars");
+        formData.append('sign', sign);
+        // 上传图片 得到图片路径
+        $.ajax({
+            url: $api.getStorage('URL') + '/mobileOrder/uploadImg',
+            type: 'POST',
+            headers: {
+                'Authorization': $api.getStorage('token')
+            },
+            contentType: "application/json; charset=utf-8",
+            data: formData,
+            contentType: false,
+            processData: false,
+            async: false,
+            success: function(data, request, xhr) {
+                if (isNotEmpry(xhr.Authorization)) {
+                    $api.setStorage('token', xhr.Authorization);
+                }
+                if (data.code == 200) {
+                    var imgPath = data.data.path;
+                    var sign = getSign("appid=" + $api.getStorage("appid") + "&img=" + imgPath + "&timeStamp=" + timeStamp);
+                    // 执行修改头像操作
+                    api.ajax({
+                        url: $api.getStorage("URL") + '/mobileOrder/uploadAvatar',
+                        method: 'POST',
+                        headers: {
+                            'Authorization': $api.getStorage('token')
+                        },
+                        returnAll: true,
+                        data: {
+                            values: {
+                                appid: $api.getStorage("appid"),
+                                active:2,
+                                timeStamp: timeStamp,
+                                img: imgPath,
+                                sign: sign
+                            }
+                        }
+                    }, function(ret, err) {
+                        if (ret) {
+                            judgement(ret.body.code, ret.msg)
+                            var body = ret.body;
+                            var headers = ret.headers;
+                            if (isNotEmpry(headers.Authorization)) {
+                                $api.setStorage('token', headers.Authorization);
+                            }
+                            if (body.code == 200) {
+                                $api.attr($api.dom(".logo"), 'src', $api.getStorage("URL") + "/" + imgPath);
+                            } else {
+                                api.toast({
+                                    msg: body.msg,
+                                    duration: 2000,
+                                    location: 'middle'
+                                });
+                            }
+                        } else {
+                            api.toast({
+                                msg: JSON.stringify(err),
+                                duration: 2000,
+                                location: 'middle'
+                            });
+                        }
+                    });
+                } else {
+                    api.toast({
+                        msg: data.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            },
+            error: function(err) {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+        });
+        api.hideProgress();
+
+        $("#cover1").hide();
+        $("#edi_img").hide();
+    }
+    // 修改图片 图片上传
+    function handleFiles(obj, id) {
+        file = document.getElementById("icon");
+        var files = obj.files;
+        var img = new Image();
+        if (window.URL) {
+            img.src = window.URL.createObjectURL(files[0]); //创建一个object URL，并不是你的本地路径
+            img.onload = function(e) {
+                window.URL.revokeObjectURL(this.src); //图片加载后，释放object URL
+            }
+        }
+        file.src = img.src;
+    }
+    // 修改单位名称
+    function confirms() {
+        var nickname = $api.val($api.byId("messages"));
+        if (!isNotEmpry(nickname)) {
+            api.toast({
+                msg: "单位名称不能为空",
+                duration: 2000,
+                location: 'middle'
+            });
+            return;
+        }
+        api.showProgress({
+            title: '努力加载中...',
+            modal: false
+        });
+        var timeStamp = timestamp();
+        var sign = getSign("appid=" + $api.getStorage("appid") + "&nickname=" + nickname + "&timeStamp=" + timeStamp);
+        api.ajax({
+            url: $api.getStorage("URL") + '/mobileOrder/updateName',
+            method: 'POST',
+            headers: {
+                'Authorization': $api.getStorage('token')
+            },
+            returnAll: true,
+            data: {
+                values: {
+                    appid: $api.getStorage("appid"),
+                    active:2,
+                    nickname: nickname,
+                    timeStamp: timeStamp,
+                    sign: sign
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                judgement(ret.body.code, ret.msg)
+                var body = ret.body;
+                var headers = ret.headers;
+                if (isNotEmpry(headers.Authorization)) {
+                    $api.setStorage('token', headers.Authorization);
+                }
+                if (body.code == 200) {
+                    $api.html($api.dom(".nickname"), nickname);
+                    $("#cover1").hide();
+                    $("#message").hide();
+                    $("#name").html($("#messages").val());
+                } else {
+                    api.toast({
+                        msg: body.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+            api.hideProgress();
+        });
+    }
+    // 修改单位名称取消
+    function Canel() {
+        $("#cover1").hide();
+        $("#message").hide();
+    }
+    // 跳转到登录
+    function openlogin() {
+        api.openWin({
+            name: 'login',
+            url: 'login.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+    //退出登录
+    function loginOut() {
+        if (confirm("确定要退出登录吗？")) {
+            var timeStamp = timestamp();
+            var sign = getSign("appid=" + $api.getStorage("appid") + "&timeStamp=" + timeStamp);
+            // 执行退出登录
+            api.ajax({
+                url: $api.getStorage("URL") + '/mobileOrder/logout',
+                headers: {
+                    'Authorization': token
+                },
+                method: 'GET',
+                data: {
+                    values: {
+                        appid: $api.getStorage("appid"),
+                        active:2,
+                        timeStamp: timeStamp,
+                        sign: sign
+                    }
+                }
+            }, function(ret, err) {
+                if (ret) {
+                    judgement(ret.code, ret.msg)
+                    if (ret.code == 200) {
+                        //清除所有本地缓存
+                        $api.rmStorage('token');
+                        $api.rmStorage('child');
+                        api.openWin({
+                            name: 'login',
+                            url: './login.html',
+                            reload: true,
+                            slidBackEnabled: false
+                        });
+                    } else {
+                        api.toast({
+                            msg: ret.msg,
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                    }
+                } else {
+                    api.toast({
+                        msg: JSON.stringify(err),
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            });
+        }
+    }
+    // 分类
+    function openClassify() {
+        api.openWin({
+            name: 'classify',
+            url: './classify.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+    // 购物车
+    function openShopCart() {
+        api.openWin({
+            name: 'shopcart',
+            url: './shopcart.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+    // 订单
+    function openOrder() {
+        api.openWin({
+            name: 'order',
+            url: './order.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+    // 首页
+    function openIndex() {
+        api.openWin({
+            name: 'index',
+            url: './index.html',
+            reload: true,
+            slidBackEnabled: false,
+        });
+    }
+
+    function reloads() {
+        window.location.reload();
+    }
+</script>
+
+</html>

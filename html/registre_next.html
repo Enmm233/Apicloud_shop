@@ -1,0 +1,227 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/register.css" />
+    <title>收货信息</title>
+</head>
+
+<body>
+    <div id="header"></div>
+    <div class="wbk">
+        <form>
+            <div class="srbk yhname">
+                <input type="text" id="contact" placeholder="请输入收货人姓名">
+            </div>
+            <div class="srbk phone">
+                <input type="tel" id="phone" placeholder="输入收货手机号">
+            </div>
+            <div class="srbk adress">
+                <input type="text" id="adress" placeholder="请输入收货地址">
+                <!-- <input type="hidden" id="longitude"> -->
+                <!-- <input type="hidden" id="latitude"> -->
+                <!-- <input type="hidden" id="mapAddress"> -->
+            </div>
+
+            <!-- <div class="srbk adress">
+                <input type="text" id="adress" placeholder="请输入收货地址" readonly="readonly" onclick="goMap();">
+                <input type="hidden" id="longitude">
+                <input type="hidden" id="latitude">
+                <input type="hidden" id="mapAddress">
+            </div> -->
+            <div class="srbk name">
+                <input type="text" id="details" placeholder="请输入详细地址">
+            </div>
+            <div class="xzwbl">
+                <div class="xzbk"><input id="item1" type="radio" name="stressOn" value="1" checked><label for="item1"></label><span>注重价格</span></div>
+                <div class="xzbk"><input id="item2" type="radio" name="stressOn" value="2"><label for="item2"></label><span>注重质量</span></div>
+                <div class="xzbk"><input id="item3" type="radio" name="stressOn" value="3"><label for="item3"></label><span>注重服务</span></div>
+            </div>
+            <div class="zcan">注 册</div>
+        </form>
+    </div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/regular.js"></script>
+<script type="text/javascript" src="../script/encipherment.js"></script>
+<script type="text/javascript" src="../script/date.js"></script>
+<script type="text/javascript" src="../script/md5.js"></script>
+<script type="text/javascript">
+    var addressArr = new Array();
+    apiready = function() {
+        //修改手机状态栏字体颜色
+        api.setStatusBarStyle({
+            style: 'dark'
+        });
+        var header = $api.byId('header');
+        $api.fixStatusBar(header);
+        // 监听地图返回的信息
+        api.addEventListener({
+            name: 'registre_next'
+        }, function(ret, err) {
+            $api.val($api.byId("adress"), ret.value.addressInfo[0]);
+            $api.val($api.byId('longitude'), ret.value.addressInfo[1]);
+            $api.val($api.byId("latitude"), ret.value.addressInfo[2]);
+            $api.val($api.byId("mapAddress"), ret.value.addressInfo[3]);
+            addressArr[0] =  ret.value.addressInfo[0];
+            addressArr[1] =  ret.value.addressInfo[1];
+            addressArr[2] =  ret.value.addressInfo[2];
+            addressArr[3] =  ret.value.addressInfo[3];
+        });
+        // 执行注册操作
+        $api.addEvt($api.dom('.zcan'), 'click', function() {
+            var timeStamp = timestamp();
+            var contact = $api.byId('contact').value;
+            var phone = $api.byId('phone').value;
+            var adress = $api.byId('adress').value;
+
+            var longitude = 1;
+            var latitude = 1;
+
+            // var longitude = $api.byId('longitude').value;
+            // var latitude = $api.byId('latitude').value;
+            var details = $api.byId('details').value;
+            // 注重选项（注重价格 1  注重质量2  注重服务3）
+            var stressOn,stressOns = document.getElementsByName("stressOn");
+            for (var i = 0; i < stressOns.length; i++) {
+                if (stressOns[i].checked) {
+                    stressOn = stressOns[i].value;
+                    break;
+                }else {
+                    stressOn = 1;
+                }
+            }
+            // 判断收货人姓名
+            if (!isNotEmpry(contact)) {
+                api.toast({
+                    msg: "收货人姓名不能为空",
+                    duration: 2000,
+                    location: 'middle'
+                });
+                return;
+            }
+            // 判断收货手机号
+            if (!isNotEmpry(phone)) {
+                api.toast({
+                    msg: "收货手机号不能为空",
+                    duration: 2000,
+                    location: 'middle'
+                });
+                return;
+            }else{
+                if (!isTel(phone)) {
+                    api.toast({
+                        msg: "请输入正确的手机号",
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                    return;
+                }
+            }
+            // 判断收货地址
+            if (!isNotEmpry(adress) || !isNotEmpry(longitude) || !isNotEmpry(latitude)) {
+                api.toast({
+                    msg: "收货地址不能为空",
+                    duration: 2000,
+                    location: 'middle'
+                });
+                return;
+            }
+            // 判断详细地址
+            if (!isNotEmpry(details)) {
+                api.toast({
+                    msg: "详细地址不能为空",
+                    duration: 2000,
+                    location: 'middle'
+                });
+                return;
+            }
+            api.showProgress({
+                title: '努力加载中...',
+                modal: false
+            });
+            var sign = getSign("address=" + adress + "&appid=" + $api.getStorage("appid") + "&contact=" + contact + "&details=" + details
+								+ "&latitude=" + latitude + "&longitude=" + longitude + "&phone=" + phone + "&stress_on=" + stressOn + "&timeStamp=" + timeStamp);
+            api.ajax({
+                url: $api.getStorage("URL") + '/mobileOrder/addressInfo',
+                method: 'POST',
+                data: {
+                    values:{
+                        address:adress,
+        		        appid: $api.getStorage("appid"),
+                    active:2,
+                        contact:contact,
+                        details:details,
+                        latitude:latitude,
+                        longitude:longitude,
+                        phone:phone,
+                        stress_on:stressOn,
+                        timeStamp: timeStamp,
+                        sign: sign
+                    }
+                }
+            },function(ret, err){
+                if (ret) {
+                  judgement(ret.code, ret.msg)
+                    if(ret.code == 200){
+                        api.toast({
+                            msg: ret.msg,
+                            duration: 2000,
+                            location: 'bottom'
+                        });
+                        setTimeout(function() {
+                            api.openWin({
+                    			name: 'login',
+                    			url: 'login.html',
+                    			reload: true,
+                    			slidBackEnabled: false
+                    		});
+                        }, 2000);
+        			}else {
+        				api.toast({
+                            msg: ret.msg,
+                            duration: 2000,
+                            location: 'middle'
+                        });
+        			}
+                } else {
+                    api.toast({
+                        msg: JSON.stringify(err),
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+                api.hideProgress();
+            });
+        });
+    };
+
+    // 跳转到地图页面，获取地址以及经纬度坐标
+    function goMap(){
+        api.openWin({
+            name: 'map',
+            url: 'map.html',
+            reload: true,
+            pageParam:{
+                addressArr:addressArr,
+                falg: 1
+            },
+            slidBackEnabled: false
+        });
+    }
+
+    // 跳转到登录页面
+    function openlogin() {
+        api.openWin({
+            name: 'login',
+            url: 'login.html',
+            reload: true
+        });
+    }
+</script>
+
+</html>

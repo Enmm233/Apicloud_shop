@@ -1,0 +1,839 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>商品详情页</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/good_details.css" />
+    <link rel="stylesheet" type="text/css" href="../css/search.css" />
+    <link rel="stylesheet" type="text/css" href="../css/jianpan.css" />
+    <link rel="stylesheet" type="text/css" href="../css/no_goods.css" />
+    <style>
+        .gcaidjd_ge .gcaidjd_gea {
+            margin-top: 0.1rem;
+        }
+
+        .gcaidjd_ge .gcaidjd_gea ruby {
+            display: inline-block;
+            font-size: 0.8rem;
+            color: #808080;
+            margin-right: 5px;
+            height: 30px;
+            line-height: 30px;
+            background: #f5f5f5;
+            border-radius: 0.1rem;
+            margin-top: 5px;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        .gcaidjd_ge .gcaidjd_gea ruby:last-child {
+            margin-right: 0;
+        }
+
+        .gcaidjd_ge .gcaidjd_gea ruby.on {
+            background: #52ca28;
+            color: #fff;
+        }
+
+        .shouye {
+            width: 38px;
+            height: 38px;
+            background: #EEEEEE;
+            border-radius: 20px;
+            background-image: url("../image/index.png");
+            background-size: 20px;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            position: fixed;
+            right: 20px;
+            bottom: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 商品图片 -->
+    <div class="good_img">
+        <!-- <img src="../image/La1arLUbfwelVGEDgBsRrGaEhKmLPGOYnl3xo31X.jpeg" alt="" width="100%" height="100%"> -->
+    </div>
+    <!-- 商品名、价格、描述 -->
+    <article class="gcaidjd_ti">
+        <cite><span id="xsqg">限时</span><ruby class='title'></ruby></cite>
+        <div id="mjmz">
+            <!-- <div class="gcaidjd_djg_mz_box">
+              <div class="gcaidjd_djg_mz">
+                  <div class="gcaidjd_mz_left">
+                      满赠
+                  </div>
+                  <div class="gcaidjd_mz_right">
+                      <div class="gcaidjd_mz_txt">
+                          满15送长茄食堂菜1斤、美莱抽纸餐巾、纸巾满15送长茄食堂菜1斤、美莱抽纸餐巾、纸巾
+                      </div>
+                      <div class="gcaidjd_mz_jt">
+                          <img src="../image/mz_jt.png" alt="" width="10px">
+                      </div>
+                  </div>
+              </div>
+              <div class="gcaidjd_mz_content">
+                  满15送长茄食堂菜1斤、美莱抽纸餐巾纸1箱、苹果烟台80#1斤 满15送长茄食堂菜1斤、美莱抽纸餐巾纸1箱、苹果烟台80#1斤 满15送长茄食堂菜1斤、美莱抽纸餐巾纸1箱、苹果烟台80#1斤
+              </div>
+          </div> -->
+            <!-- <div class="gcaidjd_djg_mz_box">
+              <div class="gcaidjd_djg_mz">
+                  <div class="gcaidjd_mz_left">
+                      满减
+                  </div>
+              </div>
+              <div class="gcaidjd_mj_list">
+                  <div class="gcaidjd_mj_item">
+                    满30减10
+                  </div>
+                  <div class="gcaidjd_mj_item">
+                    满40减20
+                  </div>
+              </div>
+          </div> -->
+        </div>
+        <address class="gcaidjd_djg price">￥0</address>
+        <aside class="describe"></aside>
+    </article>
+    <!-- 数量 -->
+    <article class="gcaidjd_ge" style="padding-top:18px;padding-bottom:18px;">
+        <section class="gcaidjd_get"><cite>(购买数量)</cite>
+            <section class="gcaidj_sl gcaidj_xq">
+                <ruby tampode onclick="Reduce();" class="gcaidj_sls gcaidj_sln">
+                    <img src="../image/gcaidj_pic7.png" alt="">
+                </ruby>
+                <!-- 选择键盘 加入属性  t-keybord  -->
+                <input style="width:90px;" type="text" value="1" readonly data-class="gcaidj_xq" data-float="1" class="gcaidj_sli num t-keybord isFloat" name="" t-filter="">
+                <ruby tampode onclick="add();" class="gcaidj_sla">
+                    <img src="../image/gcaidj_pic8.png" alt="">
+                </ruby>
+            </section>
+        </section>
+        <section class="clear"></section>
+        <section class="gcaidjd_gea">
+            <!-- <ruby class="tab tab0" tampode onclick="Class(0)">板</ruby> -->
+        </section>
+    </article>
+    <section class="gcaidj_gh"></section>
+    <!-- 为您推荐 -->
+    <article class="gcaidjd_tj">
+        <h3>为您推荐</h3>
+        <section class="clear"></section>
+        <section class="gcaidjd_tjb">
+            <ol class="recommend">
+                <!-- <li>
+                    <a href="javascript:;" class="router-link-active">
+                        <aside><img src="../image/Jzz5770Jj9wr2w3P3MJXsK33X2A78jdOF9rgei0X.jpeg" alt=""></aside>
+                        <cite>黎蒿</cite>
+                        <address>
+                          <dfn>￥6.00</dfn>
+                          <ruby><i class="iconfont"><img src="../image/shopcar.jpg" alt=""></i></ruby>
+                        </address>
+                    </a>
+                </li> -->
+            </ol>
+        </section>
+    </article>
+    <section class="gcaidj_gh"></section>
+    <!-- 商品详情 -->
+    <div class="good_detail" style="margin-bottom: 60px;">
+        <div class="good_title">图文详情</div>
+        <div class="good_con" style="width: 95%;margin: 0 auto;">
+            <!-- 有详情 -->
+            <address class="info">
+                <!-- 图文详情 -->
+            </address>
+            <!-- 无详情 -->
+            <section class="gcaidjfi_spr_b gcaidjsl_psp" style="display:none;">
+                <section class="placewr_ws">
+                    <img src="../image/wjl.png" alt="">
+                    <cite>亲，目前暂无内容～</cite>
+                </section>
+            </section>
+        </div>
+    </div>
+    <!-- 底部 -->
+    <footer class="aui-bar aui-bar-tab">
+        <div class="aui-bar-tab-item" style="width: 3.5rem;border-right: 1px solid #ccc;border-top: 1px solid #ccc;" tampode onclick="openShopCrat()">
+            <div class="aui-badge countNum" style="background:#f0b411;">0</div>
+            <i class="aui-iconfont aui-icon-comment aui-icon-cart"></i>
+            <div class="aui-bar-tab-label">购物车</div>
+        </div>
+        <div class="aui-bar-tab-item" style="width: 3rem;border-top: 1px solid #ccc;" id="collection">
+            <i class="aui-iconfont aui-icon-star"></i>
+            <div class="aui-bar-tab-label">收藏</div>
+        </div>
+        <div class="aui-bar-tab-item aui-bg-danger aui-text-white confirm" tapmode style="width: auto;background:#5fe730 !important;">加入购物车</div>
+    </footer>
+    <!-- 返回首页按钮 -->
+    <div class="shouye" id="div" tampode onclick="openIndex();"></div>
+    <!-- 数值键盘遮罩层 -->
+    <div id="coverd"></div>
+    <div id="t-keybord">
+        <div class="numbers-content">
+            <div class="numbers-txt-ba2">
+                <!-- <div class="numbers-title">最大数量<span class="sum">999</span></div> -->
+            </div>
+            <div class="numbers-txt-ba">
+                <div class="numbers-txt-box"><span class="numbers-txts"></span><em class="numbers-txte"></em></div>
+                <div class="numbers-txt-cler">
+                    <div class="clear-text" id="t-del"><img src="../image/del1.png" alt=""></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div class="numbers-txt-ba1">
+                <div class="numbers-btn-group">
+                    <button type="button" value="1" class="sum-btn-value">1</button>
+                    <button type="button" value="2" class="sum-btn-value">2</button>
+                    <button type="button" value="3" class="sum-btn-value">3</button>
+                    <button type="button" value="4" class="sum-btn-value">4</button>
+                    <button type="button" value="5" class="sum-btn-value">5</button>
+                    <button type="button" value="6" class="sum-btn-value">6</button>
+                    <button type="button" value="7" class="sum-btn-value">7</button>
+                    <button type="button" value="8" class="sum-btn-value">8</button>
+                    <button type="button" value="9" class="sum-btn-value">9</button>
+                    <button type="button" value="0" class="sum-btn-value">0</button>
+                    <button type="button" value="." class="sum-btn-value wrap_xsd">.</button>
+                    <button type="button" value="" class="sum-btn-value"></button>
+                    <spanclass="wrap_xsd1" style="display: none;">
+                        </span>
+                </div>
+                <div class="cifg-btn">
+                    <div class="cifg-btn-confirm modifymi_qk" id="t-clear">清空</div>
+                    <div class="cifg-btn-confirm cancel-btn" id="t-close">取消</div>
+                    <div class="clear"></div>
+                    <div class="cifg-btn-confirm1 modifymi_con" id="t-submit">确认</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <span class="isFloat" style="display:none;"></span> -->
+    <span class="isCollection" style="display:none;">1</span>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../script/sshuzijianpan.js"></script>
+<script type="text/javascript" src="../script/encipherment.js"></script>
+<script type="text/javascript" src="../script/md5.js"></script>
+<script type="text/javascript" src="../script/regular.js"></script>
+<script type="text/javascript" src="../script/date.js"></script>
+<script type="text/javascript">
+    var itemNum = '';
+    var attrList = '';
+    var is_activity = '';
+    var activity_num = '';
+    var activity_price = '';
+    var cart_num = '';
+    var attr_price = '';
+    var itemId, attrId = 0,
+        activityRule = '',
+        falg = 0,
+        Is_look = '',
+        timeStamp = timestamp(); // falg标识是否含有规格
+    apiready = function() {
+        //修改手机状态栏字体颜色
+        api.setStatusBarStyle({
+            style: 'dark'
+        });
+        api.showProgress({
+            title: '努力加载中...',
+            modal: false
+        });
+        var id = api.pageParam.id;
+        // 先判断是否登录
+        if (!isNotEmpry($api.getStorage('token')) || !isNotEmpry(id)) {
+            api.toast({
+                msg: '未登录',
+                duration: 2000,
+                location: 'middle'
+            });
+            setTimeout(function() {
+                api.openWin({
+                    name: 'login',
+                    url: 'login.html',
+                    reload: true,
+                    slidBackEnabled: false
+                });
+            }, 2000);
+            return;
+        }
+        var timeStamp = timestamp();
+        // 获取商品信息
+        var sign = getSign("appid=" + $api.getStorage("appid") + "&id=" + id + "&timeStamp=" + timeStamp);
+        api.ajax({
+            url: $api.getStorage("URL") + '/mobileOrder/getItemById',
+            method: 'GET',
+            headers: {
+                'Authorization': $api.getStorage('token')
+            },
+            returnAll: true,
+            data: {
+                values: {
+                    appid: $api.getStorage("appid"),
+                    active: 2,
+                    id: id,
+                    timeStamp: timeStamp,
+                    sign: sign
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                judgement(ret.body.code, ret.msg)
+                var body = ret.body;
+                var headers = ret.headers;
+                if (isNotEmpry(headers.Authorization)) {
+                    $api.setStorage('token', headers.Authorization);
+                }
+                if (body.code == 200) {
+                    var data = body.data;
+                    activityRule = body.data;
+                    var list = data.attr;
+                    itemId = data.id;
+                    // 判断是否有属性
+                    if (isNotEmpry(list) && list.length > 0) {
+                        falg = 1;
+                        attrId = 0;
+                        var listStr = "";
+                        for (var i = 0; i < list.length; i++) {
+                          listStr += "<ruby class='mores' is_activity='" + list[i].is_activity + "' cart_num='" + list[i].cart_num + "' activity_price='" + list[i].activity_price + "' activity_num='" + list[i].activity_num +
+                              "' attr_id='" + list[i].id + "' attr_price='" + list[i].attr_price + "' market_price='" + list[i].market_price + "' onclick='mores(this);'>" + list[i].attr_title + "/" +
+                              list[i].unit + "</ruby>"
+                        }
+                        $api.html($api.dom(".gcaidjd_gea"), listStr);
+                    } else {
+                        $api.css($api.dom(".gcaidjd_gea"), 'display:none');
+                    }
+                    Is_look = data.is_look;
+                    // 判断是否可以查看价格 0否1是
+                    if (data.is_look == 1) {
+                        // 是否显示区间价格
+                        if (isNotEmpry(data.attr)) {
+                            // 如果没有参与活动 则判断是否开启时价 0否1是
+                            if (data.market_price == 1) {
+                                // 参与时价
+                                $api.html($api.dom(".gcaidjd_djg"), '￥时价');
+                            } else {
+                                $api.html($api.dom(".gcaidjd_djg"), '￥' + data.area_price);
+                            }
+
+                        } else {
+                            // 判断该商品是否参与活动 0否1是 如果是则显示活动价格
+                            if (data.is_activity == 1) {
+                              attr_price = data.price;
+                              is_activity = data.is_activity;
+                              activity_num = data.activity_num;
+                              activity_price = data.activity_price;
+                              cart_num = data.cart_num;
+                              itemNum = $api.val($api.dom(".num"));
+                              if ((Number(cart_num) + Number(itemNum)) > Number(activity_num)) {
+                                var txt = "￥" + data.price + "<del>￥" + data.price + "</del>"
+                                $api.html($api.dom(".gcaidjd_djg"), txt);
+                              } else {
+                                var txt = "￥" + data.activity_price + "<del>￥" + data.price + "</del>"
+                                $api.html($api.dom(".gcaidjd_djg"), txt);
+                              }
+
+
+                                $("#xsqg").show();
+                                // <cite><span>限时</span><ruby class='title'></ruby></cite>
+
+                            } else if (data.is_activity == 2) { //满减
+                                $("#xsqg").hide();
+                                $api.html($api.dom(".gcaidjd_djg"), '￥' + data.price + "/" + data.unit);
+                                var html = '';
+                                html += "<div class='gcaidjd_djg_mz_box'><div class='gcaidjd_djg_mz'><div class='gcaidjd_mz_left'>满减</div></div><div class='gcaidjd_mj_list'>";
+                                for (var i = 0; i < activityRule.activity_rule.length; i++) {
+                                    html += "<div class='gcaidjd_mj_item'>满" + activityRule.activity_rule[i].price + "减" + activityRule.activity_rule[i].reduce + "</div>";
+                                }
+                                html += "</div></div>";
+                                $api.html($api.dom("#mjmz"), html);
+
+                            } else if (data.is_activity == 3) {
+                                $("#xsqg").hide();
+                                $api.html($api.dom(".gcaidjd_djg"), '￥' + data.price + "/" + data.unit);
+                                var html = '';
+                                html += "<div class='gcaidjd_djg_mz_box'><div class='gcaidjd_djg_mz'><div class='gcaidjd_mz_left'>满赠</div><div class='gcaidjd_mz_right'>"
+                                html += "<div class='gcaidjd_mz_txt' onclick='jtClick()'>" + activityRule.activity_rule + "</div>"
+                                html += "<div class='gcaidjd_mz_jt' onclick='jtClick()'><img src='../image/mz_jt.png' width='10px'></div></div></div>"
+                                html += "<div class='gcaidjd_mz_content'>" + activityRule.activity_rule + "</div></div>"
+                                $api.html($api.dom("#mjmz"), html);
+                            } else {
+                                $("#xsqg").hide();
+                                //不显示满减满赠
+                                $api.html($api.dom("#mjmz"), '');
+                                // 如果没有参与活动 则判断是否开启时价 0否1是
+                                if (data.market_price == 1) {
+                                    // 参与时价
+                                    $api.html($api.dom(".gcaidjd_djg"), '￥时价');
+                                } else {
+                                    $api.html($api.dom(".gcaidjd_djg"), '￥' + data.price + "/" + data.unit);
+                                }
+                            }
+                        }
+                    } else {
+                        $api.html($api.dom(".gcaidjd_djg"), '￥***');
+                    }
+                    if (isNotEmpry(data.img)) {
+                        $api.html($api.dom(".good_img"), "<img src='" + $api.getStorage("URL") + data.img + "' width='100%' height='100%' onerror='onerrors(this,\"" + data.item_default + "\");'>");
+                    } else {
+                        $api.html($api.dom(".good_img"), "<img src='" + $api.getStorage("URL") + data.item_default + "' width='100%' height='100%' onerror='onerrors(this,\"" + data.item_default + "\");'>");
+                    }
+                    if (isNotEmpry(data.title)) {
+                        $api.html($api.dom(".title"), data.title);
+                    }
+                    if (isNotEmpry(data.describe)) {
+                        $api.html($api.dom(".describe"), data.describe);
+                    }
+                    if (isNotEmpry(data.info)) {
+                        $api.html($api.dom(".info"), displayHtmlWithImageStream(data.info));
+                    } else {
+                        $api.css($api.dom(".gcaidjsl_psp"), 'display:block');
+                    }
+                    // 是否可以输入小数
+                    $api.attr($api.dom(".isFloat"), 'data-float', data.is_float);
+
+                    // 判断是否收藏 1为取消收藏，2为收藏
+                    if (data.collect_status == 2) {
+                        $api.html($api.dom(".isCollection"), data.collect_status);
+                        $api.addCls($api.dom("#collection i"), 'aui-text-warning');
+                    }
+                } else {
+                    api.toast({
+                        msg: body.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+            api.hideProgress();
+        });
+        // 获取购物车数量
+        var sign2 = getSign("appid=" + $api.getStorage("appid") + "&timeStamp=" + timeStamp);
+        api.ajax({
+            url: $api.getStorage("URL") + '/mobileOrder/getCountNum',
+            returnAll: true,
+            headers: {
+                'Authorization': $api.getStorage('token')
+            },
+            method: 'GET',
+            data: {
+                values: {
+                    appid: $api.getStorage("appid"),
+                    active: 2,
+                    timeStamp: timeStamp,
+                    sign: sign2
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                judgement(ret.body.code, ret.msg)
+                var body = ret.body;
+                var headers = ret.headers;
+                if (isNotEmpry(headers.Authorization)) {
+                    $api.setStorage('token', headers.Authorization);
+                }
+                if (body.code == 200) {
+                    $api.html($api.dom(".countNum"), body.data.countNum);
+                } else {
+                    api.toast({
+                        msg: body.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+        });
+        // 为您推荐
+        api.ajax({
+            url: $api.getStorage("URL") + '/mobileOrder/itemRecommend',
+            returnAll: true,
+            headers: {
+                'Authorization': $api.getStorage('token')
+            },
+            method: 'GET',
+            data: {
+                values: {
+                    appid: $api.getStorage("appid"),
+                    active: 2,
+                    timeStamp: timeStamp,
+                    id: id,
+                    sign: sign
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                judgement(ret.body.code, ret.msg)
+                var body = ret.body;
+                var headers = ret.headers;
+                if (isNotEmpry(headers.Authorization)) {
+                    $api.setStorage('token', headers.Authorization);
+                }
+                if (body.code == 200) {
+                    var data = body.data;
+                    var list = data.list;
+                    if (isNotEmpry(list) && list.length > 0) {
+                        var listStr = "";
+                        for (var i = 0; i < list.length; i++) {
+                            listStr += "<li tampode onclick='openGood(" + data.is_detail + "," + list[i].id + ");'>";
+                            listStr += "<a href='javascript:;' class='router-link-active'>";
+                            if (isNotEmpry(list[i].img)) {
+                                listStr += "<aside><img src='" + $api.getStorage("URL") + list[i].img + "' onerror='onerrors(this,\"" + data.item_default + "\");'></aside>";
+                            } else {
+                                listStr += "<aside><img src='" + $api.getStorage("URL") + data.item_default + "' onerror='onerrors(this,\"" + data.item_default + "\");'></aside>";
+                            }
+                            listStr += "<cite>" + list[i].title + "</cite>";
+                            listStr += "<address>";
+                            // 判断是否显示价格 0否1是
+                            if (data.is_look == 1) {
+                                // 判断是否含有多规格 是则显示多规格
+                                if (isNotEmpry(list[i].attr)) {
+                                    listStr += "<dfn>多规格</dfn>";
+                                } else {
+                                    // 判断是否参与活动 0否1是
+                                    if (list[i].is_activity == 1) {
+                                        listStr += "<dfn>￥" + list[i].activity_price + "</dfn>";
+                                    } else {
+                                        if (list[i].market_price == 1) {
+                                            listStr += "<dfn>￥时价</dfn>";
+                                        } else {
+                                            listStr += "<dfn>￥" + list[i].price + "</dfn>";
+                                        }
+                                    }
+                                }
+                            } else {
+                                listStr += "<dfn>￥***</dfn>";
+                            }
+                            listStr += "<ruby><i class='iconfont'><img src='../image/shopcar.jpg'></i></ruby>";
+                            listStr += "</address>";
+                            listStr += "</a>";
+                            listStr += "</li>";
+                        }
+                        $api.html($api.dom(".recommend"), listStr);
+                    } else {
+                        $api.css($api.dom(".gcaidjd_tj"), 'display:none');
+                    }
+                } else {
+                    api.toast({
+                        msg: body.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+        });
+        //商品收藏
+        $api.addEvt($api.byId("collection"), 'click', function() {
+            var status = $api.html($api.dom(".isCollection"));
+            if (status == 1) {
+                status = 2
+            } else {
+                status = 1
+            }
+            var timeStamp = timestamp();
+            // 获取商品信息
+            var sign = getSign("appid=" + $api.getStorage("appid") + "&item_id=" + id + "&status=" + status + "&timeStamp=" + timeStamp);
+            api.ajax({
+                url: $api.getStorage("URL") + '/mobileOrder/changeCollect',
+                returnAll: true,
+                headers: {
+                    'Authorization': $api.getStorage('token')
+                },
+                method: 'GET',
+                data: {
+                    values: {
+                        appid: $api.getStorage("appid"),
+                        active: 2,
+                        item_id: id,
+                        status: status,
+                        timeStamp: timeStamp,
+                        sign: sign
+                    }
+                }
+            }, function(ret, err) {
+                if (ret) {
+                    judgement(ret.body.code, ret.msg)
+                    var body = ret.body;
+                    var headers = ret.headers;
+                    if (isNotEmpry(headers.Authorization)) {
+                        $api.setStorage('token', headers.Authorization);
+                    }
+                    if (body.code == 200) {
+                        if (status == 1) {
+                            api.toast({
+                                msg: "取消收藏",
+                                duration: 2000,
+                                location: 'middle'
+                            });
+                            $api.removeCls($api.dom(".aui-icon-star"), 'aui-text-warning');
+                        } else {
+                            $api.addCls($api.dom(".aui-icon-star"), 'aui-text-warning');
+                            api.toast({
+                                msg: "收藏成功",
+                                duration: 2000,
+                                location: 'middle'
+                            });
+                        }
+                        $api.html($api.dom(".isCollection"), status);
+                    } else {
+                        api.toast({
+                            msg: body.msg,
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                    }
+                } else {
+                    api.toast({
+                        msg: JSON.stringify(err),
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            });
+        });
+        // 加入购物车
+        $api.addEvt($api.dom(".confirm"), 'click', function() {
+            if (falg == 1 && attrId == 0) {
+                api.toast({
+                    msg: "请选择规格",
+                    duration: 2000,
+                    location: 'middle'
+                });
+                return;
+            }
+            itemNum = $api.val($api.dom(".num"));
+            api.showProgress({
+                title: '努力加载中...',
+                modal: false
+            });
+            var timeStamp = timestamp();
+            var sign = getSign("appid=" + $api.getStorage("appid") + "&attr_id=" + attrId + "&item_num=" + itemNum + "&item_id=" + itemId + "&timeStamp=" + timeStamp);
+            api.ajax({
+                url: $api.getStorage("URL") + '/mobileOrder/firstChangeNum',
+                method: 'POST',
+                headers: {
+                    'Authorization': $api.getStorage('token')
+                },
+                returnAll: true,
+                data: {
+                    values: {
+                        appid: $api.getStorage("appid"),
+                        active: 2,
+                        attr_id: attrId,
+                        item_num: itemNum,
+                        item_id: itemId,
+                        timeStamp: timeStamp,
+                        sign: sign
+                    }
+                }
+            }, function(ret, err) {
+                if (ret) {
+                    judgement(ret.body.code, ret.msg)
+                    var body = ret.body;
+                    var headers = ret.headers;
+                    if (isNotEmpry(headers.Authorization)) {
+                        $api.setStorage('token', headers.Authorization);
+                    }
+                    if (body.code == 200) {
+                        api.toast({
+                            msg: body.msg,
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                        falg = 0;
+                        setTimeout(function() {
+                            api.openWin({
+                                name: 'index',
+                                url: './index.html',
+                                reload: true,
+                                slidBackEnabled: false
+                            });
+                        }, 2000);
+                    } else {
+                        api.toast({
+                            msg: body.msg,
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                    }
+                } else {
+                    api.toast({
+                        msg: JSON.stringify(err),
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+                api.hideProgress();
+            });
+        });
+    };
+    //加
+    function add() {
+        itemNum = $api.val($api.dom(".num"));
+        if (itemNum < 999) {
+            itemNum++;
+            $api.val($api.dom(".num"), itemNum);
+        }
+        cartActivityNum()
+    }
+    //减
+    function Reduce() {
+        itemNum = $api.val($api.dom(".num"));
+        if (itemNum > 1) {
+            itemNum--;
+            $api.val($api.dom(".num"), itemNum);
+        }
+        cartActivityNum()
+    }
+    function cartActivityNum() {
+        // if (isNotEmpry(attrList)) {
+        if (is_activity == 1) {
+            if ((Number(cart_num) + Number(itemNum)) > Number(activity_num)) {
+                var txt = "￥" + attr_price + "<del>￥" + attr_price + "</del>"
+                $api.html($api.dom(".price"), txt);
+            } else {
+                var txt = "￥" + activity_price + "<del>￥" + attr_price + "</del>"
+                $api.html($api.dom(".price"), txt);
+            }
+        }
+
+        // }
+    }
+    // 选择规格
+    function mores(obj) {
+        var listStr = '';
+        $(".mores").removeClass("on");
+        $(obj).addClass("on");
+        attrId = $(obj).attr("attr_id");
+        attr_price = $(obj).attr("attr_price");
+        is_activity = $(obj).attr("is_activity");
+        activity_num = $(obj).attr("activity_num");
+        activity_price = $(obj).attr("activity_price");
+        cart_num = $(obj).attr("cart_num");
+        var market_price = $(obj).attr("market_price");
+
+        // 判断是否显示价格 0否1是
+        if (Is_look == 1) {
+          if (is_activity == 1) { //限时抢购
+            itemNum = $api.val($api.dom(".num"));
+            $("#xsqg").show();
+            if ((Number(cart_num) + Number(itemNum)) > Number(activity_num)) {
+              var txt = "￥" + attr_price + "<del>￥" + attr_price + "</del>"
+              $api.html($api.dom(".price"), txt);
+            } else {
+              var txt = "￥" + activity_price + "<del>￥" + attr_price + "</del>"
+              $api.html($api.dom(".price"), txt);
+            }
+
+
+          }else if (is_activity == 2) { //满减
+
+                listStr += "<div class='gcaidjd_djg_mz_box'><div class='gcaidjd_djg_mz'><div class='gcaidjd_mz_left'>满减</div></div><div class='gcaidjd_mj_list'>";
+                for (var i = 0; i < activityRule.activity_rule.length; i++) {
+                    listStr += "<div class='gcaidjd_mj_item'>满" + activityRule.activity_rule[i].price + "减" + activityRule.activity_rule[i].reduce + "</div>";
+                }
+                listStr += "</div></div>";
+                $api.html($api.dom("#mjmz"), listStr);
+
+
+            } else if (is_activity == 3) { //满赠
+                listStr += "<div class='gcaidjd_djg_mz_box'><div class='gcaidjd_djg_mz'><div class='gcaidjd_mz_left'>满赠</div><div class='gcaidjd_mz_right'>"
+                listStr += "<div class='gcaidjd_mz_txt' onclick='jtClick()'>" + activityRule.activity_rule + "</div>"
+                listStr += "<div class='gcaidjd_mz_jt' onclick='jtClick()'><img src='../image/mz_jt.png' width='10px'></div></div></div>"
+                listStr += "<div class='gcaidjd_mz_content'>" + activityRule.activity_rule + "</div></div>"
+                $api.html($api.dom("#mjmz"), listStr);
+            }  else {
+                $api.html($api.dom("#mjmz"), '');
+                $("#xsqg").hide();
+                // 判断是否参与时价
+                if (market_price == 1) {
+                    $api.html($api.dom(".price"), "￥时价");
+                } else {
+                    $api.html($api.dom(".price"), "￥" + $(obj).attr("attr_price"));
+                }
+            }
+
+        } else {
+            $api.html($api.dom(".price"), "￥***");
+        }
+    }
+    function jtClick(){
+      $(".gcaidjd_mz_content").toggle();
+    }
+
+    // 跳转到商品详情页
+    function openGood(is_detail, id) {
+        // 判断是否可以查看详情页
+        if (is_detail == 1) {
+            api.openWin({
+                name: 'good_details2',
+                url: './good_details.html',
+                pageParam: {
+                    id: id
+                },
+                reload: true,
+                slidBackEnabled: false,
+            });
+        } else {
+            api.toast({
+                msg: '详情页暂未开放',
+                duration: 2000,
+                location: 'middle'
+            });
+        }
+    }
+    // 跳转分类页面
+    function openClassify() {
+        api.openWin({
+            name: 'classify',
+            url: './classify.html',
+            reload: true,
+            slidBackEnabled: false,
+        });
+    }
+
+    function openShopCrat() {
+        api.openWin({
+            name: 'shopcart',
+            url: './shopcart.html',
+            reload: true,
+            slidBackEnabled: false,
+        });
+    }
+    // 跳转首页
+    function openIndex() {
+        api.openWin({
+            name: 'index',
+            url: './index.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+</script>
+
+</html>

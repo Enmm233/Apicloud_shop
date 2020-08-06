@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>map地图</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/index.css" />
+    <link rel="stylesheet" type="text/css" href="../css/search.css" />
+    <style>
+        .allmap_ol {
+            position: fixed;
+            z-index: 92;
+            width: 100%;
+            top: 4.92rem;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            background: #fff;
+            padding-left: 0.3rem;
+            padding-right: 0.3rem;
+            padding-bottom: 0.3rem;
+            padding-top: 0.3rem;
+        }
+
+        .allmap_ol ol {
+            overflow-y: auto;
+            height: 100%;
+            width: 95%;
+            margin: 0 auto;
+        }
+
+        .allmap_ol ol li {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 0.2rem;
+            margin-bottom: 0.2rem;
+            position: relative;
+        }
+
+        .allmap_ol ol li .allmap_oll {
+            float: left;
+            width: 90%;
+            padding: 5px 0;
+        }
+
+        .allmap_ol ol li .allmap_oll cite {
+            font-size: 0.8rem;
+            color: #333;
+        }
+
+        .allmap_ol ol li .allmap_oll address {
+            font-size: 0.7rem;
+            color: #999;
+            display: block;
+            margin-top: 0.1rem;
+        }
+
+        .allmap_ol ol li .allmap_olr {
+            width: 25px;
+            float: right;
+            margin-right: 5px;
+            margin-top: 16px;
+            display: none;
+        }
+
+        .clear {
+            clear: both;
+            height: 0;
+        }
+    </style>
+</head>
+
+<body>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../script/encipherment.js"></script>
+<script type="text/javascript" src="../script/md5.js"></script>
+<script type="text/javascript" src="../script/regular.js"></script>
+<script type="text/javascript" src="../script/date.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+        //修改手机状态栏字体颜色
+        api.setStatusBarStyle({
+            style: 'dark'
+        });
+        var id = api.pageParam.id;
+        api.showProgress({
+            title: '努力加载中...',
+            modal: false
+        });
+        var timeStamp = timestamp();
+        var sign = getSign("appid=" + $api.getStorage("appid") + "&id=" + id + "&timeStamp=" + timeStamp);
+        api.ajax({
+            url: $api.getStorage("URL") + '/mobileOrder/carPosition',
+            method: 'POST',
+            headers: {
+                'Authorization': $api.getStorage('token')
+            },
+            returnAll: true,
+            data: {
+                values: {
+                    appid: $api.getStorage("appid"),
+                    active:2,
+                    id: id,
+                    timeStamp: timeStamp,
+                    sign: sign
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                judgement(ret.body.code, ret.msg)
+                var body = ret.body;
+                var headers = ret.headers;
+                if (isNotEmpry(headers.Authorization)) {
+                    $api.setStorage('token', headers.Authorization);
+                }
+                if (body.code == 200) {
+                    var data = body.data;
+                    if (isNotEmpry(data.longitude) && isNotEmpry(data.latitude)) {
+                        bmap(data.longitude, data.latitude);
+                    } else {
+                        api.toast({
+                            msg: "暂无物流数据",
+                            duration: 2000,
+                            location: 'middle'
+                        });
+                        setTimeout(function() {
+                            api.closeWin();
+                        }, 2000);
+                    }
+                } else {
+                    api.toast({
+                        msg: "暂无物流数据",
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                    setTimeout(function() {
+                        api.closeWin();
+                    }, 2000);
+                }
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+                setTimeout(function() {
+                    api.closeWin();
+                }, 2000);
+            }
+            api.hideProgress();
+        });
+
+    };
+    // 打开地图
+    function bmap(lon, lat) {
+        var aMap = api.require('aMap');
+        aMap.open({
+            rect: {
+                x: 0,
+                y: 0,
+                w: "auto",
+                h: 'auto'
+            },
+            showUserLocation: false,
+            zoomLevel: 15,
+            center: {
+                lon: lon,
+                lat: lat
+            },
+            fixedOn: api.frameName,
+            fixed: true
+        }, function(ret, err) {
+            if (ret.status) {
+                //标注位置
+                openArea(lon, lat);
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+        });
+    }
+
+    function openArea(lon, lat) {
+        var aMap = api.require('aMap');
+        aMap.addAnnotations({
+            annotations: [{
+                id: 1,
+                lon: lon,
+                lat: lat
+            }],
+            icons: ['widget://image/car.png'],
+            draggable: false,
+            timeInterval: 2.0
+        }, function(ret) {});
+    }
+</script>
+
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/chargelist.css" />
+    <title>充值</title>
+    <style media="screen">
+        #up {
+            width: 100%;
+            height: 46px;
+            line-height: 46px;
+            font-size: 1rem;
+            text-align: center;
+            clear: both;
+            margin-bottom: 60px;
+        }
+
+        .shouye {
+            width: 38px;
+            height: 38px;
+            background: #EEEEEE;
+            border-radius: 20px;
+            background-image: url("../image/index.png");
+            background-size: 20px;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            position: fixed;
+            right: 20px;
+            bottom: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header"></div>
+    <div class="wbk">
+        <!-- <div class="czbk">
+            <div class="cz_z">
+                <div class="cznum">后台充值：15485124874</div>
+                <div class="cztime">充值时间：2018-06-06 15:05:05</div>
+            </div>
+            <div class="cz_y ht">+500</div>
+        </div> -->
+    </div>
+    <div id="up">上拉加载更多</div>
+    <div class="zwsj bxs"><img src="../image/wjl.png"></div>
+    <!-- 返回首页按钮 -->
+    <div class="shouye" id="div" tampode onclick="openIndex()"></div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/encipherment.js"></script>
+<script type="text/javascript" src="../script/md5.js"></script>
+<script type="text/javascript" src="../script/regular.js"></script>
+<script type="text/javascript" src="../script/date.js"></script>
+<script type="text/javascript">
+    var skip = 0,
+        LIMIT = 10;
+    apiready = function() {
+        //修改手机状态栏字体颜色
+        api.setStatusBarStyle({
+            style: 'dark'
+        });
+        var header = $api.byId('header');
+        $api.fixStatusBar(header);
+        // 获取充值记录列表
+        getRechargeList();
+        // 监听底部
+        loadMore();
+    }
+
+    function getRechargeList(loadMore_) {
+        if (loadMore_) {
+            skip++;
+        } else {
+            skip = 0;
+        }
+        api.showProgress({
+            title: '努力加载中...',
+            modal: false
+        });
+        var timeStamp = timestamp();
+        var sign = getSign("appid=" + $api.getStorage("appid") + "&timeStamp=" + timeStamp);
+        api.ajax({
+            url: $api.getStorage("URL") + '/mobileOrder/rechargeList',
+            method: 'GET',
+            returnAll: true,
+            headers: {
+                'Authorization': $api.getStorage('token')
+            },
+            data: {
+                values: {
+                    appid: $api.getStorage("appid"),
+                    active:2,
+                    page: skip + 1,
+                    num: LIMIT,
+                    timeStamp: timeStamp,
+                    sign: sign
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                judgement(ret.body.code, ret.msg)
+                var body = ret.body;
+                var headers = ret.headers;
+                // 判断token是否失效
+                if (isNotEmpry(headers.Authorization)) {
+                    $api.setStorage('token', headers.Authorization);
+                }
+                if (body.code == 200) {
+                    var list = body.data;
+                    if (skip == 0) {
+                        if (list.length <= 0) {
+                            $api.addCls($api.dom("#up"), 'bxs');
+                            $api.removeCls($api.dom(".zwsj"), 'bxs');
+                            return;
+                        }
+                    }
+                    if (list.length > 0) {
+                        var listStr = "";
+                        for (var i = 0; i < list.length; i++) {
+                            listStr += "<div class='czbk'>";
+                            listStr += "<div class='cz_z'>";
+                            // 1后台充值，2前台充值
+                            if (list[i].type == 1) {
+                                listStr += "<div class='cznum'>后台充值：" + list[i].order_sn + "</div>";
+                            } else {
+                                listStr += "<div class='cznum'>前台充值：" + list[i].order_sn + "</div>";
+                            }
+                            listStr += "<div class='cztime'>充值时间：" + list[i].date + "</div>";
+                            listStr += "</div>";
+                            if (list[i].type == 1) {
+                                listStr += "<div class='cz_y ht'>+" + list[i].price + "</div>";
+                            } else {
+                                listStr += "<div class='cz_y qt'>+" + list[i].price + "</div>";
+                            }
+                            listStr += "</div>";
+                        }
+                        var list = $api.dom('.wbk');
+                        if (loadMore_) {
+                            $api.append(list, listStr);
+                        } else {
+                            $api.html(list, listStr);
+                        }
+                    } else {
+                        $api.html($api.dom("#up"), '已加载完');
+                    }
+                } else {
+                    api.toast({
+                        msg: body.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+            api.hideProgress();
+        });
+    }
+    // 监听底部
+    function loadMore() {
+        api.addEventListener({
+            name: 'scrolltobottom',
+            extra: {
+                threshold: -200
+            }
+        }, function(ret, err) {
+            getRechargeList(true);
+        });
+    }
+    // 跳转首页
+    function openIndex() {
+        api.openWin({
+            name: 'index',
+            url: './index.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+</script>
+
+</html>

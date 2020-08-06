@@ -1,0 +1,200 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <link rel="stylesheet" type="text/css" href="../css/api.css" />
+    <link rel="stylesheet" type="text/css" href="../css/accountlist.css" />
+    <title>账号管理</title>
+    <style>
+        .bxs {
+            display: none;
+        }
+
+        .zwsj {
+            text-align: center;
+            width: 100%;
+            padding-top: 50px;
+        }
+
+        .zwsj img {
+            width: 70%;
+            max-width: 415px;
+        }
+
+        .zhname i {
+            display: block;
+            float: left;
+            font-style: normal;
+        }
+
+        .zhname span {
+            display: block;
+            float: left;
+            width: 65%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .adress i {
+            display: block;
+            float: left;
+            font-style: normal;
+        }
+
+        .adress span {
+            display: block;
+            float: left;
+            width: 65%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .shouye {
+            width: 38px;
+            height: 38px;
+            background: #EEEEEE;
+            border-radius: 20px;
+            background-image: url("../image/index.png");
+            background-size: 20px;
+            background-repeat: no-repeat;
+            background-position: 50%;
+            position: fixed;
+            right: 20px;
+            bottom: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header"></div>
+    <div class="wbk">
+        <!-- <div class="list" tampode onclick="openaccountcon();">
+            <div class="zhname"><i>账号名称：</i><span>张三</span></div>
+            <div class="adress"><i>收货地址：</i><span>江苏省徐州市泉山区江苏省徐州市泉山区江苏省徐州市泉山区江苏省徐州市泉山区江苏省徐州市泉山区</span></div>
+        </div>
+        <div class="list" tampode onclick="openaccountcon();">
+            <div class="zhname"><i>账号名称：</i><span>张三</span></div>
+            <div class="adress"><i>收货地址：</i><span>江苏省徐州市泉山区</span></div>
+        </div> -->
+    </div>
+    <div class="zwsj bxs"><img src="../image/wjl.png"></div>
+    <div class="accountadd" tampode onclick="openaccountadd();"><img src="../image/add.png"></div>
+    <!-- 返回首页按钮 -->
+    <div class="shouye" id="div" tampode onclick="openIndex()"></div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/encipherment.js"></script>
+<script type="text/javascript" src="../script/md5.js"></script>
+<script type="text/javascript" src="../script/regular.js"></script>
+<script type="text/javascript" src="../script/date.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+        //修改手机状态栏字体颜色
+        api.setStatusBarStyle({
+            style: 'dark'
+        });
+        var header = $api.byId('header');
+        $api.fixStatusBar(header);
+
+        var timeStamp = timestamp();
+        var sign = getSign("appid=" + $api.getStorage("appid") + "&timeStamp=" + timeStamp);
+        // 获取用户信息
+        api.ajax({
+            url: $api.getStorage("URL") + '/mobileOrder/childInfo',
+            method: 'GET',
+            returnAll: true,
+            headers: {
+                'Authorization': $api.getStorage('token')
+            },
+            data: {
+                values: {
+                    appid: $api.getStorage("appid"),
+                    active:2,
+                    timeStamp: timeStamp,
+                    sign: sign
+                }
+            }
+        }, function(ret, err) {
+            if (ret) {
+                judgement(ret.body.code, ret.msg)
+                var body = ret.body;
+                var headers = ret.headers;
+                // 判断token是否失效
+                if (isNotEmpry(headers.Authorization)) {
+                    $api.setStorage('token', headers.Authorization);
+                }
+                if (body.code == 200) {
+                    var result = body.data;
+                    if (result.length > 0) {
+                        var listStr = "";
+                        for (var i = 0; i < result.length; i++) {
+                            listStr += "<div class='list' tampode onclick='openaccountcon(\"" + result[i].zid + "\");'>";
+                            listStr += "<div class='zhname'><i>账号名称：</i><span>" + result[i].nickname + "</span></div>";
+                            listStr += "<div class='adress'><i>收货地址：</i><span>" + result[i].contact + "," + result[i].address + "," + result[i].mobile + "</span></div>";
+                            listStr += "</div>";
+                        }
+                        $api.html($api.dom(".wbk"), listStr);
+                    } else {
+                        $api.removeCls($api.dom(".zwsj"), 'bxs');
+                    }
+                } else {
+                    api.toast({
+                        msg: body.msg,
+                        duration: 2000,
+                        location: 'middle'
+                    });
+                }
+            } else {
+                api.toast({
+                    msg: JSON.stringify(err),
+                    duration: 2000,
+                    location: 'middle'
+                });
+            }
+            api.hideProgress();
+        });
+    };
+    // 跳转到账号详情页面
+    function openaccountcon(selectZid) {
+        if (isNotEmpry(selectZid)) {
+            api.openWin({
+                name: 'accountcon',
+                url: 'accountcon.html',
+                reload: true,
+                pageParam: {
+                    selectZid: selectZid
+                },
+                slidBackEnabled: false
+            });
+        }
+    }
+    // 跳转到添加账号页面
+    function openaccountadd() {
+        api.openWin({
+            name: 'accountadd',
+            url: 'accountadd.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+    //刷新当前页面
+    function reloads() {
+        location.reload();
+    }
+    // 跳转首页
+    function openIndex() {
+        api.openWin({
+            name: 'index',
+            url: './index.html',
+            reload: true,
+            slidBackEnabled: false
+        });
+    }
+</script>
+
+</html>

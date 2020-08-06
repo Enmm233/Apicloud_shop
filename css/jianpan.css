@@ -1,0 +1,56 @@
+/*通用小键盘*/
+.numbers-wrap.active { bottom: 0;}
+.numbers-wrap { max-width:8.5rem; height: 100%;position: fixed;bottom: -100%;left: 0;right: 0; margin:auto;z-index: 9991;-webkit-transition: all 0.3s;transition: all 0.3s;background-color: rgba(0, 0, 0, 0.5);}
+.numbers-inner { width: 100%;height: 100%;position: relative;}
+.null-close { width: 100%;height: 100%;position: absolute;top: 0;left: 1;z-index: 1;}
+.numbers-content { width: 100%;background-color: #fff;position: fixed;bottom: 0;left: 0;z-index: 999;height:280px;}
+.numbers-txt-ba{ height: 46px; line-height: 46px; background: #eee;}
+.numbers-txt-box { width: 80%;float:left; padding-left: 15px; padding-right: 0.2rem;}
+.numbers-txt-cler{ width: 20%; float: right; text-align: center;}
+.numbers-txt-cler .clear-text { color: #2f3b51;color: #2f3b51;
+width: 40px;
+height: 20px;
+margin-top: 13px;}
+.numbers-txt-cler i{ display: inline-block;}
+.numbers-txt-cler .fa-caret-left{ font-size: 0.5rem; position: relative; top: 0.14rem; right: -0.04rem;}
+.numbers-txt-cler .fa-times-rectangle{ font-size: 0.35rem; position: relative; top: 0.1rem;}
+.numbers-txt { width: 80%;height: 46px;border: 1px solid #dcdcdc;-webkit-border-radius: 0.04rem;border-radius: 0.06rem;margin: 0 auto;text-align: center;line-height: 46px;color: #333;font-size: 0.846pxrem;color: #14B116;font-weight: bold;}
+.numbers-btn-group { width: 76%; float: left;}
+.numbers-btn-group button { border-radius: 0 !important;display: block;outline: none;border-top: 3px solid #eee;border-right: 3px solid #eee;float: left;background-color: #fff;width: 33.333333%;height: 46px;-webkit-box-sizing: border-box;box-sizing: border-box;font-size: 0.8rem;}
+.numbers-btn-group span { display: block;outline: none;border-top: 3px solid #eee;float: left;background-color: #fff;width: 33.333333%;height: 0.8rem;-webkit-box-sizing: border-box;box-sizing: border-box;font-size: 0.3rem;}
+.numbers-title { width: 100%;text-align: center;font-size: 0.8rem;color: #333;}
+.cifg-btn { width: 24%; float: right;}
+.cifg-btn-confirm { display: block;outline: none;float: left;background-color: #fff;width: 100%;height: 49px; line-height:49px;-webkit-box-sizing: border-box;box-sizing: border-box;font-size: 0.8rem; text-align: center; color: #333;}
+.cifg-btn-confirm:nth-child(1){ border-top: 3px solid #eee;border-bottom: 3px solid #eee;}
+.cifg-btn-confirm:nth-child(2){ height: 43px; line-height:43px;}
+.cifg-btn-confirm1{ display: block; height: 92px; text-align: center; line-height: 92px;border-top: 3px solid #eee;}
+.numbers-txt-ba2{ position: relative; height: 46px; line-height: 46px;}
+.numbers-btn-group .wrap_xsd1{ display: none;border-right: 3px solid #eee;}
+.numbers-btn-group .wrap_ys{ border-right: 3px solid #eee;}
+#t-keybord{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 280px;
+    background-color: #fff;
+    display: none;
+    cursor: pointer;
+    z-Index: 9999999999999999999999;
+}
+#coverd {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    background: rgba(0, 0, 0, 0.4);
+    width: 100%;
+    /*宽度设置为100%，这样才能使隐藏背景层覆盖原页面*/
+    filter: alpha(opacity=60);
+    /*设置透明度为60%*/
+    opacity: 0.6;
+    /*非IE浏览器下设置透明度为60%*/
+    display: none;
+    z-Index: 999;
+    height: 1125px;
+    z-index: 99999999999999;
+}
